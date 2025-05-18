@@ -590,6 +590,7 @@ __regargs char* MemMap::alloc(unsigned sz) {
 		used = (MemMap::Node*) __sysalloc(MAXSIZE + 2 * sizeof(MemMap::Node*));
 	DPRINTF(("MemMap::alloc2 %ld -> %08lx\n", MAXSIZE + sizeof(MemMap::Node*), (unsigned long )used));
 
+		used->prev = null;
 		used->next = small;
 		if (small)
 			small->prev = used;
