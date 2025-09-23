@@ -53,6 +53,10 @@ typedef struct
 } lldiv_t;
 #endif
 
+#ifndef __stdargs
+#define __stdargs
+#endif
+
 #ifndef __compar_fn_t_defined
 #define __compar_fn_t_defined
 typedef __stdargs int (*__compar_fn_t) (const void *, const void *);
@@ -130,7 +134,9 @@ __stdargs int	mkstemp (char *);
 __stdargs int	mkstemps (char *, int);
 #endif
 #if __BSD_VISIBLE || (__XSI_VISIBLE >= 4 && __POSIX_VISIBLE < 200112)
-__stdargs char *	mktemp (char *) _ATTRIBUTE ((__deprecated__("the use of `mktemp' is dangerous; use `mkstemp' instead")));
+__stdargs char *	mktemp (char *) 
+ // _ATTRIBUTE ((__deprecated__("the use of `mktemp' is dangerous; use `mkstemp' instead")))
+;
 #endif
 #endif /* !_REENT_ONLY */
 __stdargs char *	_mkdtemp_r (struct _reent *, char *);
@@ -138,7 +144,9 @@ __stdargs int	_mkostemp_r (struct _reent *, char *, int);
 __stdargs int	_mkostemps_r (struct _reent *, char *, int, int);
 __stdargs int	_mkstemp_r (struct _reent *, char *);
 __stdargs int	_mkstemps_r (struct _reent *, char *, int);
-__stdargs char *	_mktemp_r (struct _reent *, char *) _ATTRIBUTE ((__deprecated__("the use of `mktemp' is dangerous; use `mkstemp' instead")));
+__stdargs char *	_mktemp_r (struct _reent *, char *)
+// _ATTRIBUTE ((__deprecated__("the use of `mktemp' is dangerous; use `mkstemp' instead")))
+;
 __stdargs void	qsort (void *__base, size_t __nmemb, size_t __size, __compar_fn_t _compar);
 __stdargs int	rand (void);
 __stdargs void *	realloc (void *__r, size_t __size) _NOTHROW;

@@ -14,14 +14,14 @@
 extern __stdargs int main(int, char **);
 extern __stdargs void perror(const char *string);
 
-__attribute__((section(".list___INIT_LIST__")))
+__attribute__((section(".list___INIT_LIST__,\"aw\"")))
 int __INIT_LIST__[1] = {0};
-__attribute__((section(".list___EXIT_LIST__")))
+__attribute__((section(".list___EXIT_LIST__,\"aw\"")))
 int __EXIT_LIST__[1] = {0};
 
-__attribute__((section(".end_of_lists")))
+__attribute__((section(".end_of_lists,\"aw\"")))
 int __ZZZ_LIST__[1] = {0};
-__attribute__((section(".end_of_dlists")))
+__attribute__((section(".end_of_dlists,\"aw\"")))
 int __ZZZ_DLIST__[1] = {0};
 
 __entrypoint __stdargs int exit(int);

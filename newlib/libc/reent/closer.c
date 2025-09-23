@@ -1,5 +1,4 @@
 /* Reentrant version of close system call.  */
-
 #include <reent.h>
 #include <unistd.h>
 #include <_syslist.h>
