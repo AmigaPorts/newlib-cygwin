@@ -31,7 +31,7 @@ struct ExecBase * SysBase;
 static int __savedSp;
 static unsigned short cleanupflag;
 
-char * __argv[] = {0, 0};
+char ** __argv = {0, 0};
 int __argc;
 int __commandlen;
 void * __commandline;

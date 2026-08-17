@@ -15,7 +15,7 @@ __cmpxf2.c  __divsi3.c  __extendsfdf2.c  __fixunsdfsi.c  __floatsisf.c   __muldf
 isinf.c isnan.c \
 cxxglue.c __dosbase.c __unorddf2.c __mathieeedoubbas.c \
 abort.c basename.c dirname.c __nocommandline.c uname.c \
-malloc.cpp clock.c statvfs.c
+malloc.cpp clock.c statvfs.c __stdiowin.c
 
 #syscalls.c trap.S creat.c
 lib_a_CCASFLAGS = $(AM_CCASFLAGS)

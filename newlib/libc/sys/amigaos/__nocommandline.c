@@ -12,8 +12,11 @@ extern char *__commandline;
 extern unsigned long __commandlen;
 extern struct WBStartup *_WBenchMsg;
 
+extern char * __stdiowin;
+
 static char *cline = NULL; /* Copy of commandline */
 static BPTR cd = 0l; /* Lock for Current Directory */
+static BPTR window=0l;   /* CLI-window for start from workbench */
 
 /* This guarantees that this module gets linked in.
  If you replace this by an own reference called
@@ -23,9 +26,20 @@ static BPTR cd = 0l; /* Lock for Current Directory */
 void __nocommandline(void) {
 	struct WBStartup *wbs = _WBenchMsg;
 
-	if (wbs != NULL) {
-		if (wbs->sm_ArgList != NULL) /* cd to icon */
-			cd = CurrentDir(DupLock(wbs->sm_ArgList->wa_Lock));
+	  if(wbs!=NULL)
+	  { if(__stdiowin)
+	    { BPTR win;
+
+	      if((window=win=Open(__stdiowin,MODE_OLDFILE))==0l)
+	        exit(RETURN_FAIL);
+	      SelectInput(win);
+	      SelectOutput(win);
+	    }
+	    if(wbs->sm_ArgList!=NULL && wbs->sm_ArgList->wa_Lock) /* cd to icon */
+	      cd=CurrentDir(DupLock(wbs->sm_ArgList->wa_Lock));
+
+	    __argc=0;
+	    __argv=(char **)wbs;
 	} else {
 		char **av, *a, *cl = __commandline;
 		size_t i = __commandlen;
@@ -96,7 +110,10 @@ void __nocommandline(void) {
 void __exitcommandline(void) {
 	struct WBStartup *wbs = _WBenchMsg;
 
-	if (wbs != NULL) {
+	  if(wbs!=NULL)
+	  { BPTR file;
+	    if((file=window)!=0l)
+	      Close(file);
 		if (wbs->sm_ArgList != NULL) /* set original lock */
 			UnLock(CurrentDir(cd));
 	}
