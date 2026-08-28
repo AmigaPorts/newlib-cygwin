@@ -1,6 +1,7 @@
 #ifndef _SYS_RESOURCE_H_
 #define _SYS_RESOURCE_H_
 
+#include <sys/cdefs.h>
 #include <sys/time.h>
 
 /*
@@ -74,8 +75,12 @@ struct rlimit {
 	rlim_t rlim_max; /* Hard limit (ceiling for rlim_cur) */
 };
 
+__BEGIN_DECLS
+
 __stdargs int getrusage(int, struct rusage*);
 __stdargs int getrlimit(int resource, struct rlimit *rlim);
 __stdargs int setrlimit(int resource, struct rlimit *rlim);
+
+__END_DECLS
 
 #endif
