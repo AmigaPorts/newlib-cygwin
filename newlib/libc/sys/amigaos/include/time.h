@@ -175,9 +175,13 @@ extern char **__tzname;
 
 /* Clocks, P1003.1b-1993, p. 263 */
 
+__BEGIN_DECLS
+
 //__stdargs int clock_settime (clockid_t clock_id, const struct timespec *tp);
 __stdargs int clock_gettime (clockid_t clock_id, struct timespec *tp);
 __stdargs int clock_getres (clockid_t clock_id, struct timespec *res);
+
+__END_DECLS
 
 #if defined(_POSIX_TIMERS)
 
@@ -323,4 +327,3 @@ void timersub(struct timeval *a, struct timeval *b, struct timeval *res);
 #endif
 
 #endif /* _TIME_H_ */
-
