@@ -662,6 +662,7 @@ if [ -n "${multidirs}" ] && [ -z "${ml_norecursion}" ]; then
   # cd to top-level-build-dir/${with_target_subdir}
   cd ..
 
+  ml_pids=
   for ml_dir in ${multidirs}; do
 
     if [ "${ml_verbose}" = --verbose ]; then
@@ -868,17 +869,26 @@ if [ -n "${multidirs}" ] && [ -z "${ml_norecursion}" ]; then
 	fi
     fi
 
-    if eval ${ml_config_env} ${ml_config_shell} ${ml_recprog} \
+    # Each multilib is configured in its own subshell, in the background: the
+    # subdirs are independent trees, and running their configures one after
+    # another left every core but one idle for minutes.  Failures are
+    # collected below, after the loop.
+    ( eval ${ml_config_env} ${ml_config_shell} ${ml_recprog} \
 	--with-multisubdir=${ml_dir} --with-multisrctop=${multisrctop} \
-	"${ac_configure_args}" ${ml_config_env} ${ml_srcdiroption} ; then
-      true
-    else
-      exit 1
-    fi
+	"${ac_configure_args}" ${ml_config_env} ${ml_srcdiroption} ) &
+    ml_pids="${ml_pids} $!"
 
     cd "${ML_POPDIR}"
 
   done
+
+  ml_failed=
+  for ml_pid in ${ml_pids}; do
+    wait ${ml_pid} || ml_failed=yes
+  done
+  if [ -n "${ml_failed}" ]; then
+    exit 1
+  fi
 
   cd "${ml_origdir}"
 fi
