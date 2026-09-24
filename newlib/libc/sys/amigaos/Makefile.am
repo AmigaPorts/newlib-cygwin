@@ -7,6 +7,7 @@ INCLUDES = $(NEWLIB_CFLAGS) $(CROSS_CFLAGS) $(TARGET_CFLAGS)
 AM_CCASFLAGS = $(INCLUDES)
 
 noinst_LIBRARIES = lib.a
+EXTRA_DIST = startup.h
 
 lib_a_SOURCES = dummy.c open.c __divsi3.c  \
 __adddf3.c  __divdf3.c  __eqdf2.c        __fixdfsi.c     __fixunssfsi.c  __floatunsidf.c  __mulsf3.c  __negsf2.c  __truncdfsf2.c \

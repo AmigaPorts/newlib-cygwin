@@ -5,12 +5,7 @@
 #include <dos/dos.h>
 #include <proto/dos.h>
 #include "stabs.h"
-
-extern int __argc; /* Defined in startup */
-extern char **__argv;
-extern char *__commandline;
-extern unsigned long __commandlen;
-extern struct WBStartup *_WBenchMsg;
+#include "startup.h"
 
 extern char * __stdiowin;
 
