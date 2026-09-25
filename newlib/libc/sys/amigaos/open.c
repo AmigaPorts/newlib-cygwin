@@ -59,7 +59,10 @@ int _close(int file) {
 }
 
 static BPTR wbstdout;
-static int check_fno(unsigned file) {
+
+/* The DOS handle for descriptor file, or 0 for an invalid or closed one;
+   opens the stdio handles on first use.  Shared with lseek.c.  */
+BPTR __check_fno(unsigned file) {
 
 	if (file >= __maxfh)
 		return 0;
@@ -79,14 +82,14 @@ static int check_fno(unsigned file) {
 
 asm("_write: .globl _write");
 int _write(int file, char *ptr, int len) {
-	if (check_fno(file))
+	if (__check_fno(file))
 		return Write(__fh[file], ptr, len);
 	return -1;
 }
 
 asm("_read: .globl _read");
 int _read(int file, char *ptr, int len) {
-	if (check_fno(file))
+	if (__check_fno(file))
 		return Read(__fh[file], ptr, len);
 	return -1;
 }

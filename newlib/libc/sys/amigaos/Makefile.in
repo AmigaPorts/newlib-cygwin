@@ -71,7 +71,9 @@ LIBRARIES = $(noinst_LIBRARIES)
 ARFLAGS = cru
 lib_a_AR = $(AR) $(ARFLAGS)
 lib_a_LIBADD =
-am_lib_a_OBJECTS = lib_a-dummy.$(OBJEXT) lib_a-open.$(OBJEXT) \
+am_lib_a_OBJECTS = lib_a-getpid.$(OBJEXT) lib_a-lseek.$(OBJEXT) \
+	lib_a-unlink.$(OBJEXT) lib_a-dummy.$(OBJEXT) \
+	lib_a-open.$(OBJEXT) \
 	lib_a-__divsi3.$(OBJEXT) lib_a-__adddf3.$(OBJEXT) \
 	lib_a-__divdf3.$(OBJEXT) lib_a-__eqdf2.$(OBJEXT) \
 	lib_a-__fixdfsi.$(OBJEXT) lib_a-__fixunssfsi.$(OBJEXT) \
@@ -225,7 +227,7 @@ INCLUDES = $(NEWLIB_CFLAGS) $(CROSS_CFLAGS) $(TARGET_CFLAGS)
 AM_CCASFLAGS = $(INCLUDES)
 noinst_LIBRARIES = lib.a
 EXTRA_DIST = startup.h
-lib_a_SOURCES = dummy.c open.c __divsi3.c  \
+lib_a_SOURCES = getpid.c lseek.c unlink.c dummy.c open.c __divsi3.c  \
 __adddf3.c  __divdf3.c  __eqdf2.c        __fixdfsi.c     __fixunssfsi.c  __floatunsidf.c  __mulsf3.c  __negsf2.c  __truncdfsf2.c \
 __addsf3.c  __divsf3.c  __eqsf2.c        __fixsfsi.c     __floatsidf.c   __floatunsisf.c  __mulsi3.c  __subdf3.c  __udivsi3.c \
 __cmpxf2.c  __divsi3.c  __extendsfdf2.c  __fixunsdfsi.c  __floatsisf.c   __muldf3.c       __negdf2.c  __subsf3.c \
@@ -297,6 +299,24 @@ distclean-compile:
 
 .c.obj:
 	$(COMPILE) -c `$(CYGPATH_W) '$<'`
+
+lib_a-getpid.o: getpid.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(lib_a_CFLAGS) $(CFLAGS) -c -o lib_a-getpid.o `test -f 'getpid.c' || echo '$(srcdir)/'`getpid.c
+
+lib_a-getpid.obj: getpid.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(lib_a_CFLAGS) $(CFLAGS) -c -o lib_a-getpid.obj `if test -f 'getpid.c'; then $(CYGPATH_W) 'getpid.c'; else $(CYGPATH_W) '$(srcdir)/getpid.c'; fi`
+
+lib_a-lseek.o: lseek.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(lib_a_CFLAGS) $(CFLAGS) -c -o lib_a-lseek.o `test -f 'lseek.c' || echo '$(srcdir)/'`lseek.c
+
+lib_a-lseek.obj: lseek.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(lib_a_CFLAGS) $(CFLAGS) -c -o lib_a-lseek.obj `if test -f 'lseek.c'; then $(CYGPATH_W) 'lseek.c'; else $(CYGPATH_W) '$(srcdir)/lseek.c'; fi`
+
+lib_a-unlink.o: unlink.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(lib_a_CFLAGS) $(CFLAGS) -c -o lib_a-unlink.o `test -f 'unlink.c' || echo '$(srcdir)/'`unlink.c
+
+lib_a-unlink.obj: unlink.c
+	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(lib_a_CFLAGS) $(CFLAGS) -c -o lib_a-unlink.obj `if test -f 'unlink.c'; then $(CYGPATH_W) 'unlink.c'; else $(CYGPATH_W) '$(srcdir)/unlink.c'; fi`
 
 lib_a-dummy.o: dummy.c
 	$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(lib_a_CFLAGS) $(CFLAGS) -c -o lib_a-dummy.o `test -f 'dummy.c' || echo '$(srcdir)/'`dummy.c
