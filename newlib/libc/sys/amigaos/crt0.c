@@ -43,7 +43,9 @@ char *__commandline;
 struct WBStartup *_WBenchMsg;
 
 #if defined(__pic__) || defined (__PIC__)
-extern const int __bss_init_size;
+/* The linker script sets this symbol's address, not its contents, to the
+   size of .bss in bytes; __far keeps that address absolute.  */
+extern char __far __bss_init_size[];
 extern int _edata;
 void __restore_a4(void);
 __saveds
@@ -52,10 +54,7 @@ __saveds
 __entrypoint __regargs void ____start(unsigned long cmdlen, char *cmdline, int sp asm("sp")) {
 #if defined(__pic__) || defined (__PIC__)
 	asm("lea ___a4_init,a4");
-	// clear bss
-	int * p = &_edata;
-	for (unsigned sz = __bss_init_size;sz;--sz)
-	*p++ = 0;
+	memset(&_edata, 0, (unsigned long)__bss_init_size);
 
 #endif
 
