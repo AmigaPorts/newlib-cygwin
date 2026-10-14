@@ -9,4 +9,12 @@ libc_a_SOURCES += \
 	%D%/isinf.c %D%/isnan.c \
 	%D%/cxxglue.c %D%/__dosbase.c %D%/__unorddf2.c %D%/__mathieeedoubbas.c \
 	%D%/abort.c %D%/basename.c %D%/dirname.c %D%/__nocommandline.c %D%/uname.c \
-	%D%/malloc.cpp %D%/clock.c %D%/statvfs.c %D%/__stdiowin.c
+	%D%/clock.c %D%/statvfs.c %D%/__stdiowin.c
+
+## The amiga allocator replaces dlmalloc.  libc.a keeps only the last
+## object of each name, so these replace stdlib's objects of the same
+## names: the dlmalloc parts with no amiga counterpart become empty.
+libc_a_SOURCES += \
+	%D%/mallocr.cpp %D%/callocr.c %D%/reallocr.c \
+	%D%/cfreer.c %D%/freer.c %D%/malignr.c %D%/mallinfor.c %D%/malloptr.c \
+	%D%/mallstatsr.c %D%/msizer.c %D%/pvallocr.c %D%/vallocr.c
