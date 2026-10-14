@@ -80,6 +80,7 @@ struct rlimit {
 
 __BEGIN_DECLS
 
+__stdargs int getrusage(int, struct rusage*);
 __stdargs int getrlimit(int resource, struct rlimit *rlim);
 __stdargs int setrlimit(int resource, struct rlimit *rlim);
 
