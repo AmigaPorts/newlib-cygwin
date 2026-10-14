@@ -334,6 +334,12 @@ AC_ARG_ENABLE(newlib-hw-misaligned-access,
  fi], [newlib_hw_misaligned_access=])dnl
 
 AM_ENABLE_MULTILIB(, ..)
+dnl config-ml.in builds the multilibs only for an explicit --enable-multilib:
+dnl pass on the default, as newlib did before the 2022 build rewrite, for
+dnl standalone builds that do not come from gcc's top-level configure.
+if test "${multilib}" = "yes"; then
+  ac_configure_args="--enable-multilib ${ac_configure_args}"
+fi
 NEWLIB_CONFIGURE(.)
 
 dnl The following is being disabled because the mathfp library is

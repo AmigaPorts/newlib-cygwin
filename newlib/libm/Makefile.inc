@@ -50,7 +50,10 @@ include %D%/ld/Makefile.inc
 endif # HAVE_FPMATH_H
 
 include %D%/complex/Makefile.inc
+## amigaos's fenv.h implements the whole interface inline
+if !HAVE_LIBC_SYS_AMIGAOS_DIR
 include %D%/fenv/Makefile.inc
+endif
 include %D%/test/Makefile.inc
 
 if HAVE_LIBM_MACHINE_AARCH64

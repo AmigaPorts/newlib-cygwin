@@ -4,6 +4,9 @@ endif
 if HAVE_LIBC_SYS_AMDGCN_DIR
 include %D%/amdgcn/Makefile.inc
 endif
+if HAVE_LIBC_SYS_AMIGAOS_DIR
+include %D%/amigaos/Makefile.inc
+endif
 if HAVE_LIBC_SYS_ARM_DIR
 include %D%/arm/Makefile.inc
 endif

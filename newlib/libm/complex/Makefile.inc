@@ -29,3 +29,9 @@ LIBM_CHEWOUT_FILES += \
 	%D%/csin.def %D%/csinh.def %D%/csqrt.def %D%/ctan.def %D%/ctanh.def
 
 LIBM_CHAPTERS += %D%/complex.tex
+
+## m68k's long double is wider than double, but there is no long double
+## libm for it: build the complex long double functions on the double ones.
+if HAVE_LIBC_SYS_AMIGAOS_DIR
+libm_a_CPPFLAGS_%C% = -D_LDBL_EQ_DBL
+endif

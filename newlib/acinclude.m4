@@ -122,6 +122,8 @@ AC_NO_EXECUTABLES
 
 AC_REQUIRE([AC_PROG_CC])dnl
 AC_REQUIRE([AC_PROG_CPP])dnl
+dnl libc/sys/amigaos has a C++ source (malloc.cpp)
+AC_REQUIRE([AC_PROG_CXX])dnl
 AC_REQUIRE([AM_PROG_AS])dnl
 AC_REQUIRE([AM_PROG_AR])dnl
 AC_PROG_RANLIB
