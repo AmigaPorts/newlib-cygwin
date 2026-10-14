@@ -64,7 +64,7 @@ typedef __gnuc_va_list va_list;
 #endif
 
 #if __POSIX_VISIBLE >= 200809
-#include <xlocale.h>
+#include <sys/_locale.h>
 #endif
 
 _BEGIN_STD_C
@@ -126,7 +126,7 @@ __stdargs wchar_t	*wcscpy (wchar_t *__restrict, const wchar_t *__restrict);
 #if __POSIX_VISIBLE >= 200809
 __stdargs wchar_t	*wcpcpy (wchar_t *__restrict,
 				 const wchar_t *__restrict);
-__stdargs wchar_t	*wcsdup (const wchar_t *);
+__stdargs wchar_t	*wcsdup (const wchar_t *) __malloc_like __result_use_check;
 #endif
 __stdargs wchar_t	*_wcsdup_r (struct _reent *, const wchar_t * );
 __stdargs size_t	wcscspn (const wchar_t *, const wchar_t *);
@@ -248,8 +248,8 @@ __stdargs int _fputws_unlocked_r (struct _reent *, const wchar_t *, __FILE *);
 __stdargs int _fwide_r (struct _reent *, __FILE *, int);
 __stdargs wint_t _getwc_r (struct _reent *, __FILE *);
 __stdargs wint_t _getwc_unlocked_r (struct _reent *, __FILE *);
-__stdargs wint_t _getwchar_r (struct _reent *ptr);
-__stdargs wint_t _getwchar_unlocked_r (struct _reent *ptr);
+__stdargs wint_t _getwchar_r (struct _reent *);
+__stdargs wint_t _getwchar_unlocked_r (struct _reent *);
 __stdargs wint_t _putwc_r (struct _reent *, wchar_t, __FILE *);
 __stdargs wint_t _putwc_unlocked_r (struct _reent *, wchar_t, __FILE *);
 __stdargs wint_t _putwchar_r (struct _reent *, wchar_t);
@@ -320,14 +320,14 @@ __stdargs int	_wscanf_r (struct _reent *, const wchar_t *, ...);
 
 #define getwc(fp)	fgetwc(fp)
 #define putwc(wc,fp)	fputwc((wc), (fp))
-#define getwchar()	fgetwc(_REENT->_stdin)
-#define putwchar(wc)	fputwc((wc), _REENT->_stdout)
+#define getwchar()	fgetwc(_REENT_STDIN(_REENT))
+#define putwchar(wc)	fputwc((wc), _REENT_STDOUT(_REENT))
 
 #if __GNU_VISIBLE
 #define getwc_unlocked(fp)	fgetwc_unlocked(fp)
 #define putwc_unlocked(wc,fp)	fputwc_unlocked((wc), (fp))
-#define getwchar_unlocked()	fgetwc_unlocked(_REENT->_stdin)
-#define putwchar_unlocked(wc)	fputwc_unlocked((wc), _REENT->_stdout)
+#define getwchar_unlocked()	fgetwc_unlocked(_REENT_STDIN(_REENT))
+#define putwchar_unlocked(wc)	fputwc_unlocked((wc), _REENT_STDOUT(_REENT))
 #endif
 
 _END_STD_C

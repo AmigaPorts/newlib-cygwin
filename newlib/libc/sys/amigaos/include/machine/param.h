@@ -229,8 +229,8 @@ extern volatile unsigned short *amiga_intena_read, *amiga_intena_write;
 #define splx(s)         _spl_no_check(s)
 
 #ifdef _KERNEL
-void delay __P((int));
-void DELAY __P((int));
+__stdargs void delay __P((int));
+__stdargs void DELAY __P((int));
 #endif
 
 #endif /* !_MACHINE_PARAM_H_ */

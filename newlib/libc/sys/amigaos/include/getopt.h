@@ -7,7 +7,7 @@ CREATED Thu Jan 09 22:37:00 1997
 
 DESCRIPTION:
 
-__stdargs The getopt() function parses the command line arguments.  Its arguments argc
+The getopt() function parses the command line arguments.  Its arguments argc
 and argv are the argument count and array as passed to the main() function
 on program invocation.  The argument optstring is a list of available option
 characters.  If such a character is followed by a colon (`:'), the option
@@ -19,7 +19,7 @@ The external variable optind is the index of the next array element of argv
 to be processed; it communicates from one call to the next which element to
 process.
 
-__stdargs The getopt_long() function works like getopt() except that it also accepts
+The getopt_long() function works like getopt() except that it also accepts
 long options started by two dashes `--'.  If these take values, it is either
 in the form
 
@@ -36,11 +36,11 @@ element of the array has to be filled with NULL for the name field.
 The longind pointer points to the index of the current long option relative
 to longopts if it is non-NULL.
 
-__stdargs The getopt() function returns the option character if the option was found
+The getopt() function returns the option character if the option was found
 successfully, `:' if there was a missing parameter for one of the options,
 `?' for an unknown option character, and EOF for the end of the option list.
 
-__stdargs The getopt_long() function's return value is described below.
+The getopt_long() function's return value is described below.
 
 The function getopt_long_only() is identical to getopt_long(), except that a
 plus sign `+' can introduce long options as well as `--'.
@@ -129,7 +129,7 @@ extern "C"
 
   /* The GETOPT_DATA_INITIALIZER macro is used to initialize a statically-
      allocated variable of type struct getopt_data.  */
-  #define GETOPT_DATA_INITIALIZER	{0,0,0,0,0}
+  #define GETOPT_DATA_INITIALIZER	{0,0,0,0,0,0,0}
 
   /* These #defines are to make accessing the reentrant functions easier.  */
   #define getopt_r		__getopt_r
@@ -142,6 +142,7 @@ extern "C"
   {
     char *optarg;
     int optind, opterr, optopt, optwhere;
+    int permute_from, num_nonopts;
   } getopt_data;
 
 #endif /* __need_getopt_newlib */
@@ -153,23 +154,23 @@ extern "C"
   extern int optopt;
 
   /* function prototypes */
-  __stdargs int getopt (int __argc, char *const __argv[], const char *__optstring);
+ __stdargs int getopt (int __argc, char *const __argv[], const char *__optstring);
 
-  __stdargs int getopt_long (int __argc, char *const __argv[], const char *__shortopts,
+ __stdargs int getopt_long (int __argc, char *const __argv[], const char *__shortopts,
 	       const struct option * __longopts, int *__longind);
 
-  __stdargs int getopt_long_only (int __argc, char *const __argv[], const char *__shortopts,
+ __stdargs int getopt_long_only (int __argc, char *const __argv[], const char *__shortopts,
 	       const struct option * __longopts, int *__longind);
 
 #ifdef __need_getopt_newlib
-  __stdargs int __getopt_r (int __argc, char *const __argv[], const char *__optstring,
+ __stdargs int __getopt_r (int __argc, char *const __argv[], const char *__optstring,
 	       struct getopt_data * __data);
 
-  __stdargs int __getopt_long_r (int __argc, char *const __argv[], const char *__shortopts,
+ __stdargs int __getopt_long_r (int __argc, char *const __argv[], const char *__shortopts,
 	       const struct option * __longopts, int *__longind,
 	       struct getopt_data * __data);
 
-  __stdargs int __getopt_long_only_r (int __argc, char *const __argv[], const char *__shortopts,
+ __stdargs int __getopt_long_only_r (int __argc, char *const __argv[], const char *__shortopts,
 	       const struct option * __longopts, int *__longind,
 	       struct getopt_data * __data);
 #endif /* __need_getopt_newlib */

@@ -46,18 +46,18 @@ typedef struct {
 	int gl_flags;		/* Copy of flags parameter to glob. */
 	char **gl_pathv;	/* List of paths matching pattern. */
 				/* Copy of errfunc parameter to glob. */
-	__stdargs int (*gl_errfunc)(const char *, int);
+ __stdargs int (*gl_errfunc)(const char *, int);
 
 	/*
 	 * Alternate filesystem access methods for glob; replacement
 	 * versions of closedir(3), readdir(3), opendir(3), stat(2)
 	 * and lstat(2).
 	 */
-	__stdargs void (*gl_closedir)(void *);
-	__stdargs struct dirent *(*gl_readdir)(void *);
-	__stdargs void *(*gl_opendir)(const char *);
-	__stdargs int (*gl_lstat)(const char *, struct stat *);
-	__stdargs int (*gl_stat)(const char *, struct stat *);
+ __stdargs void (*gl_closedir)(void *);
+ __stdargs struct dirent *(*gl_readdir)(void *);
+ __stdargs void *(*gl_opendir)(const char *);
+ __stdargs int (*gl_lstat)(const char *, struct stat *);
+ __stdargs int (*gl_stat)(const char *, struct stat *);
 } glob_t;
 
 #define	GLOB_APPEND	0x0001	/* Append to output from previous call. */
@@ -80,9 +80,10 @@ typedef struct {
 
 #define	GLOB_NOSPACE	(-1)	/* Malloc call failed. */
 #define	GLOB_ABEND	(-2)	/* Unignored error. */
+#define	GLOB_NOMATCH	(-3)	/* No match and GLOB_NOCHECK not set. */
 
 __BEGIN_DECLS
-__stdargs int	glob(const char *__restrict, int, int (*)(const char *, int), 
+__stdargs int	glob(const char *__restrict, int, __stdargs int (*)(const char *, int), 
 		glob_t *__restrict);
 __stdargs void	globfree(glob_t *);
 __END_DECLS

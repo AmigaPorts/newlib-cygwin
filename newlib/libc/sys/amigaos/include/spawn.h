@@ -70,6 +70,18 @@ __stdargs int posix_spawn_file_actions_addopen (posix_spawn_file_actions_t * __r
 				      int, const char * __restrict, int, mode_t);
 __stdargs int posix_spawn_file_actions_adddup2 (posix_spawn_file_actions_t *, int, int);
 __stdargs int posix_spawn_file_actions_addclose (posix_spawn_file_actions_t *, int);
+#if __POSIX_VISIBLE >= 202405
+__stdargs int posix_spawn_file_actions_addchdir (posix_spawn_file_actions_t *__restrict,
+				       const char *__restrict);
+__stdargs int posix_spawn_file_actions_addfchdir (posix_spawn_file_actions_t *__restrict,
+					int);
+#endif
+#if __MISC_VISIBLE || __GNU_VISIBLE
+__stdargs int posix_spawn_file_actions_addchdir_np (posix_spawn_file_actions_t *__restrict,
+					  const char *__restrict);
+__stdargs int posix_spawn_file_actions_addfchdir_np (posix_spawn_file_actions_t *__restrict,
+					   int);
+#endif
 
 /*
  * Spawn attributes

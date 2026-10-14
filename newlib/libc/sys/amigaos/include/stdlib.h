@@ -28,7 +28,7 @@
 #endif
 
 #if __GNU_VISIBLE
-#include <xlocale.h>
+#include <sys/_locale.h>
 #endif
 
 _BEGIN_STD_C
@@ -80,7 +80,7 @@ __stdargs __uint32_t arc4random (void);
 __stdargs __uint32_t arc4random_uniform (__uint32_t);
 __stdargs void    arc4random_buf (void *, size_t);
 #endif
-__stdargs int	atexit (void (*__func)(void));
+__stdargs int	atexit (__stdargs void (*__func)(void));
 __stdargs double	atof (const char *__nptr);
 #if __MISC_VISIBLE
 __stdargs float	atoff (const char *__nptr);
@@ -94,12 +94,16 @@ __stdargs void *	bsearch (const void *__key,
 		       size_t __nmemb,
 		       size_t __size,
 		       __compar_fn_t _compar);
-__stdargs void *	calloc (size_t __nmemb, size_t __size) _NOTHROW;
+__stdargs void	*calloc(size_t, size_t) __malloc_like __result_use_check
+	     __alloc_size2(1, 2) _NOTHROW;
 __stdargs div_t	div (int __numer, int __denom);
 __stdargs void	exit (int __status) _ATTRIBUTE ((__noreturn__));
 __stdargs void	free (void *) _NOTHROW;
 __stdargs char *  getenv (const char *__string);
 __stdargs char *	_getenv_r (struct _reent *, const char *__string);
+#if __GNU_VISIBLE
+__stdargs char *  secure_getenv (const char *__string);
+#endif
 __stdargs char *	_findenv (const char *, int *);
 __stdargs char *	_findenv_r (struct _reent *, const char *, int *);
 #if __POSIX_VISIBLE >= 200809
@@ -108,7 +112,7 @@ __stdargs int	getsubopt (char **, char * const *, char **);
 #endif
 __stdargs long	labs (long);
 __stdargs ldiv_t	ldiv (long __numer, long __denom);
-__stdargs void *	malloc (size_t __size) _NOTHROW;
+__stdargs void	*malloc(size_t) __malloc_like __result_use_check __alloc_size(1) _NOTHROW;
 __stdargs int	mblen (const char *, size_t);
 __stdargs int	_mblen_r (struct _reent *, const char *, size_t, _mbstate_t *);
 __stdargs int	mbtowc (wchar_t *__restrict, const char *__restrict, size_t);
@@ -149,10 +153,10 @@ __stdargs char *	_mktemp_r (struct _reent *, char *)
 ;
 __stdargs void	qsort (void *__base, size_t __nmemb, size_t __size, __compar_fn_t _compar);
 __stdargs int	rand (void);
-__stdargs void *	realloc (void *__r, size_t __size) _NOTHROW;
+__stdargs void	*realloc(void *, size_t) __result_use_check __alloc_size(2) _NOTHROW;
 #if __BSD_VISIBLE
-__stdargs void	*reallocarray(void *, size_t, size_t) __result_use_check __alloc_size((2,3));
-__stdargs void *	reallocf (void *__r, size_t __size);
+__stdargs void	*reallocarray(void *, size_t, size_t) __result_use_check __alloc_size2(2, 3);
+__stdargs void	*reallocf(void *, size_t) __result_use_check __alloc_size(2);
 #endif
 #if __BSD_VISIBLE || __XSI_VISIBLE >= 4
 __stdargs char *	realpath (const char *__restrict path, char *__restrict resolved_path);
@@ -203,7 +207,7 @@ __stdargs char *  l64a (long __input);
 __stdargs char *  _l64a_r (struct _reent *,long __input);
 #endif
 #if __MISC_VISIBLE
-__stdargs int	on_exit (void (*__func)(int, void *),void *__arg);
+__stdargs int	on_exit (__stdargs void (*__func)(int, void *),void *__arg);
 #endif
 #if __ISO_C_VISIBLE >= 1999
 __stdargs void	_Exit (int __status) _ATTRIBUTE ((__noreturn__));
@@ -228,11 +232,13 @@ __stdargs char *	ecvtbuf (double, int, int*, int*, char *);
 __stdargs char *	fcvtbuf (double, int, int*, int*, char *);
 __stdargs char *	ecvtf (float,int,int *,int *);
 #endif
+#if !defined (__CYGWIN__) || defined (_LIBC)
 __stdargs char *	__itoa (int, char *, int);
 __stdargs char *	__utoa (unsigned, char *, int);
-#if __MISC_VISIBLE
+# if __MISC_VISIBLE
 __stdargs char *	itoa (int, char *, int);
 __stdargs char *	utoa (unsigned, char *, int);
+# endif
 #endif
 #if __POSIX_VISIBLE
 __stdargs int	rand_r (unsigned *__seed);
@@ -279,7 +285,7 @@ __stdargs long long _strtoll_r (struct _reent *, const char *__restrict __n, cha
 #if __ISO_C_VISIBLE >= 1999
 __stdargs unsigned long long strtoull (const char *__restrict __n, char **__restrict __end_PTR, int __base);
 #endif
-unsigned long long _strtoull_r (struct _reent *, const char *__restrict __n, char **__restrict __end_PTR, int __base);
+__stdargs unsigned long long _strtoull_r (struct _reent *, const char *__restrict __n, char **__restrict __end_PTR, int __base);
 
 #ifndef __CYGWIN__
 #if __MISC_VISIBLE
@@ -292,7 +298,8 @@ __stdargs int	_unsetenv_r (struct _reent *, const char *__string);
 #endif /* !__CYGWIN__ */
 
 #if __POSIX_VISIBLE >= 200112
-__stdargs int __nonnull ((1)) posix_memalign (void **, size_t, size_t);
+__stdargs int	posix_memalign (void **, size_t, size_t) __nonnull((1))
+	    __result_use_check;
 #endif
 
 __stdargs char *	_dtoa_r (struct _reent *, double, int, int, int *, int*, char**);
@@ -335,12 +342,15 @@ extern __stdargs long double strtold (const char *__restrict, char **__restrict)
  * If we're in a mode greater than C99, expose C11 functions.
  */
 #if __ISO_C_VISIBLE >= 2011
-__stdargs void *	aligned_alloc(size_t, size_t) __malloc_like __alloc_align((1))
-	    __alloc_size((2));
-__stdargs int	at_quick_exit(void (*)(void));
+__stdargs void *	aligned_alloc(size_t, size_t) __malloc_like __alloc_align(1)
+	    __alloc_size(2) __result_use_check;
+#endif /* __ISO_C_VISIBLE >= 2011 */
+
+#if (__ISO_C_VISIBLE >= 2011 || __POSIX_VISIBLE >= 202405)
+__stdargs int	at_quick_exit(__stdargs void (*)(void));
 _Noreturn __stdargs void
 	quick_exit(int);
-#endif /* __ISO_C_VISIBLE >= 2011 */
+#endif /* __ISO_C_VISIBLE >= 2011 || __POSIX_VISIBLE >= 202405 */
 
 _END_STD_C
 

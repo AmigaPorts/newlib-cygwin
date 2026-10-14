@@ -7,17 +7,13 @@
 #define _SETJMP_H_
 
 #include "_ansi.h"
+#include <sys/cdefs.h>
 #include <machine/setjmp.h>
 
 _BEGIN_STD_C
 
-#ifdef __GNUC__
-__stdargs void	longjmp (jmp_buf __jmpb, int __retval)
-			__attribute__ ((__noreturn__));
-#else
-__stdargs void	longjmp (jmp_buf __jmpb, int __retval);
-#endif
-__stdargs int	setjmp (jmp_buf __jmpb);
+__stdargs void	longjmp (jmp_buf __jmpb, int __retval) __dead2;
+__stdargs int	setjmp (jmp_buf __jmpb) __returns_twice;
 
 _END_STD_C
 

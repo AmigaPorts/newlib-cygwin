@@ -12,7 +12,7 @@ __ssp_decl(rtype, fun, args) \
 { \
 	if (cond) \
 		__ssp_check(__buf, __wlen * sizeof(wchar_t), bos); \
-	__stdargs return __ssp_real_(fun) call; \
+ return __ssp_real_(fun) call; \
 }
 
 #define __ssp_bos_wicheck3(fun) \
@@ -29,7 +29,7 @@ __ssp_redirect_wc(wchar_t *, fun, \
 __ssp_decl(wchar_t *, fun, (wchar_t *__restrict __buf, const wchar_t *__restrict __src)) \
 { \
   __ssp_check(__buf, (wcslen(__src) + 1) * sizeof(wchar_t), __ssp_bos0); \
-  __stdargs return __ssp_real_(fun) (__buf, __src); \
+ return __ssp_real_(fun) (__buf, __src); \
 }
 
 __BEGIN_DECLS
@@ -79,7 +79,7 @@ __ssp_decl(wchar_t *, fgetws, (wchar_t *__restrict __buf, int __wlen, __FILE *__
 {
   if (__wlen > 0)
     __ssp_check(__buf, (size_t)__wlen * sizeof(wchar_t) , __ssp_bos);
-  __stdargs return __ssp_real_fgetws(__buf, __wlen, __fp);
+ return __ssp_real_fgetws(__buf, __wlen, __fp);
 }
 
 #if __GNU_VISIBLE
@@ -87,7 +87,7 @@ __ssp_decl(wchar_t *, fgetws_unlocked, (wchar_t *__buf, int __wlen, __FILE *__fp
 {
   if (__wlen > 0)
     __ssp_check(__buf, (size_t)__wlen * sizeof(wchar_t) , __ssp_bos);
-  __stdargs return __ssp_real_fgetws_unlocked(__buf, __wlen, __fp);
+ return __ssp_real_fgetws_unlocked(__buf, __wlen, __fp);
 }
 #endif /* __GNU_VISIBLE */
 

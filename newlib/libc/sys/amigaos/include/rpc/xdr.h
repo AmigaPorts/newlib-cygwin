@@ -111,34 +111,34 @@ typedef struct __rpc_xdr
   const struct xdr_ops
   {
     /* get a long from underlying stream */
-    bool_t (*x_getlong) (struct __rpc_xdr *, long *);
+    __stdargs bool_t (*x_getlong) (struct __rpc_xdr *, long *);
 
     /* put a long to " */
-    bool_t (*x_putlong) (struct __rpc_xdr *, const long *);
+    __stdargs bool_t (*x_putlong) (struct __rpc_xdr *, const long *);
 
     /* get some bytes from " */
-    bool_t (*x_getbytes) (struct __rpc_xdr *, char *, u_int);
+    __stdargs bool_t (*x_getbytes) (struct __rpc_xdr *, char *, u_int);
 
     /* put some bytes to " */
-    bool_t (*x_putbytes) (struct __rpc_xdr *, const char *, u_int);
+    __stdargs bool_t (*x_putbytes) (struct __rpc_xdr *, const char *, u_int);
 
     /* returns bytes off from beginning */
-    u_int (*x_getpostn) (struct __rpc_xdr *);
+    __stdargs u_int (*x_getpostn) (struct __rpc_xdr *);
 
     /* lets you reposition the stream */
-    bool_t (*x_setpostn) (struct __rpc_xdr *, u_int);
+    __stdargs bool_t (*x_setpostn) (struct __rpc_xdr *, u_int);
 
     /* buf quick ptr to buffered data */
-    int32_t * (*x_inline) (struct __rpc_xdr *, u_int);
+    __stdargs int32_t * (*x_inline) (struct __rpc_xdr *, u_int);
 
     /* free privates of this xdr_stream */
-    void (*x_destroy) (struct __rpc_xdr *);
+    __stdargs void (*x_destroy) (struct __rpc_xdr *);
 
     /* get an int32 from this xdr_stream */
-    bool_t (*x_getint32) (struct __rpc_xdr *, int32_t *);
+    __stdargs bool_t (*x_getint32) (struct __rpc_xdr *, int32_t *);
 
     /* put an int32 to the underlying stream */
-    bool_t (*x_putint32) (struct __rpc_xdr *, const int32_t *);
+    __stdargs bool_t (*x_putint32) (struct __rpc_xdr *, const int32_t *);
 
   } *x_ops;
   char *x_public;               /* users' data */
@@ -156,7 +156,7 @@ typedef struct __rpc_xdr
  * allocate dynamic storage of the appropriate size and return it.
  * bool_t (*xdrproc_t)(XDR *, some_type *)
  */
-typedef bool_t (*xdrproc_t) (XDR *, ...);
+typedef __stdargs bool_t (*xdrproc_t) (XDR *, ...);
 
 /*
  * Operations defined on a XDR handle

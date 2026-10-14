@@ -29,7 +29,7 @@
 #include <sys/timespec.h>
 
 #if __POSIX_VISIBLE >= 200809
-#include <xlocale.h>
+#include <sys/_locale.h>
 #endif
 
 _BEGIN_STD_C
@@ -57,6 +57,11 @@ __stdargs clock_t	   clock (void);
 __stdargs double	   difftime (time_t _time2, time_t _time1);
 __stdargs time_t	   mktime (struct tm *_timeptr);
 __stdargs time_t	   time (time_t *_timer);
+#if (__ISO_C_VISIBLE >= 2011 || __POSIX_VISIBLE >= 202405)
+#define TIME_UTC 1
+
+__stdargs int        timespec_get(struct timespec *ts, int base);
+#endif
 #ifndef _REENT_ONLY
 __stdargs char	  *asctime (const struct tm *_tblock);
 __stdargs char	  *ctime (const time_t *_time);
@@ -101,26 +106,6 @@ __stdargs char *strptime_l (const char *__restrict, const char *__restrict,
 __stdargs void      tzset 	(void);
 #endif
 __stdargs void      _tzset_r 	(struct _reent *);
-
-typedef struct __tzrule_struct
-{
-  char ch;
-  int m;
-  int n;
-  int d;
-  int s;
-  time_t change;
-  long offset; /* Match type of _timezone. */
-} __tzrule_type;
-
-typedef struct __tzinfo_struct
-{
-  int __tznorth;
-  int __tzyear;
-  __tzrule_type __tzrule[2];
-} __tzinfo_type;
-
-__stdargs __tzinfo_type *__gettzinfo (void);
 
 /* getdate functions */
 
@@ -177,7 +162,7 @@ extern char **__tzname;
 
 __BEGIN_DECLS
 
-//__stdargs int clock_settime (clockid_t clock_id, const struct timespec *tp);
+//int clock_settime (clockid_t clock_id, const struct timespec *tp);
 __stdargs int clock_gettime (clockid_t clock_id, struct timespec *tp);
 __stdargs int clock_getres (clockid_t clock_id, struct timespec *res);
 
@@ -255,14 +240,18 @@ extern "C" {
                            /*   thread shall not have a CPU-time clock */
                            /*   accessible. */
 
-/* Manifest Constants, P1003.1b-1993, p. 262 */
-
-#define CLOCK_REALTIME (clockid_t)1
-
 /* Flag indicating time is "absolute" with respect to the clock
-   associated with a time.  */
+   associated with a time.  Value 4 is historic. */
 
 #define TIMER_ABSTIME	4
+
+/* Manifest Constants, P1003.1b-1993, p. 262 */
+
+#if __GNU_VISIBLE
+#define CLOCK_REALTIME_COARSE	(0)
+#endif
+
+#define CLOCK_REALTIME		(1)
 
 /* Manifest Constants, P1003.4b/D8, p. 55 */
 
@@ -272,7 +261,7 @@ extern "C" {
    the identifier of the CPU_time clock associated with the PROCESS
    making the function call.  */
 
-#define CLOCK_PROCESS_CPUTIME_ID (clockid_t)2
+#define CLOCK_PROCESS_CPUTIME_ID (2)
 
 #endif
 
@@ -282,17 +271,37 @@ extern "C" {
     the identifier of the CPU_time clock associated with the THREAD
     making the function call.  */
 
-#define CLOCK_THREAD_CPUTIME_ID (clockid_t)3
+#define CLOCK_THREAD_CPUTIME_ID	(3)
 
 #endif
 
 #if 1 //defined(_POSIX_MONOTONIC_CLOCK)
 
 /*  The identifier for the system-wide monotonic clock, which is defined
- *      as a clock whose value cannot be set via clock_settime() and which 
- *          cannot have backward clock jumps. */
+ *  as a clock whose value cannot be set via clock_settime() and which
+ *  cannot have backward clock jumps. */
 
-#define CLOCK_MONOTONIC (clockid_t)4
+#define CLOCK_MONOTONIC		(4)
+
+#endif
+
+#if __GNU_VISIBLE
+
+#define CLOCK_MONOTONIC_RAW	(5)
+
+#define CLOCK_MONOTONIC_COARSE	(6)
+
+#define CLOCK_BOOTTIME		(7)
+
+#define CLOCK_REALTIME_ALARM	(8)
+
+#define CLOCK_BOOTTIME_ALARM	(9)
+
+#endif
+
+#if _BSD_VISIBLE || __GNU_VISIBLE
+
+#define CLOCK_TAI		(11)
 
 #endif
 
@@ -315,10 +324,10 @@ __stdargs int clock_getenable_attr (clockid_t clock_id, int *attr);
 
 #if !__BSD_VISIBLE
 #ifndef timeradd
-void timeradd(struct timeval *a, struct timeval *b, struct timeval *res);
+__stdargs void timeradd(struct timeval *a, struct timeval *b, struct timeval *res);
 #endif
 #ifndef timersub
-void timersub(struct timeval *a, struct timeval *b, struct timeval *res);
+__stdargs void timersub(struct timeval *a, struct timeval *b, struct timeval *res);
 #endif
 #endif
 

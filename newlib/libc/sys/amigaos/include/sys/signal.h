@@ -12,6 +12,7 @@ extern "C" {
 #include <sys/types.h>
 #include <sys/_sigset.h>
 #include <sys/_timespec.h>
+#include <stdint.h>
 
 #if !defined(_SIGSET_T_DECLARED)
 #define	_SIGSET_T_DECLARED
@@ -50,7 +51,7 @@ struct sigevent {
   union sigval     sigev_value;                /* Signal value */
 
 #if defined(_POSIX_THREADS)
-  __stdargs void           (*sigev_notify_function)( union sigval );
+ __stdargs void           (*sigev_notify_function)( union sigval );
                                                /* Notification function */
   pthread_attr_t  *sigev_notify_attributes;    /* Notification Attributes */
 #endif
@@ -92,7 +93,7 @@ typedef struct {
  *      application should not use both simultaneously.
  */
 
-typedef void (*_sig_func_ptr)(int);
+typedef __stdargs void (*_sig_func_ptr)(int);
 
 struct sigaction {
   int         sa_flags;       /* Special flags to affect behavior of signal */
@@ -102,7 +103,7 @@ struct sigaction {
   union {
     _sig_func_ptr _handler;  /* SIG_DFL, SIG_IGN, or pointer to a function */
 #if defined(_POSIX_REALTIME_SIGNALS)
-    __stdargs void      (*_sigaction)( int, siginfo_t *, void * );
+ __stdargs void      (*_sigaction)( int, siginfo_t *, void * );
 #endif
   } _signal_handlers;
 };
@@ -116,7 +117,7 @@ struct sigaction {
 
 #define SA_NOCLDSTOP 1  /* only value supported now for sa_flags */
 
-typedef void (*_sig_func_ptr)(int);
+typedef __stdargs void (*_sig_func_ptr)(int);
 
 struct sigaction 
 {
@@ -161,16 +162,16 @@ typedef struct sigaltstack {
 #define SIG_BLOCK 1	/* set of signals to block */
 #define SIG_UNBLOCK 2	/* set of signals to, well, unblock */
 
-__stdargs int sigprocmask (int how, const sigset_t *set, sigset_t *oset);
+__stdargs int sigprocmask (int, const sigset_t *, sigset_t *);
 #endif
 
 #if __POSIX_VISIBLE >= 199506
-__stdargs int pthread_sigmask (int how, const sigset_t *set, sigset_t *oset);
+__stdargs int pthread_sigmask (int, const sigset_t *, sigset_t *);
 #endif
 
-#ifdef _COMPILING_NEWLIB
+#ifdef _LIBC
 __stdargs int _kill (pid_t, int);
-#endif /* _COMPILING_NEWLIB */
+#endif /* _LIBC */
 
 #if __POSIX_VISIBLE
 __stdargs int kill (pid_t, int);
@@ -188,7 +189,7 @@ __stdargs int sigfillset (sigset_t *);
 __stdargs int sigemptyset (sigset_t *);
 __stdargs int sigpending (sigset_t *);
 __stdargs int sigsuspend (const sigset_t *);
-__stdargs int sigwait (const sigset_t *set, int *sig);
+__stdargs int sigwait (const sigset_t *, int *);
 
 #if !defined(__CYGWIN__) && !defined(__rtems__)
 /* These depend upon the type of sigset_t, which right now 
@@ -223,7 +224,7 @@ __stdargs int sigaltstack (const stack_t *__restrict, stack_t *__restrict);
 #endif
 
 #if __POSIX_VISIBLE >= 199506
-__stdargs int pthread_kill (pthread_t thread, int sig);
+__stdargs int pthread_kill (pthread_t, int);
 #endif
 
 #if __POSIX_VISIBLE >= 199309
@@ -231,13 +232,28 @@ __stdargs int pthread_kill (pthread_t thread, int sig);
 /*  3.3.8 Synchronously Accept a Signal, P1003.1b-1993, p. 76
     NOTE: P1003.1c/D10, p. 39 adds sigwait().  */
 
-__stdargs int sigwaitinfo (const sigset_t *set, siginfo_t *info);
-__stdargs int sigtimedwait (const sigset_t *set, siginfo_t *info,
-		  const struct timespec  *timeout);
+__stdargs int sigwaitinfo (const sigset_t *, siginfo_t *);
+__stdargs int sigtimedwait (const sigset_t *, siginfo_t *, const struct timespec *);
 /*  3.3.9 Queue a Signal to a Process, P1003.1b-1993, p. 78 */
-__stdargs int sigqueue (pid_t pid, int signo, const union sigval value);
+__stdargs int sigqueue (pid_t, int, const union sigval);
 
 #endif /* __POSIX_VISIBLE >= 199309 */
+
+/* Using __MISC_VISIBLE until POSIX Issue 8 is officially released */
+#if __MISC_VISIBLE
+
+/* POSIX Issue 8 adds sig2str() and str2sig() */
+
+#if __SIZEOF_INT__ >= 4
+#define SIG2STR_MAX 17	/* (sizeof("RTMAX+") + sizeof("4294967295") - 1) */
+#else
+#define SIG2STR_MAX 12	/* (sizeof("RTMAX+") + sizeof("65535") - 1) */
+#endif
+
+__stdargs int sig2str(int, char *);
+__stdargs int str2sig(const char *__restrict, int *__restrict);
+
+#endif /* __MISC_VISIBLE */
 
 #if defined(___AM29K__)
 /* These all need to be defined for ANSI C, but I don't think they are

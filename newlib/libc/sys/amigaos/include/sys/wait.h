@@ -34,16 +34,16 @@ union wait {
     int w_status;
 };
 
-pid_t wait (int *);
-pid_t waitpid (pid_t, int *, int);
+__stdargs pid_t wait (int *);
+__stdargs pid_t waitpid (pid_t, int *, int);
 
-#ifdef _COMPILING_NEWLIB
-pid_t _wait (int *);
+#ifdef _LIBC
+__stdargs pid_t _wait (int *);
 #endif
 
 /* Provide prototypes for most of the _<systemcall> names that are
    provided in newlib for some compilers.  */
-pid_t _wait (int *);
+__stdargs pid_t _wait (int *);
 
 #ifdef __cplusplus
 };
