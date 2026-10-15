@@ -202,7 +202,7 @@ int	on_exit (void (*__func)(int, void *),void *__arg);
 void	_Exit (int __status) _ATTRIBUTE ((__noreturn__));
 #endif
 #if __SVID_VISIBLE || __XSI_VISIBLE
-int	putenv (const char *__string);
+int	putenv (char *__string);
 #endif
 int	_putenv_r (struct _reent *, char *__string);
 void *	_reallocf_r (struct _reent *, void *, size_t);

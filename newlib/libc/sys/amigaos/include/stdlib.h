@@ -213,7 +213,7 @@ __stdargs int	on_exit (__stdargs void (*__func)(int, void *),void *__arg);
 __stdargs void	_Exit (int __status) _ATTRIBUTE ((__noreturn__));
 #endif
 #if __SVID_VISIBLE || __XSI_VISIBLE
-__stdargs int	putenv (const char *__string);
+__stdargs int	putenv (char *__string);
 #endif
 __stdargs int	_putenv_r (struct _reent *, char *__string);
 __stdargs void *	_reallocf_r (struct _reent *, void *, size_t);

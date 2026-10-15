@@ -22,7 +22,7 @@
 #include <string.h>
 
 int
-putenv (const char *str)
+putenv (char *str)
 {
   return _putenv_r (_REENT, str);
 }
