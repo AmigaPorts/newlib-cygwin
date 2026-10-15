@@ -25,7 +25,9 @@ int __ZZZ_LIST__[1] = {0};
 __attribute__((section(".end_of_dlists,\"aw\"")))
 int __ZZZ_DLIST__[1] = {0};
 
-__entrypoint __stdargs int exit(int);
+__stdargs void exit(int);
+__entrypoint __stdargs int __crt0_exit(int);
+extern void __call_exitprocs(int, void *);
 __entrypoint void callfuncs(int * p asm("a2"), unsigned short prioo asm("d2"));
 
 struct ExecBase * SysBase;
@@ -81,15 +83,28 @@ void __entrypoint __restore_a4(void) {
 #endif
 
 /**
- * The exit function.
- * Call cleanup before restoring the stack and setting the return code.
+ * exit(): the atexit() and on_exit() handlers, then the rest of the exit.
+ */
+#if defined(__pic__) || defined (__PIC__)
+__saveds
+#endif
+__stdargs void exit(int rc) {
+	__call_exitprocs(rc, NULL);
+	__crt0_exit(rc);
+	__builtin_unreachable();
+}
+
+/**
+ * Also _exit() and __exit(): run the exit list (library and stdio
+ * cleanup, static destructors), then restore the startup stack pointer
+ * and return the code from the program's entry point.
  */
 asm("___exit: .globl ___exit");
 asm("__exit: .globl __exit");
 #if defined(__pic__) || defined (__PIC__)
 __saveds
 #endif
-__entrypoint __stdargs int exit(int rc) {
+__entrypoint __stdargs int __crt0_exit(int rc) {
 	register unsigned __d7 __asm("d7");
 	asm("move.l %0,d7"::"r"(rc));
 
