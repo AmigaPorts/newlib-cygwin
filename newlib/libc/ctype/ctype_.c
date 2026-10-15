@@ -112,12 +112,11 @@ const char _ctype_[1 + 256] = {
 
 #else	/* !ALLOW_NEGATIVE_CTYPE_INDEX */
 
-const char _ctype_2[1 + 256] = {
+const char _ctype_[1 + 256] = {
 	0,
 	_CTYPE_DATA_0_127,
 	_CTYPE_DATA_128_255
 };
-const char * _ctype_ = _ctype_2;
 
 #endif	/* !ALLOW_NEGATIVE_CTYPE_INDEX */
 
@@ -164,7 +163,7 @@ __set_ctype (struct __locale_t *loc, const char *charset)
 #  if defined(ALLOW_NEGATIVE_CTYPE_INDEX)
      ctype_ptr = _ctype_b;
 #  else
-     ctype_ptr = (char *)_ctype_;
+     ctype_ptr = _ctype_;
 #  endif
     }
 #  if defined(ALLOW_NEGATIVE_CTYPE_INDEX)

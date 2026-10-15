@@ -209,12 +209,6 @@ static char *categories[_LC_LAST] = {
  */
 char __default_locale[ENCODING_LEN + 1] = DEFAULT_LOCALE;
 
-#ifdef __amiga__
-#undef DEFAULT_CTYPE_PTR
-#define DEFAULT_CTYPE_PTR _ctype_2
-extern const char _ctype_2[];
-#endif
-
 const struct __locale_t __C_locale =
 {
   { "C", "C", "C", "C", "C", "C", "C", },

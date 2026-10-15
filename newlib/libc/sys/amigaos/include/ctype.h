@@ -67,7 +67,7 @@ extern __stdargs int toascii_l (int __c, locale_t __l);
 #define	_B	0200
 
 /* For C++ backward-compatibility only.  */
-extern	__IMPORT const char	*_ctype_;
+extern	__IMPORT const char	_ctype_[];
 
 #ifdef __HAVE_LOCALE_INFO__
 __stdargs const char *__locale_ctype_ptr (void);
