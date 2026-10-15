@@ -56,7 +56,7 @@ QUICKREF
 _Thread_local char _tls_signal_buf[_REENT_SIGNAL_SIZE];
 #endif
 
-const char *
+char *
 strsignal (int signal)
 {
   char *buffer;

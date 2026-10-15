@@ -133,7 +133,7 @@ char	*strupr (char *);
 #endif
 
 #if __POSIX_VISIBLE >= 200809
-const char	*strsignal (int __signo);
+char	*strsignal (int __signo);
 #endif
 
 #ifdef __CYGWIN__
