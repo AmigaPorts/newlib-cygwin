@@ -30,7 +30,7 @@
 #include "envlock.h"
 
 extern char **environ;
-extern char ** initial_env;
+extern char *initial_env[];
 
 /* Only deal with a pointer to environ, to work around subtle bugs with shared
    libraries and/or small data systems where the user declares his own
@@ -86,7 +86,7 @@ _setenv_r (struct _reent *reent_ptr,
       register char **P;
 
       for (P = *p_environ, cnt = 0; *P; ++P, ++cnt);
-      if (environ != &initial_env)
+      if (environ != initial_env)
 	{			/* just increase size */
 	  *p_environ = (char **) _realloc_r (reent_ptr, (char *) environ,
 					     (size_t) (sizeof (char *) * (cnt + 2)));
