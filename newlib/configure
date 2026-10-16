@@ -587,6 +587,8 @@ ac_subst_vars='am__EXEEXT_FALSE
 am__EXEEXT_TRUE
 LTLIBOBJS
 LIBOBJS
+HAVE_FPMATH_H_FALSE
+HAVE_FPMATH_H_TRUE
 NEWLIB_PATCHLEVEL_VERSION
 NEWLIB_MINOR_VERSION
 NEWLIB_MAJOR_VERSION
@@ -637,8 +639,6 @@ HAS_NDS32_FPU_SP_FALSE
 HAS_NDS32_FPU_SP_TRUE
 MACH_ADD_SETJMP_FALSE
 MACH_ADD_SETJMP_TRUE
-HAVE_FPMATH_H_FALSE
-HAVE_FPMATH_H_TRUE
 HAVE_LIBC_MACHINE_Z8K_FALSE
 HAVE_LIBC_MACHINE_Z8K_TRUE
 HAVE_LIBC_MACHINE_XTENSA_FALSE
@@ -6648,15 +6648,6 @@ case $host in
     IS_AARCH64_WINDOWS=no ;;
 esac
 
- if test -r "${srcdir}/libc/machine/${machine_dir}/machine/_fpmath.h" &&
-   test "$IS_AARCH64_WINDOWS" = no; then
-  HAVE_FPMATH_H_TRUE=
-  HAVE_FPMATH_H_FALSE='#'
-else
-  HAVE_FPMATH_H_TRUE='#'
-  HAVE_FPMATH_H_FALSE=
-fi
-
 
 
  if test "x$mach_add_setjmp" = "xtrue"; then
@@ -7932,6 +7923,16 @@ if test $newlib_cv_ldbl_eq_dbl = yes; then
 $as_echo "#define _LDBL_EQ_DBL 1" >>confdefs.h
 
 fi
+ if test -r "${srcdir}/libc/machine/${machine_dir}/machine/_fpmath.h" &&
+   test "$IS_AARCH64_WINDOWS" = no &&
+   test "$newlib_cv_ldbl_eq_dbl" = no; then
+  HAVE_FPMATH_H_TRUE=
+  HAVE_FPMATH_H_FALSE='#'
+else
+  HAVE_FPMATH_H_TRUE='#'
+  HAVE_FPMATH_H_FALSE=
+fi
+
 
 ac_config_files="$ac_config_files Makefile"
 
@@ -8520,10 +8521,6 @@ if test -z "${HAVE_LIBC_MACHINE_Z8K_TRUE}" && test -z "${HAVE_LIBC_MACHINE_Z8K_F
   as_fn_error $? "conditional \"HAVE_LIBC_MACHINE_Z8K\" was never defined.
 Usually this means the macro was only invoked conditionally." "$LINENO" 5
 fi
-if test -z "${HAVE_FPMATH_H_TRUE}" && test -z "${HAVE_FPMATH_H_FALSE}"; then
-  as_fn_error $? "conditional \"HAVE_FPMATH_H\" was never defined.
-Usually this means the macro was only invoked conditionally." "$LINENO" 5
-fi
 if test -z "${MACH_ADD_SETJMP_TRUE}" && test -z "${MACH_ADD_SETJMP_FALSE}"; then
   as_fn_error $? "conditional \"MACH_ADD_SETJMP\" was never defined.
 Usually this means the macro was only invoked conditionally." "$LINENO" 5
@@ -8606,6 +8603,10 @@ Usually this means the macro was only invoked conditionally." "$LINENO" 5
 fi
 if test -z "${HAVE_LONG_DOUBLE_TRUE}" && test -z "${HAVE_LONG_DOUBLE_FALSE}"; then
   as_fn_error $? "conditional \"HAVE_LONG_DOUBLE\" was never defined.
+Usually this means the macro was only invoked conditionally." "$LINENO" 5
+fi
+if test -z "${HAVE_FPMATH_H_TRUE}" && test -z "${HAVE_FPMATH_H_FALSE}"; then
+  as_fn_error $? "conditional \"HAVE_FPMATH_H\" was never defined.
 Usually this means the macro was only invoked conditionally." "$LINENO" 5
 fi
 

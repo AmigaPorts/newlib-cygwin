@@ -71,9 +71,7 @@ case $host in
     IS_AARCH64_WINDOWS=no ;;
 esac
 
-AM_CONDITIONAL([HAVE_FPMATH_H],
-  [test -r "${srcdir}/libc/machine/${machine_dir}/machine/_fpmath.h" &&
-   test "$IS_AARCH64_WINDOWS" = no])
+dnl HAVE_FPMATH_H is set in configure.ac, once the long double format is known.
 
 
 AM_CONDITIONAL(MACH_ADD_SETJMP, test "x$mach_add_setjmp" = "xtrue")

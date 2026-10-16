@@ -98,7 +98,8 @@ if HAVE_LIBM_MACHINE_X86_64
 include %D%/machine/x86_64/Makefile.inc
 include %D%/ld80/Makefile.inc
 endif
-## m68k has no libm machine directory; its long double is 80-bit extended.
+## m68k has no libm machine directory; its long double is 80-bit extended,
+## except on ColdFire, where it is double.
 if HAVE_LIBC_MACHINE_M68K
 if HAVE_FPMATH_H
 include %D%/ld80/Makefile.inc
