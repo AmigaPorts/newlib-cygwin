@@ -1,4 +1,5 @@
 #include <stddef.h>
+#include <errno.h>
 #include <string.h>
 #include <stdio.h>
 #ifdef __AMIGA__
@@ -420,8 +421,14 @@ struct MemMap: public Tree {
 		unsigned size;
 		char *value;
 
-		inline void* operator new(size_t sz) {
-			return rawMem.alloc(sz);
+		/* A zeroed leaf, or null when rawMem is exhausted.  Not a noexcept
+		   operator new: that makes GCC emit exception tables in the baserel
+		   builds, and libc must not need libsupc++'s personality routine.  */
+		static Leaf *alloc() {
+			Leaf *l = (Leaf *) rawMem.alloc(sizeof(Leaf));
+			if (l)
+				memset(l, 0, sizeof(Leaf));
+			return l;
 		}
 		inline void operator delete(void *p) {
 			rawMem.free((char*) p);
@@ -566,10 +573,16 @@ static MemMap heapMem;
 
 __regargs char* MemMap::alloc(unsigned sz) {
 	__Lock lock(mutex);
+	/* The rounding below, and the 4 bytes __sys_alloc() adds, must not wrap
+	   a huge request into a small one.  */
+	if (sz > ~0u - sizeof(MemMap::Node) - MINSIZE - 4)
+		return 0;
 	sz = (sz + sizeof(MemMap::Node) + MINSIZE - 1) & ~(MINSIZE - 1);
 	if (sz >= MAXSIZE) {
 		register MemMap::Node *node = (MemMap::Node*) __sysalloc(sz);
 	DPRINTF(("MemMap::alloc1 %ld -> %08lx\n", sz, (unsigned long )node));
+		if (!node)
+			return 0;
 		node->next = big;
 		if (big)
 			big->prev = node;
@@ -589,6 +602,8 @@ __regargs char* MemMap::alloc(unsigned sz) {
 
 		used = (MemMap::Node*) __sysalloc(MAXSIZE + 2 * sizeof(MemMap::Node*));
 	DPRINTF(("MemMap::alloc2 %ld -> %08lx\n", MAXSIZE + sizeof(MemMap::Node*), (unsigned long )used));
+		if (!used)
+			return 0;
 
 		used->prev = null;
 		used->next = small;
@@ -605,9 +620,8 @@ __regargs char* MemMap::alloc(unsigned sz) {
 		unlink(l);
 	}
 
-	// enough room to split?
-	if (msz > MINSIZE + sz) {
-		l = new MemMap::Leaf();
+	// enough room to split, and a leaf for the rest?  If not, hand it all out.
+	if (msz > MINSIZE + sz && (l = MemMap::Leaf::alloc()) != null) {
 		register MemMap::Node *n =
 				(MemMap::Node*) (l->value = (char*) used + sz);
 		n->size = l->size = msz - sz;
@@ -695,7 +709,9 @@ __regargs void MemMap::free(char *p) {
 		return;
 	}
 	/**/
-	MemMap::Leaf *leaf = new MemMap::Leaf();
+	MemMap::Leaf *leaf = MemMap::Leaf::alloc();
+	if (!leaf)
+		return;		// out of leaves: leave the block untracked (leaked)
 
 	leaf->size = node->size;
 	leaf->value = (char*) node;
@@ -721,6 +737,8 @@ extern "C" void free(void *p) {
 extern "C" void* _malloc_r(struct _reent *r, unsigned sz) {
 	void *p = heapMem.alloc(sz);
 	DPRINTF(("malloc(%ld) = %08lx\n", sz, (unsigned )p));
+	if (!p)
+		_REENT_ERRNO(r) = ENOMEM;
 	return p;
 }
 
