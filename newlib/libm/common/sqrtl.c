@@ -153,6 +153,14 @@ sqrtl (long double x)
 	r <<= 1;
     }
 
+  /* Not a square: raise FE_INEXACT, as a floating-point square root
+     would.  LDBL_MAX + 1 rounds back to LDBL_MAX.  */
+  if (rh != 0 || rl != 0)
+    {
+      volatile long double huge = LDBL_MAX;
+      huge += 1.0L;
+    }
+
   /* Round to nearest: up when M - r^2 > r.  There are no ties, and no
      carry out of r, since M <= (2^64 - 1) * 2^64 < (2^64 - 1/2)^2.  */
   if (rh != 0 || rl > r)
