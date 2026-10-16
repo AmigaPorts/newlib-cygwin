@@ -2,5 +2,5 @@
 
 double __floatunsidf(signed long x)
 { if (x >= 0) return IEEEDPFlt(x);
-  return IEEEDPFlt(x - 0x80000000) + 0x8000000;
+  return IEEEDPFlt(x - 0x80000000) + 2147483648.0;
 }
