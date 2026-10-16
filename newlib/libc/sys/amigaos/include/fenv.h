@@ -41,7 +41,7 @@ typedef struct
 
 typedef struct
 {
-  unsigned int __unused;
+  unsigned int __fe_pad;
 } fenv_t;
 
 #endif
@@ -220,7 +220,7 @@ static __inline__ int fesetexceptflag(const fexcept_t *flagp, int excepts)
 static __inline__ int fetestexcept(int excepts) { (void) excepts; return 0; }
 static __inline__ int fegetround(void) { return FE_TONEAREST; }
 static __inline__ int fesetround(int round) { return round != FE_TONEAREST; }
-static __inline__ int fegetenv(fenv_t *envp) { envp->__unused = 0; return 0; }
+static __inline__ int fegetenv(fenv_t *envp) { envp->__fe_pad = 0; return 0; }
 static __inline__ int feholdexcept(fenv_t *envp) { return fegetenv(envp); }
 static __inline__ int fesetenv(const fenv_t *envp) { (void) envp; return 0; }
 static __inline__ int feupdateenv(const fenv_t *envp) { return fesetenv(envp); }
