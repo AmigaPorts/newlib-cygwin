@@ -447,7 +447,7 @@ extern __stdargs float hypotf (float, float);
    assembler functions despite using the Microsoft x86_64 ABI. */
 #if defined (_LDBL_EQ_DBL) || defined (__CYGWIN__) || \
 	defined(__aarch64__) || defined(__i386__) || defined(__x86_64__) || \
-	defined(__riscv)
+	defined(__riscv) || (defined(__m68k__) && __LDBL_MANT_DIG__ == 64)
 /* Reentrant ANSI C functions.  */
 #ifndef __math_68881
 extern __stdargs long double atanl (long double);

@@ -52,6 +52,34 @@ nextafterl(long double x, long double y)
 	    t = ux.e*ux.e;
 	    if(t==ux.e) return t; else return ux.e; /* raise underflow flag */
 	}
+#ifdef LDBL_EXP0_NOT_BUMPED
+	/* An exponent of 0 covers the whole mantissa range, integer bit
+	   included, so only a carry or a borrow at 2^63 moves the exponent.
+	   The canonical infinity has no integer bit: add it, so that
+	   stepping down from it gives LDBL_MAX.  */
+	if(ux.bits.exp==0x7fff)
+	    ux.xbits.man = 1ULL<<63;
+	if(x>0.0 ^ x<y) {			/* x -= ulp */
+	    if(ux.bits.exp!=0 && ux.xbits.man==1ULL<<63) {
+		ux.bits.exp -= 1;
+		ux.xbits.man = ~0ULL;
+	    } else
+		ux.xbits.man -= 1;
+	} else {				/* x += ulp */
+	    ux.xbits.man += 1;
+	    if(ux.xbits.man==0) {
+		ux.bits.exp += 1;
+		ux.xbits.man = 1ULL<<63;
+	    }
+	}
+	if(ux.bits.exp==0x7fff) return x+x;	/* overflow  */
+	if(ux.bits.exp==0 && (ux.bits.manh&LDBL_NBIT)==0) { /* underflow */
+	    t = ux.e * ux.e;
+	    if(t!=ux.e)			/* raise underflow flag */
+		return ux.e;
+	}
+	return ux.e;
+#else
 	if(x>0.0 ^ x<y) {			/* x -= ulp */
 	    if(ux.bits.manl==0) {
 		if ((ux.bits.manh&~LDBL_NBIT)==0)
@@ -75,6 +103,7 @@ nextafterl(long double x, long double y)
 		return ux.e;
 	}
 	return ux.e;
+#endif
 }
 
 __strong_reference(nextafterl, nexttowardl);

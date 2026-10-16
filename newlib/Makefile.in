@@ -1084,10 +1084,13 @@ check_PROGRAMS =
 @HAVE_LIBM_MACHINE_X86_64_TRUE@@HAVE_LONG_DOUBLE_TRUE@am__append_171 = $(libm_ld80_lsrc)
 @HAVE_LIBM_MACHINE_X86_64_TRUE@am__append_172 = 
 @HAVE_LIBM_MACHINE_X86_64_TRUE@am__append_173 = 
-@HAVE_LIBM_MACHINE_XTENSA_TRUE@@XTENSA_XCHAL_HAVE_FP_SQRT_TRUE@am__append_174 = \
+@HAVE_FPMATH_H_TRUE@@HAVE_LIBC_MACHINE_M68K_TRUE@@HAVE_LONG_DOUBLE_TRUE@am__append_174 = $(libm_ld80_lsrc)
+@HAVE_FPMATH_H_TRUE@@HAVE_LIBC_MACHINE_M68K_TRUE@am__append_175 = 
+@HAVE_FPMATH_H_TRUE@@HAVE_LIBC_MACHINE_M68K_TRUE@am__append_176 = 
+@HAVE_LIBM_MACHINE_XTENSA_TRUE@@XTENSA_XCHAL_HAVE_FP_SQRT_TRUE@am__append_177 = \
 @HAVE_LIBM_MACHINE_XTENSA_TRUE@@XTENSA_XCHAL_HAVE_FP_SQRT_TRUE@	libm/machine/xtensa/ef_sqrt.c
 
-@HAVE_LIBM_MACHINE_XTENSA_TRUE@am__append_175 = $(libm_machine_xtensa_src)
+@HAVE_LIBM_MACHINE_XTENSA_TRUE@am__append_178 = $(libm_machine_xtensa_src)
 subdir = .
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/../config/depstand.m4 \
@@ -3629,32 +3632,71 @@ am__objects_160 = libm/complex/libm_a-cabsl.$(OBJEXT) \
 @HAVE_LIBM_MACHINE_I386_TRUE@	libm/machine/i386/libm_a-fetestexcept.$(OBJEXT) \
 @HAVE_LIBM_MACHINE_I386_TRUE@	libm/machine/i386/libm_a-feupdateenv.$(OBJEXT)
 @HAVE_LIBM_MACHINE_I386_TRUE@am__objects_172 = $(am__objects_171)
-@HAVE_LIBM_MACHINE_I386_FALSE@@HAVE_LIBM_MACHINE_X86_64_TRUE@am__objects_173 = libm/ld80/libm_a-b_tgammal.$(OBJEXT) \
-@HAVE_LIBM_MACHINE_I386_FALSE@@HAVE_LIBM_MACHINE_X86_64_TRUE@	libm/ld80/libm_a-e_powl.$(OBJEXT) \
-@HAVE_LIBM_MACHINE_I386_FALSE@@HAVE_LIBM_MACHINE_X86_64_TRUE@	libm/ld80/libm_a-s_erfl.$(OBJEXT) \
-@HAVE_LIBM_MACHINE_I386_FALSE@@HAVE_LIBM_MACHINE_X86_64_TRUE@	libm/ld80/libm_a-s_exp2l.$(OBJEXT) \
-@HAVE_LIBM_MACHINE_I386_FALSE@@HAVE_LIBM_MACHINE_X86_64_TRUE@	libm/ld80/libm_a-s_expl.$(OBJEXT) \
-@HAVE_LIBM_MACHINE_I386_FALSE@@HAVE_LIBM_MACHINE_X86_64_TRUE@	libm/ld80/libm_a-s_logl.$(OBJEXT) \
-@HAVE_LIBM_MACHINE_I386_FALSE@@HAVE_LIBM_MACHINE_X86_64_TRUE@	libm/ld80/libm_a-s_sinpil.$(OBJEXT) \
-@HAVE_LIBM_MACHINE_I386_FALSE@@HAVE_LIBM_MACHINE_X86_64_TRUE@	libm/ld80/libm_a-s_cospil.$(OBJEXT) \
-@HAVE_LIBM_MACHINE_I386_FALSE@@HAVE_LIBM_MACHINE_X86_64_TRUE@	libm/ld80/libm_a-invtrig.$(OBJEXT) \
-@HAVE_LIBM_MACHINE_I386_FALSE@@HAVE_LIBM_MACHINE_X86_64_TRUE@	libm/ld80/libm_a-e_lgammal_r.$(OBJEXT) \
-@HAVE_LIBM_MACHINE_I386_FALSE@@HAVE_LIBM_MACHINE_X86_64_TRUE@	libm/ld80/libm_a-k_cosl.$(OBJEXT) \
-@HAVE_LIBM_MACHINE_I386_FALSE@@HAVE_LIBM_MACHINE_X86_64_TRUE@	libm/ld80/libm_a-k_sinl.$(OBJEXT) \
-@HAVE_LIBM_MACHINE_I386_FALSE@@HAVE_LIBM_MACHINE_X86_64_TRUE@	libm/ld80/libm_a-k_tanl.$(OBJEXT)
-@HAVE_LIBM_MACHINE_I386_TRUE@am__objects_173 = libm/ld80/libm_a-b_tgammal.$(OBJEXT) \
-@HAVE_LIBM_MACHINE_I386_TRUE@	libm/ld80/libm_a-e_powl.$(OBJEXT) \
-@HAVE_LIBM_MACHINE_I386_TRUE@	libm/ld80/libm_a-s_erfl.$(OBJEXT) \
-@HAVE_LIBM_MACHINE_I386_TRUE@	libm/ld80/libm_a-s_exp2l.$(OBJEXT) \
-@HAVE_LIBM_MACHINE_I386_TRUE@	libm/ld80/libm_a-s_expl.$(OBJEXT) \
-@HAVE_LIBM_MACHINE_I386_TRUE@	libm/ld80/libm_a-s_logl.$(OBJEXT) \
-@HAVE_LIBM_MACHINE_I386_TRUE@	libm/ld80/libm_a-s_sinpil.$(OBJEXT) \
-@HAVE_LIBM_MACHINE_I386_TRUE@	libm/ld80/libm_a-s_cospil.$(OBJEXT) \
-@HAVE_LIBM_MACHINE_I386_TRUE@	libm/ld80/libm_a-invtrig.$(OBJEXT) \
-@HAVE_LIBM_MACHINE_I386_TRUE@	libm/ld80/libm_a-e_lgammal_r.$(OBJEXT) \
-@HAVE_LIBM_MACHINE_I386_TRUE@	libm/ld80/libm_a-k_cosl.$(OBJEXT) \
-@HAVE_LIBM_MACHINE_I386_TRUE@	libm/ld80/libm_a-k_sinl.$(OBJEXT) \
-@HAVE_LIBM_MACHINE_I386_TRUE@	libm/ld80/libm_a-k_tanl.$(OBJEXT)
+@HAVE_FPMATH_H_FALSE@@HAVE_LIBM_MACHINE_I386_FALSE@@HAVE_LIBM_MACHINE_X86_64_TRUE@am__objects_173 = libm/ld80/libm_a-b_tgammal.$(OBJEXT) \
+@HAVE_FPMATH_H_FALSE@@HAVE_LIBM_MACHINE_I386_FALSE@@HAVE_LIBM_MACHINE_X86_64_TRUE@	libm/ld80/libm_a-e_powl.$(OBJEXT) \
+@HAVE_FPMATH_H_FALSE@@HAVE_LIBM_MACHINE_I386_FALSE@@HAVE_LIBM_MACHINE_X86_64_TRUE@	libm/ld80/libm_a-s_erfl.$(OBJEXT) \
+@HAVE_FPMATH_H_FALSE@@HAVE_LIBM_MACHINE_I386_FALSE@@HAVE_LIBM_MACHINE_X86_64_TRUE@	libm/ld80/libm_a-s_exp2l.$(OBJEXT) \
+@HAVE_FPMATH_H_FALSE@@HAVE_LIBM_MACHINE_I386_FALSE@@HAVE_LIBM_MACHINE_X86_64_TRUE@	libm/ld80/libm_a-s_expl.$(OBJEXT) \
+@HAVE_FPMATH_H_FALSE@@HAVE_LIBM_MACHINE_I386_FALSE@@HAVE_LIBM_MACHINE_X86_64_TRUE@	libm/ld80/libm_a-s_logl.$(OBJEXT) \
+@HAVE_FPMATH_H_FALSE@@HAVE_LIBM_MACHINE_I386_FALSE@@HAVE_LIBM_MACHINE_X86_64_TRUE@	libm/ld80/libm_a-s_sinpil.$(OBJEXT) \
+@HAVE_FPMATH_H_FALSE@@HAVE_LIBM_MACHINE_I386_FALSE@@HAVE_LIBM_MACHINE_X86_64_TRUE@	libm/ld80/libm_a-s_cospil.$(OBJEXT) \
+@HAVE_FPMATH_H_FALSE@@HAVE_LIBM_MACHINE_I386_FALSE@@HAVE_LIBM_MACHINE_X86_64_TRUE@	libm/ld80/libm_a-invtrig.$(OBJEXT) \
+@HAVE_FPMATH_H_FALSE@@HAVE_LIBM_MACHINE_I386_FALSE@@HAVE_LIBM_MACHINE_X86_64_TRUE@	libm/ld80/libm_a-e_lgammal_r.$(OBJEXT) \
+@HAVE_FPMATH_H_FALSE@@HAVE_LIBM_MACHINE_I386_FALSE@@HAVE_LIBM_MACHINE_X86_64_TRUE@	libm/ld80/libm_a-k_cosl.$(OBJEXT) \
+@HAVE_FPMATH_H_FALSE@@HAVE_LIBM_MACHINE_I386_FALSE@@HAVE_LIBM_MACHINE_X86_64_TRUE@	libm/ld80/libm_a-k_sinl.$(OBJEXT) \
+@HAVE_FPMATH_H_FALSE@@HAVE_LIBM_MACHINE_I386_FALSE@@HAVE_LIBM_MACHINE_X86_64_TRUE@	libm/ld80/libm_a-k_tanl.$(OBJEXT)
+@HAVE_FPMATH_H_FALSE@@HAVE_LIBM_MACHINE_I386_TRUE@am__objects_173 = libm/ld80/libm_a-b_tgammal.$(OBJEXT) \
+@HAVE_FPMATH_H_FALSE@@HAVE_LIBM_MACHINE_I386_TRUE@	libm/ld80/libm_a-e_powl.$(OBJEXT) \
+@HAVE_FPMATH_H_FALSE@@HAVE_LIBM_MACHINE_I386_TRUE@	libm/ld80/libm_a-s_erfl.$(OBJEXT) \
+@HAVE_FPMATH_H_FALSE@@HAVE_LIBM_MACHINE_I386_TRUE@	libm/ld80/libm_a-s_exp2l.$(OBJEXT) \
+@HAVE_FPMATH_H_FALSE@@HAVE_LIBM_MACHINE_I386_TRUE@	libm/ld80/libm_a-s_expl.$(OBJEXT) \
+@HAVE_FPMATH_H_FALSE@@HAVE_LIBM_MACHINE_I386_TRUE@	libm/ld80/libm_a-s_logl.$(OBJEXT) \
+@HAVE_FPMATH_H_FALSE@@HAVE_LIBM_MACHINE_I386_TRUE@	libm/ld80/libm_a-s_sinpil.$(OBJEXT) \
+@HAVE_FPMATH_H_FALSE@@HAVE_LIBM_MACHINE_I386_TRUE@	libm/ld80/libm_a-s_cospil.$(OBJEXT) \
+@HAVE_FPMATH_H_FALSE@@HAVE_LIBM_MACHINE_I386_TRUE@	libm/ld80/libm_a-invtrig.$(OBJEXT) \
+@HAVE_FPMATH_H_FALSE@@HAVE_LIBM_MACHINE_I386_TRUE@	libm/ld80/libm_a-e_lgammal_r.$(OBJEXT) \
+@HAVE_FPMATH_H_FALSE@@HAVE_LIBM_MACHINE_I386_TRUE@	libm/ld80/libm_a-k_cosl.$(OBJEXT) \
+@HAVE_FPMATH_H_FALSE@@HAVE_LIBM_MACHINE_I386_TRUE@	libm/ld80/libm_a-k_sinl.$(OBJEXT) \
+@HAVE_FPMATH_H_FALSE@@HAVE_LIBM_MACHINE_I386_TRUE@	libm/ld80/libm_a-k_tanl.$(OBJEXT)
+@HAVE_FPMATH_H_TRUE@@HAVE_LIBC_MACHINE_M68K_TRUE@am__objects_173 = libm/ld80/libm_a-b_tgammal.$(OBJEXT) \
+@HAVE_FPMATH_H_TRUE@@HAVE_LIBC_MACHINE_M68K_TRUE@	libm/ld80/libm_a-e_powl.$(OBJEXT) \
+@HAVE_FPMATH_H_TRUE@@HAVE_LIBC_MACHINE_M68K_TRUE@	libm/ld80/libm_a-s_erfl.$(OBJEXT) \
+@HAVE_FPMATH_H_TRUE@@HAVE_LIBC_MACHINE_M68K_TRUE@	libm/ld80/libm_a-s_exp2l.$(OBJEXT) \
+@HAVE_FPMATH_H_TRUE@@HAVE_LIBC_MACHINE_M68K_TRUE@	libm/ld80/libm_a-s_expl.$(OBJEXT) \
+@HAVE_FPMATH_H_TRUE@@HAVE_LIBC_MACHINE_M68K_TRUE@	libm/ld80/libm_a-s_logl.$(OBJEXT) \
+@HAVE_FPMATH_H_TRUE@@HAVE_LIBC_MACHINE_M68K_TRUE@	libm/ld80/libm_a-s_sinpil.$(OBJEXT) \
+@HAVE_FPMATH_H_TRUE@@HAVE_LIBC_MACHINE_M68K_TRUE@	libm/ld80/libm_a-s_cospil.$(OBJEXT) \
+@HAVE_FPMATH_H_TRUE@@HAVE_LIBC_MACHINE_M68K_TRUE@	libm/ld80/libm_a-invtrig.$(OBJEXT) \
+@HAVE_FPMATH_H_TRUE@@HAVE_LIBC_MACHINE_M68K_TRUE@	libm/ld80/libm_a-e_lgammal_r.$(OBJEXT) \
+@HAVE_FPMATH_H_TRUE@@HAVE_LIBC_MACHINE_M68K_TRUE@	libm/ld80/libm_a-k_cosl.$(OBJEXT) \
+@HAVE_FPMATH_H_TRUE@@HAVE_LIBC_MACHINE_M68K_TRUE@	libm/ld80/libm_a-k_sinl.$(OBJEXT) \
+@HAVE_FPMATH_H_TRUE@@HAVE_LIBC_MACHINE_M68K_TRUE@	libm/ld80/libm_a-k_tanl.$(OBJEXT)
+@HAVE_LIBC_MACHINE_M68K_FALSE@@HAVE_LIBM_MACHINE_I386_FALSE@@HAVE_LIBM_MACHINE_X86_64_TRUE@am__objects_173 = libm/ld80/libm_a-b_tgammal.$(OBJEXT) \
+@HAVE_LIBC_MACHINE_M68K_FALSE@@HAVE_LIBM_MACHINE_I386_FALSE@@HAVE_LIBM_MACHINE_X86_64_TRUE@	libm/ld80/libm_a-e_powl.$(OBJEXT) \
+@HAVE_LIBC_MACHINE_M68K_FALSE@@HAVE_LIBM_MACHINE_I386_FALSE@@HAVE_LIBM_MACHINE_X86_64_TRUE@	libm/ld80/libm_a-s_erfl.$(OBJEXT) \
+@HAVE_LIBC_MACHINE_M68K_FALSE@@HAVE_LIBM_MACHINE_I386_FALSE@@HAVE_LIBM_MACHINE_X86_64_TRUE@	libm/ld80/libm_a-s_exp2l.$(OBJEXT) \
+@HAVE_LIBC_MACHINE_M68K_FALSE@@HAVE_LIBM_MACHINE_I386_FALSE@@HAVE_LIBM_MACHINE_X86_64_TRUE@	libm/ld80/libm_a-s_expl.$(OBJEXT) \
+@HAVE_LIBC_MACHINE_M68K_FALSE@@HAVE_LIBM_MACHINE_I386_FALSE@@HAVE_LIBM_MACHINE_X86_64_TRUE@	libm/ld80/libm_a-s_logl.$(OBJEXT) \
+@HAVE_LIBC_MACHINE_M68K_FALSE@@HAVE_LIBM_MACHINE_I386_FALSE@@HAVE_LIBM_MACHINE_X86_64_TRUE@	libm/ld80/libm_a-s_sinpil.$(OBJEXT) \
+@HAVE_LIBC_MACHINE_M68K_FALSE@@HAVE_LIBM_MACHINE_I386_FALSE@@HAVE_LIBM_MACHINE_X86_64_TRUE@	libm/ld80/libm_a-s_cospil.$(OBJEXT) \
+@HAVE_LIBC_MACHINE_M68K_FALSE@@HAVE_LIBM_MACHINE_I386_FALSE@@HAVE_LIBM_MACHINE_X86_64_TRUE@	libm/ld80/libm_a-invtrig.$(OBJEXT) \
+@HAVE_LIBC_MACHINE_M68K_FALSE@@HAVE_LIBM_MACHINE_I386_FALSE@@HAVE_LIBM_MACHINE_X86_64_TRUE@	libm/ld80/libm_a-e_lgammal_r.$(OBJEXT) \
+@HAVE_LIBC_MACHINE_M68K_FALSE@@HAVE_LIBM_MACHINE_I386_FALSE@@HAVE_LIBM_MACHINE_X86_64_TRUE@	libm/ld80/libm_a-k_cosl.$(OBJEXT) \
+@HAVE_LIBC_MACHINE_M68K_FALSE@@HAVE_LIBM_MACHINE_I386_FALSE@@HAVE_LIBM_MACHINE_X86_64_TRUE@	libm/ld80/libm_a-k_sinl.$(OBJEXT) \
+@HAVE_LIBC_MACHINE_M68K_FALSE@@HAVE_LIBM_MACHINE_I386_FALSE@@HAVE_LIBM_MACHINE_X86_64_TRUE@	libm/ld80/libm_a-k_tanl.$(OBJEXT)
+@HAVE_LIBC_MACHINE_M68K_FALSE@@HAVE_LIBM_MACHINE_I386_TRUE@am__objects_173 = libm/ld80/libm_a-b_tgammal.$(OBJEXT) \
+@HAVE_LIBC_MACHINE_M68K_FALSE@@HAVE_LIBM_MACHINE_I386_TRUE@	libm/ld80/libm_a-e_powl.$(OBJEXT) \
+@HAVE_LIBC_MACHINE_M68K_FALSE@@HAVE_LIBM_MACHINE_I386_TRUE@	libm/ld80/libm_a-s_erfl.$(OBJEXT) \
+@HAVE_LIBC_MACHINE_M68K_FALSE@@HAVE_LIBM_MACHINE_I386_TRUE@	libm/ld80/libm_a-s_exp2l.$(OBJEXT) \
+@HAVE_LIBC_MACHINE_M68K_FALSE@@HAVE_LIBM_MACHINE_I386_TRUE@	libm/ld80/libm_a-s_expl.$(OBJEXT) \
+@HAVE_LIBC_MACHINE_M68K_FALSE@@HAVE_LIBM_MACHINE_I386_TRUE@	libm/ld80/libm_a-s_logl.$(OBJEXT) \
+@HAVE_LIBC_MACHINE_M68K_FALSE@@HAVE_LIBM_MACHINE_I386_TRUE@	libm/ld80/libm_a-s_sinpil.$(OBJEXT) \
+@HAVE_LIBC_MACHINE_M68K_FALSE@@HAVE_LIBM_MACHINE_I386_TRUE@	libm/ld80/libm_a-s_cospil.$(OBJEXT) \
+@HAVE_LIBC_MACHINE_M68K_FALSE@@HAVE_LIBM_MACHINE_I386_TRUE@	libm/ld80/libm_a-invtrig.$(OBJEXT) \
+@HAVE_LIBC_MACHINE_M68K_FALSE@@HAVE_LIBM_MACHINE_I386_TRUE@	libm/ld80/libm_a-e_lgammal_r.$(OBJEXT) \
+@HAVE_LIBC_MACHINE_M68K_FALSE@@HAVE_LIBM_MACHINE_I386_TRUE@	libm/ld80/libm_a-k_cosl.$(OBJEXT) \
+@HAVE_LIBC_MACHINE_M68K_FALSE@@HAVE_LIBM_MACHINE_I386_TRUE@	libm/ld80/libm_a-k_sinl.$(OBJEXT) \
+@HAVE_LIBC_MACHINE_M68K_FALSE@@HAVE_LIBM_MACHINE_I386_TRUE@	libm/ld80/libm_a-k_tanl.$(OBJEXT)
 @HAVE_LIBM_MACHINE_I386_TRUE@@HAVE_LONG_DOUBLE_TRUE@am__objects_174 = $(am__objects_173)
 @HAVE_LIBM_MACHINE_MIPS_TRUE@am__objects_175 = libm/machine/mips/libm_a-feclearexcept.$(OBJEXT) \
 @HAVE_LIBM_MACHINE_MIPS_TRUE@	libm/machine/mips/libm_a-fegetenv.$(OBJEXT) \
@@ -3893,8 +3935,9 @@ am__objects_160 = libm/complex/libm_a-cabsl.$(OBJEXT) \
 @HAVE_LIBM_MACHINE_X86_64_TRUE@	libm/machine/x86_64/libm_a-feupdateenv.$(OBJEXT)
 @HAVE_LIBM_MACHINE_X86_64_TRUE@am__objects_193 = $(am__objects_192)
 @HAVE_LIBM_MACHINE_X86_64_TRUE@@HAVE_LONG_DOUBLE_TRUE@am__objects_194 = $(am__objects_173)
-@HAVE_LIBM_MACHINE_XTENSA_TRUE@@XTENSA_XCHAL_HAVE_FP_SQRT_TRUE@am__objects_195 = libm/machine/xtensa/libm_a-ef_sqrt.$(OBJEXT)
-@HAVE_LIBM_MACHINE_XTENSA_TRUE@am__objects_196 = libm/machine/xtensa/libm_a-feclearexcept.$(OBJEXT) \
+@HAVE_FPMATH_H_TRUE@@HAVE_LIBC_MACHINE_M68K_TRUE@@HAVE_LONG_DOUBLE_TRUE@am__objects_195 = $(am__objects_173)
+@HAVE_LIBM_MACHINE_XTENSA_TRUE@@XTENSA_XCHAL_HAVE_FP_SQRT_TRUE@am__objects_196 = libm/machine/xtensa/libm_a-ef_sqrt.$(OBJEXT)
+@HAVE_LIBM_MACHINE_XTENSA_TRUE@am__objects_197 = libm/machine/xtensa/libm_a-feclearexcept.$(OBJEXT) \
 @HAVE_LIBM_MACHINE_XTENSA_TRUE@	libm/machine/xtensa/libm_a-fegetenv.$(OBJEXT) \
 @HAVE_LIBM_MACHINE_XTENSA_TRUE@	libm/machine/xtensa/libm_a-fegetexcept.$(OBJEXT) \
 @HAVE_LIBM_MACHINE_XTENSA_TRUE@	libm/machine/xtensa/libm_a-fegetexceptflag.$(OBJEXT) \
@@ -3903,8 +3946,8 @@ am__objects_160 = libm/complex/libm_a-cabsl.$(OBJEXT) \
 @HAVE_LIBM_MACHINE_XTENSA_TRUE@	libm/machine/xtensa/libm_a-feraiseexcept.$(OBJEXT) \
 @HAVE_LIBM_MACHINE_XTENSA_TRUE@	libm/machine/xtensa/libm_a-fetestexcept.$(OBJEXT) \
 @HAVE_LIBM_MACHINE_XTENSA_TRUE@	libm/machine/xtensa/libm_a-feupdateenv.$(OBJEXT) \
-@HAVE_LIBM_MACHINE_XTENSA_TRUE@	$(am__objects_195)
-@HAVE_LIBM_MACHINE_XTENSA_TRUE@am__objects_197 = $(am__objects_196)
+@HAVE_LIBM_MACHINE_XTENSA_TRUE@	$(am__objects_196)
+@HAVE_LIBM_MACHINE_XTENSA_TRUE@am__objects_198 = $(am__objects_197)
 am_libm_a_OBJECTS = $(am__objects_147) $(am__objects_151) \
 	$(am__objects_152) $(am__objects_153) $(am__objects_155) \
 	$(am__objects_157) $(am__objects_158) $(am__objects_159) \
@@ -3914,7 +3957,7 @@ am_libm_a_OBJECTS = $(am__objects_147) $(am__objects_151) \
 	$(am__objects_180) $(am__objects_182) $(am__objects_184) \
 	$(am__objects_186) $(am__objects_188) $(am__objects_190) \
 	$(am__objects_191) $(am__objects_193) $(am__objects_194) \
-	$(am__objects_197)
+	$(am__objects_195) $(am__objects_198)
 libm_a_OBJECTS = $(am_libm_a_OBJECTS)
 am_libm_test_test_OBJECTS = libm/test/test.$(OBJEXT) \
 	libm/test/string.$(OBJEXT) libm/test/convert.$(OBJEXT) \
@@ -4502,7 +4545,7 @@ libm_a_SOURCES = $(am__append_135) $(am__append_138) \
 	$(am__append_161) $(am__append_162) $(am__append_163) \
 	$(am__append_164) $(am__append_165) $(am__append_166) \
 	$(am__append_167) $(am__append_170) $(am__append_171) \
-	$(am__append_175)
+	$(am__append_174) $(am__append_178)
 libm_a_CFLAGS = $(AM_CFLAGS) $(libm_a_CFLAGS_$(subst /,_,$(@D))) $(libm_a_CFLAGS_$(subst /,_,$(@D)_$(<F)))
 libm_a_CCASFLAGS = $(AM_CCASFLAGS) $(libm_a_CCASFLAGS_$(subst /,_,$(@D))) $(libm_a_CCASFLAGS_$(subst /,_,$(@D)_$(<F)))
 libm_a_CPPFLAGS = $(AM_CPPFLAGS) -I$(srcdir)/libm/common $(libm_a_CPPFLAGS_$(subst /,_,$(@D))) $(libm_a_CPPFLAGS_$(subst /,_,$(@D)_$(<F)))
@@ -4932,10 +4975,12 @@ LIBM_CHEWOUT_FILES = $(am__append_136) $(am__append_139) \
 	libm/complex/csin.def libm/complex/csinh.def \
 	libm/complex/csqrt.def libm/complex/ctan.def \
 	libm/complex/ctanh.def $(am__append_146) $(am__append_150) \
-	$(am__append_156) $(am__append_168) $(am__append_172)
+	$(am__append_156) $(am__append_168) $(am__append_172) \
+	$(am__append_175)
 LIBM_CHAPTERS = $(am__append_137) $(am__append_140) $(am__append_144) \
 	libm/complex/complex.tex $(am__append_147) $(am__append_151) \
-	$(am__append_157) $(am__append_169) $(am__append_173)
+	$(am__append_157) $(am__append_169) $(am__append_173) \
+	$(am__append_176)
 LIBM_DOCBOOK_OUT_FILES = $(LIBM_CHEWOUT_FILES:.def=.xml)
 @NEWLIB_HW_FP_TRUE@libm_mathfp_src = \
 @NEWLIB_HW_FP_TRUE@	libm/mathfp/s_acos.c libm/mathfp/s_frexp.c libm/mathfp/s_mathcnst.c \
@@ -5453,6 +5498,12 @@ libm_test_test_LDADD = $(CRT0) libm.a libc.a
 @HAVE_LIBM_MACHINE_I386_TRUE@	libm/machine/i386/fegetround.c libm/machine/i386/feholdexcept.c libm/machine/i386/feraiseexcept.c libm/machine/i386/fesetenv.c \
 @HAVE_LIBM_MACHINE_I386_TRUE@	libm/machine/i386/fesetexceptflag.c libm/machine/i386/fesetround.c libm/machine/i386/fetestexcept.c libm/machine/i386/feupdateenv.c
 
+@HAVE_FPMATH_H_TRUE@@HAVE_LIBC_MACHINE_M68K_TRUE@libm_ld80_lsrc = \
+@HAVE_FPMATH_H_TRUE@@HAVE_LIBC_MACHINE_M68K_TRUE@	libm/ld80/b_tgammal.c libm/ld80/e_powl.c libm/ld80/s_erfl.c libm/ld80/s_exp2l.c \
+@HAVE_FPMATH_H_TRUE@@HAVE_LIBC_MACHINE_M68K_TRUE@	libm/ld80/s_expl.c libm/ld80/s_logl.c libm/ld80/s_sinpil.c libm/ld80/s_cospil.c \
+@HAVE_FPMATH_H_TRUE@@HAVE_LIBC_MACHINE_M68K_TRUE@	libm/ld80/invtrig.c libm/ld80/e_lgammal_r.c libm/ld80/k_cosl.c libm/ld80/k_sinl.c \
+@HAVE_FPMATH_H_TRUE@@HAVE_LIBC_MACHINE_M68K_TRUE@	libm/ld80/k_tanl.c
+
 @HAVE_LIBM_MACHINE_I386_TRUE@libm_ld80_lsrc = \
 @HAVE_LIBM_MACHINE_I386_TRUE@	libm/ld80/b_tgammal.c libm/ld80/e_powl.c libm/ld80/s_erfl.c libm/ld80/s_exp2l.c \
 @HAVE_LIBM_MACHINE_I386_TRUE@	libm/ld80/s_expl.c libm/ld80/s_logl.c libm/ld80/s_sinpil.c libm/ld80/s_cospil.c \
@@ -5465,6 +5516,7 @@ libm_test_test_LDADD = $(CRT0) libm.a libc.a
 @HAVE_LIBM_MACHINE_X86_64_TRUE@	libm/ld80/invtrig.c libm/ld80/e_lgammal_r.c libm/ld80/k_cosl.c libm/ld80/k_sinl.c \
 @HAVE_LIBM_MACHINE_X86_64_TRUE@	libm/ld80/k_tanl.c
 
+@HAVE_FPMATH_H_TRUE@@HAVE_LIBC_MACHINE_M68K_TRUE@libm_a_CFLAGS_libm_ld80 = -fbuiltin -fno-math-errno
 @HAVE_LIBM_MACHINE_I386_TRUE@libm_a_CFLAGS_libm_ld80 = -fbuiltin -fno-math-errno
 @HAVE_LIBM_MACHINE_X86_64_TRUE@libm_a_CFLAGS_libm_ld80 = -fbuiltin -fno-math-errno
 @HAVE_LIBM_MACHINE_MIPS_TRUE@libm_machine_mips_src = \
@@ -5549,7 +5601,7 @@ libm_test_test_LDADD = $(CRT0) libm.a libc.a
 @HAVE_LIBM_MACHINE_XTENSA_TRUE@	libm/machine/xtensa/feraiseexcept.c \
 @HAVE_LIBM_MACHINE_XTENSA_TRUE@	libm/machine/xtensa/fetestexcept.c \
 @HAVE_LIBM_MACHINE_XTENSA_TRUE@	libm/machine/xtensa/feupdateenv.c \
-@HAVE_LIBM_MACHINE_XTENSA_TRUE@	$(am__append_174)
+@HAVE_LIBM_MACHINE_XTENSA_TRUE@	$(am__append_177)
 @HAVE_LIBM_MACHINE_XTENSA_TRUE@libm_a_CFLAGS_libm_machine_xtensa = -D_LIBM
 all: newlib.h _newlib_version.h
 	$(MAKE) $(AM_MAKEFLAGS) all-am
@@ -5558,7 +5610,7 @@ all: newlib.h _newlib_version.h
 .SUFFIXES: .def .xml .S .c .cpp .dvi .o .obj .ps .s
 am--refresh: Makefile
 	@:
-$(srcdir)/Makefile.in: @MAINTAINER_MODE_TRUE@ $(srcdir)/Makefile.am $(srcdir)/../multilib.am $(srcdir)/doc/Makefile.inc $(srcdir)/libc/Makefile.inc $(srcdir)/libc/argz/Makefile.inc $(srcdir)/libc/stdlib/Makefile.inc $(srcdir)/libc/ctype/Makefile.inc $(srcdir)/libc/search/Makefile.inc $(srcdir)/libc/stdio/Makefile.inc $(srcdir)/libc/stdio64/Makefile.inc $(srcdir)/libc/string/Makefile.inc $(srcdir)/libc/signal/Makefile.inc $(srcdir)/libc/time/Makefile.inc $(srcdir)/libc/locale/Makefile.inc $(srcdir)/libc/reent/Makefile.inc $(srcdir)/libc/errno/Makefile.inc $(srcdir)/libc/misc/Makefile.inc $(srcdir)/libc/unix/Makefile.inc $(srcdir)/libc/posix/Makefile.inc $(srcdir)/libc/syscalls/Makefile.inc $(srcdir)/libc/stdbit/Makefile.inc $(srcdir)/libc/iconv/Makefile.inc $(srcdir)/libc/iconv/ces/Makefile.inc $(srcdir)/libc/iconv/ccs/Makefile.inc $(srcdir)/libc/iconv/ccs/binary/Makefile.inc $(srcdir)/libc/iconv/lib/Makefile.inc $(srcdir)/libc/xdr/Makefile.inc $(srcdir)/libc/ssp/Makefile.inc $(srcdir)/libc/sys/Makefile.inc $(srcdir)/libc/sys/a29khif/Makefile.inc $(srcdir)/libc/sys/amdgcn/Makefile.inc $(srcdir)/libc/sys/amigaos/Makefile.inc $(srcdir)/libc/sys/arm/Makefile.inc $(srcdir)/libc/sys/atari/Makefile.inc $(srcdir)/libc/sys/d10v/Makefile.inc $(srcdir)/libc/sys/epiphany/Makefile.inc $(srcdir)/libc/sys/h8300hms/Makefile.inc $(srcdir)/libc/sys/h8500hms/Makefile.inc $(srcdir)/libc/sys/m88kbug/Makefile.inc $(srcdir)/libc/sys/mmixware/Makefile.inc $(srcdir)/libc/sys/netware/Makefile.inc $(srcdir)/libc/sys/or1k/Makefile.inc $(srcdir)/libc/sys/rdos/Makefile.inc $(srcdir)/libc/sys/rtems/Makefile.inc $(srcdir)/libc/sys/sh/Makefile.inc $(srcdir)/libc/sys/sysmec/Makefile.inc $(srcdir)/libc/sys/sysnec810/Makefile.inc $(srcdir)/libc/sys/sysnecv850/Makefile.inc $(srcdir)/libc/sys/sysvi386/Makefile.inc $(srcdir)/libc/sys/sysvnecv70/Makefile.inc $(srcdir)/libc/sys/tic80/Makefile.inc $(srcdir)/libc/sys/tirtos/Makefile.inc $(srcdir)/libc/sys/w65/Makefile.inc $(srcdir)/libc/sys/z8ksim/Makefile.inc $(srcdir)/libc/machine/Makefile.inc $(srcdir)/libc/machine/aarch64/Makefile.inc $(srcdir)/libc/machine/amdgcn/Makefile.inc $(srcdir)/libc/machine/arc/Makefile.inc $(srcdir)/libc/machine/arc64/Makefile.inc $(srcdir)/libc/machine/arm/Makefile.inc $(srcdir)/libc/machine/bfin/Makefile.inc $(srcdir)/libc/machine/cr16/Makefile.inc $(srcdir)/libc/machine/cris/Makefile.inc $(srcdir)/libc/machine/crx/Makefile.inc $(srcdir)/libc/machine/csky/Makefile.inc $(srcdir)/libc/machine/d10v/Makefile.inc $(srcdir)/libc/machine/d30v/Makefile.inc $(srcdir)/libc/machine/epiphany/Makefile.inc $(srcdir)/libc/machine/fr30/Makefile.inc $(srcdir)/libc/machine/frv/Makefile.inc $(srcdir)/libc/machine/ft32/Makefile.inc $(srcdir)/libc/machine/h8300/Makefile.inc $(srcdir)/libc/machine/h8500/Makefile.inc $(srcdir)/libc/machine/hppa/Makefile.inc $(srcdir)/libc/machine/i386/Makefile.inc $(srcdir)/libc/machine/i960/Makefile.inc $(srcdir)/libc/machine/iq2000/Makefile.inc $(srcdir)/libc/machine/lm32/Makefile.inc $(srcdir)/libc/machine/m32c/Makefile.inc $(srcdir)/libc/machine/m32r/Makefile.inc $(srcdir)/libc/machine/m68hc11/Makefile.inc $(srcdir)/libc/machine/m68k/Makefile.inc $(srcdir)/libc/machine/m88k/Makefile.inc $(srcdir)/libc/machine/mep/Makefile.inc $(srcdir)/libc/machine/microblaze/Makefile.inc $(srcdir)/libc/machine/mips/Makefile.inc $(srcdir)/libc/machine/mn10200/Makefile.inc $(srcdir)/libc/machine/mn10300/Makefile.inc $(srcdir)/libc/machine/moxie/Makefile.inc $(srcdir)/libc/machine/msp430/Makefile.inc $(srcdir)/libc/machine/mt/Makefile.inc $(srcdir)/libc/machine/nds32/Makefile.inc $(srcdir)/libc/machine/necv70/Makefile.inc $(srcdir)/libc/machine/nios2/Makefile.inc $(srcdir)/libc/machine/nvptx/Makefile.inc $(srcdir)/libc/machine/or1k/Makefile.inc $(srcdir)/libc/machine/powerpc/Makefile.inc $(srcdir)/libc/machine/pru/Makefile.inc $(srcdir)/libc/machine/riscv/Makefile.inc $(srcdir)/libc/machine/rl78/Makefile.inc $(srcdir)/libc/machine/rx/Makefile.inc $(srcdir)/libc/machine/sh/Makefile.inc $(srcdir)/libc/machine/sparc/Makefile.inc $(srcdir)/libc/machine/spu/Makefile.inc $(srcdir)/libc/machine/tic4x/Makefile.inc $(srcdir)/libc/machine/tic6x/Makefile.inc $(srcdir)/libc/machine/tic80/Makefile.inc $(srcdir)/libc/machine/v850/Makefile.inc $(srcdir)/libc/machine/visium/Makefile.inc $(srcdir)/libc/machine/w65/Makefile.inc $(srcdir)/libc/machine/x86_64/Makefile.inc $(srcdir)/libc/machine/xc16x/Makefile.inc $(srcdir)/libc/machine/xstormy16/Makefile.inc $(srcdir)/libc/machine/xtensa/Makefile.inc $(srcdir)/libc/machine/z8k/Makefile.inc $(srcdir)/libm/Makefile.inc $(srcdir)/libm/mathfp/Makefile.inc $(srcdir)/libm/math/Makefile.inc $(srcdir)/libm/common/Makefile.inc $(srcdir)/libm/ld/Makefile.inc $(srcdir)/libm/complex/Makefile.inc $(srcdir)/libm/fenv/Makefile.inc $(srcdir)/libm/test/Makefile.inc $(srcdir)/libm/machine/aarch64/Makefile.inc $(srcdir)/libm/ld128/Makefile.inc $(srcdir)/libm/machine/amdgcn/Makefile.inc $(srcdir)/libm/machine/arm/Makefile.inc $(srcdir)/libm/machine/i386/Makefile.inc $(srcdir)/libm/ld80/Makefile.inc $(srcdir)/libm/machine/mips/Makefile.inc $(srcdir)/libm/machine/nds32/Makefile.inc $(srcdir)/libm/machine/powerpc/Makefile.inc $(srcdir)/libm/machine/pru/Makefile.inc $(srcdir)/libm/machine/sparc/Makefile.inc $(srcdir)/libm/machine/spu/Makefile.inc $(srcdir)/libm/machine/riscv/Makefile.inc $(srcdir)/libm/ld128/Makefile.inc $(srcdir)/libm/machine/x86_64/Makefile.inc $(srcdir)/libm/ld80/Makefile.inc $(srcdir)/libm/machine/xtensa/Makefile.inc $(am__configure_deps)
+$(srcdir)/Makefile.in: @MAINTAINER_MODE_TRUE@ $(srcdir)/Makefile.am $(srcdir)/../multilib.am $(srcdir)/doc/Makefile.inc $(srcdir)/libc/Makefile.inc $(srcdir)/libc/argz/Makefile.inc $(srcdir)/libc/stdlib/Makefile.inc $(srcdir)/libc/ctype/Makefile.inc $(srcdir)/libc/search/Makefile.inc $(srcdir)/libc/stdio/Makefile.inc $(srcdir)/libc/stdio64/Makefile.inc $(srcdir)/libc/string/Makefile.inc $(srcdir)/libc/signal/Makefile.inc $(srcdir)/libc/time/Makefile.inc $(srcdir)/libc/locale/Makefile.inc $(srcdir)/libc/reent/Makefile.inc $(srcdir)/libc/errno/Makefile.inc $(srcdir)/libc/misc/Makefile.inc $(srcdir)/libc/unix/Makefile.inc $(srcdir)/libc/posix/Makefile.inc $(srcdir)/libc/syscalls/Makefile.inc $(srcdir)/libc/stdbit/Makefile.inc $(srcdir)/libc/iconv/Makefile.inc $(srcdir)/libc/iconv/ces/Makefile.inc $(srcdir)/libc/iconv/ccs/Makefile.inc $(srcdir)/libc/iconv/ccs/binary/Makefile.inc $(srcdir)/libc/iconv/lib/Makefile.inc $(srcdir)/libc/xdr/Makefile.inc $(srcdir)/libc/ssp/Makefile.inc $(srcdir)/libc/sys/Makefile.inc $(srcdir)/libc/sys/a29khif/Makefile.inc $(srcdir)/libc/sys/amdgcn/Makefile.inc $(srcdir)/libc/sys/amigaos/Makefile.inc $(srcdir)/libc/sys/arm/Makefile.inc $(srcdir)/libc/sys/atari/Makefile.inc $(srcdir)/libc/sys/d10v/Makefile.inc $(srcdir)/libc/sys/epiphany/Makefile.inc $(srcdir)/libc/sys/h8300hms/Makefile.inc $(srcdir)/libc/sys/h8500hms/Makefile.inc $(srcdir)/libc/sys/m88kbug/Makefile.inc $(srcdir)/libc/sys/mmixware/Makefile.inc $(srcdir)/libc/sys/netware/Makefile.inc $(srcdir)/libc/sys/or1k/Makefile.inc $(srcdir)/libc/sys/rdos/Makefile.inc $(srcdir)/libc/sys/rtems/Makefile.inc $(srcdir)/libc/sys/sh/Makefile.inc $(srcdir)/libc/sys/sysmec/Makefile.inc $(srcdir)/libc/sys/sysnec810/Makefile.inc $(srcdir)/libc/sys/sysnecv850/Makefile.inc $(srcdir)/libc/sys/sysvi386/Makefile.inc $(srcdir)/libc/sys/sysvnecv70/Makefile.inc $(srcdir)/libc/sys/tic80/Makefile.inc $(srcdir)/libc/sys/tirtos/Makefile.inc $(srcdir)/libc/sys/w65/Makefile.inc $(srcdir)/libc/sys/z8ksim/Makefile.inc $(srcdir)/libc/machine/Makefile.inc $(srcdir)/libc/machine/aarch64/Makefile.inc $(srcdir)/libc/machine/amdgcn/Makefile.inc $(srcdir)/libc/machine/arc/Makefile.inc $(srcdir)/libc/machine/arc64/Makefile.inc $(srcdir)/libc/machine/arm/Makefile.inc $(srcdir)/libc/machine/bfin/Makefile.inc $(srcdir)/libc/machine/cr16/Makefile.inc $(srcdir)/libc/machine/cris/Makefile.inc $(srcdir)/libc/machine/crx/Makefile.inc $(srcdir)/libc/machine/csky/Makefile.inc $(srcdir)/libc/machine/d10v/Makefile.inc $(srcdir)/libc/machine/d30v/Makefile.inc $(srcdir)/libc/machine/epiphany/Makefile.inc $(srcdir)/libc/machine/fr30/Makefile.inc $(srcdir)/libc/machine/frv/Makefile.inc $(srcdir)/libc/machine/ft32/Makefile.inc $(srcdir)/libc/machine/h8300/Makefile.inc $(srcdir)/libc/machine/h8500/Makefile.inc $(srcdir)/libc/machine/hppa/Makefile.inc $(srcdir)/libc/machine/i386/Makefile.inc $(srcdir)/libc/machine/i960/Makefile.inc $(srcdir)/libc/machine/iq2000/Makefile.inc $(srcdir)/libc/machine/lm32/Makefile.inc $(srcdir)/libc/machine/m32c/Makefile.inc $(srcdir)/libc/machine/m32r/Makefile.inc $(srcdir)/libc/machine/m68hc11/Makefile.inc $(srcdir)/libc/machine/m68k/Makefile.inc $(srcdir)/libc/machine/m88k/Makefile.inc $(srcdir)/libc/machine/mep/Makefile.inc $(srcdir)/libc/machine/microblaze/Makefile.inc $(srcdir)/libc/machine/mips/Makefile.inc $(srcdir)/libc/machine/mn10200/Makefile.inc $(srcdir)/libc/machine/mn10300/Makefile.inc $(srcdir)/libc/machine/moxie/Makefile.inc $(srcdir)/libc/machine/msp430/Makefile.inc $(srcdir)/libc/machine/mt/Makefile.inc $(srcdir)/libc/machine/nds32/Makefile.inc $(srcdir)/libc/machine/necv70/Makefile.inc $(srcdir)/libc/machine/nios2/Makefile.inc $(srcdir)/libc/machine/nvptx/Makefile.inc $(srcdir)/libc/machine/or1k/Makefile.inc $(srcdir)/libc/machine/powerpc/Makefile.inc $(srcdir)/libc/machine/pru/Makefile.inc $(srcdir)/libc/machine/riscv/Makefile.inc $(srcdir)/libc/machine/rl78/Makefile.inc $(srcdir)/libc/machine/rx/Makefile.inc $(srcdir)/libc/machine/sh/Makefile.inc $(srcdir)/libc/machine/sparc/Makefile.inc $(srcdir)/libc/machine/spu/Makefile.inc $(srcdir)/libc/machine/tic4x/Makefile.inc $(srcdir)/libc/machine/tic6x/Makefile.inc $(srcdir)/libc/machine/tic80/Makefile.inc $(srcdir)/libc/machine/v850/Makefile.inc $(srcdir)/libc/machine/visium/Makefile.inc $(srcdir)/libc/machine/w65/Makefile.inc $(srcdir)/libc/machine/x86_64/Makefile.inc $(srcdir)/libc/machine/xc16x/Makefile.inc $(srcdir)/libc/machine/xstormy16/Makefile.inc $(srcdir)/libc/machine/xtensa/Makefile.inc $(srcdir)/libc/machine/z8k/Makefile.inc $(srcdir)/libm/Makefile.inc $(srcdir)/libm/mathfp/Makefile.inc $(srcdir)/libm/math/Makefile.inc $(srcdir)/libm/common/Makefile.inc $(srcdir)/libm/ld/Makefile.inc $(srcdir)/libm/complex/Makefile.inc $(srcdir)/libm/fenv/Makefile.inc $(srcdir)/libm/test/Makefile.inc $(srcdir)/libm/machine/aarch64/Makefile.inc $(srcdir)/libm/ld128/Makefile.inc $(srcdir)/libm/machine/amdgcn/Makefile.inc $(srcdir)/libm/machine/arm/Makefile.inc $(srcdir)/libm/machine/i386/Makefile.inc $(srcdir)/libm/ld80/Makefile.inc $(srcdir)/libm/machine/mips/Makefile.inc $(srcdir)/libm/machine/nds32/Makefile.inc $(srcdir)/libm/machine/powerpc/Makefile.inc $(srcdir)/libm/machine/pru/Makefile.inc $(srcdir)/libm/machine/sparc/Makefile.inc $(srcdir)/libm/machine/spu/Makefile.inc $(srcdir)/libm/machine/riscv/Makefile.inc $(srcdir)/libm/ld128/Makefile.inc $(srcdir)/libm/machine/x86_64/Makefile.inc $(srcdir)/libm/ld80/Makefile.inc $(srcdir)/libm/ld80/Makefile.inc $(srcdir)/libm/machine/xtensa/Makefile.inc $(am__configure_deps)
 	@for dep in $?; do \
 	  case '$(am__configure_deps)' in \
 	    *$$dep*) \
@@ -5580,7 +5632,7 @@ Makefile: $(srcdir)/Makefile.in $(top_builddir)/config.status
 	    echo ' cd $(top_builddir) && $(SHELL) ./config.status $@ $(am__depfiles_maybe)'; \
 	    cd $(top_builddir) && $(SHELL) ./config.status $@ $(am__depfiles_maybe);; \
 	esac;
-$(srcdir)/../multilib.am $(srcdir)/doc/Makefile.inc $(srcdir)/libc/Makefile.inc $(srcdir)/libc/argz/Makefile.inc $(srcdir)/libc/stdlib/Makefile.inc $(srcdir)/libc/ctype/Makefile.inc $(srcdir)/libc/search/Makefile.inc $(srcdir)/libc/stdio/Makefile.inc $(srcdir)/libc/stdio64/Makefile.inc $(srcdir)/libc/string/Makefile.inc $(srcdir)/libc/signal/Makefile.inc $(srcdir)/libc/time/Makefile.inc $(srcdir)/libc/locale/Makefile.inc $(srcdir)/libc/reent/Makefile.inc $(srcdir)/libc/errno/Makefile.inc $(srcdir)/libc/misc/Makefile.inc $(srcdir)/libc/unix/Makefile.inc $(srcdir)/libc/posix/Makefile.inc $(srcdir)/libc/syscalls/Makefile.inc $(srcdir)/libc/stdbit/Makefile.inc $(srcdir)/libc/iconv/Makefile.inc $(srcdir)/libc/iconv/ces/Makefile.inc $(srcdir)/libc/iconv/ccs/Makefile.inc $(srcdir)/libc/iconv/ccs/binary/Makefile.inc $(srcdir)/libc/iconv/lib/Makefile.inc $(srcdir)/libc/xdr/Makefile.inc $(srcdir)/libc/ssp/Makefile.inc $(srcdir)/libc/sys/Makefile.inc $(srcdir)/libc/sys/a29khif/Makefile.inc $(srcdir)/libc/sys/amdgcn/Makefile.inc $(srcdir)/libc/sys/amigaos/Makefile.inc $(srcdir)/libc/sys/arm/Makefile.inc $(srcdir)/libc/sys/atari/Makefile.inc $(srcdir)/libc/sys/d10v/Makefile.inc $(srcdir)/libc/sys/epiphany/Makefile.inc $(srcdir)/libc/sys/h8300hms/Makefile.inc $(srcdir)/libc/sys/h8500hms/Makefile.inc $(srcdir)/libc/sys/m88kbug/Makefile.inc $(srcdir)/libc/sys/mmixware/Makefile.inc $(srcdir)/libc/sys/netware/Makefile.inc $(srcdir)/libc/sys/or1k/Makefile.inc $(srcdir)/libc/sys/rdos/Makefile.inc $(srcdir)/libc/sys/rtems/Makefile.inc $(srcdir)/libc/sys/sh/Makefile.inc $(srcdir)/libc/sys/sysmec/Makefile.inc $(srcdir)/libc/sys/sysnec810/Makefile.inc $(srcdir)/libc/sys/sysnecv850/Makefile.inc $(srcdir)/libc/sys/sysvi386/Makefile.inc $(srcdir)/libc/sys/sysvnecv70/Makefile.inc $(srcdir)/libc/sys/tic80/Makefile.inc $(srcdir)/libc/sys/tirtos/Makefile.inc $(srcdir)/libc/sys/w65/Makefile.inc $(srcdir)/libc/sys/z8ksim/Makefile.inc $(srcdir)/libc/machine/Makefile.inc $(srcdir)/libc/machine/aarch64/Makefile.inc $(srcdir)/libc/machine/amdgcn/Makefile.inc $(srcdir)/libc/machine/arc/Makefile.inc $(srcdir)/libc/machine/arc64/Makefile.inc $(srcdir)/libc/machine/arm/Makefile.inc $(srcdir)/libc/machine/bfin/Makefile.inc $(srcdir)/libc/machine/cr16/Makefile.inc $(srcdir)/libc/machine/cris/Makefile.inc $(srcdir)/libc/machine/crx/Makefile.inc $(srcdir)/libc/machine/csky/Makefile.inc $(srcdir)/libc/machine/d10v/Makefile.inc $(srcdir)/libc/machine/d30v/Makefile.inc $(srcdir)/libc/machine/epiphany/Makefile.inc $(srcdir)/libc/machine/fr30/Makefile.inc $(srcdir)/libc/machine/frv/Makefile.inc $(srcdir)/libc/machine/ft32/Makefile.inc $(srcdir)/libc/machine/h8300/Makefile.inc $(srcdir)/libc/machine/h8500/Makefile.inc $(srcdir)/libc/machine/hppa/Makefile.inc $(srcdir)/libc/machine/i386/Makefile.inc $(srcdir)/libc/machine/i960/Makefile.inc $(srcdir)/libc/machine/iq2000/Makefile.inc $(srcdir)/libc/machine/lm32/Makefile.inc $(srcdir)/libc/machine/m32c/Makefile.inc $(srcdir)/libc/machine/m32r/Makefile.inc $(srcdir)/libc/machine/m68hc11/Makefile.inc $(srcdir)/libc/machine/m68k/Makefile.inc $(srcdir)/libc/machine/m88k/Makefile.inc $(srcdir)/libc/machine/mep/Makefile.inc $(srcdir)/libc/machine/microblaze/Makefile.inc $(srcdir)/libc/machine/mips/Makefile.inc $(srcdir)/libc/machine/mn10200/Makefile.inc $(srcdir)/libc/machine/mn10300/Makefile.inc $(srcdir)/libc/machine/moxie/Makefile.inc $(srcdir)/libc/machine/msp430/Makefile.inc $(srcdir)/libc/machine/mt/Makefile.inc $(srcdir)/libc/machine/nds32/Makefile.inc $(srcdir)/libc/machine/necv70/Makefile.inc $(srcdir)/libc/machine/nios2/Makefile.inc $(srcdir)/libc/machine/nvptx/Makefile.inc $(srcdir)/libc/machine/or1k/Makefile.inc $(srcdir)/libc/machine/powerpc/Makefile.inc $(srcdir)/libc/machine/pru/Makefile.inc $(srcdir)/libc/machine/riscv/Makefile.inc $(srcdir)/libc/machine/rl78/Makefile.inc $(srcdir)/libc/machine/rx/Makefile.inc $(srcdir)/libc/machine/sh/Makefile.inc $(srcdir)/libc/machine/sparc/Makefile.inc $(srcdir)/libc/machine/spu/Makefile.inc $(srcdir)/libc/machine/tic4x/Makefile.inc $(srcdir)/libc/machine/tic6x/Makefile.inc $(srcdir)/libc/machine/tic80/Makefile.inc $(srcdir)/libc/machine/v850/Makefile.inc $(srcdir)/libc/machine/visium/Makefile.inc $(srcdir)/libc/machine/w65/Makefile.inc $(srcdir)/libc/machine/x86_64/Makefile.inc $(srcdir)/libc/machine/xc16x/Makefile.inc $(srcdir)/libc/machine/xstormy16/Makefile.inc $(srcdir)/libc/machine/xtensa/Makefile.inc $(srcdir)/libc/machine/z8k/Makefile.inc $(srcdir)/libm/Makefile.inc $(srcdir)/libm/mathfp/Makefile.inc $(srcdir)/libm/math/Makefile.inc $(srcdir)/libm/common/Makefile.inc $(srcdir)/libm/ld/Makefile.inc $(srcdir)/libm/complex/Makefile.inc $(srcdir)/libm/fenv/Makefile.inc $(srcdir)/libm/test/Makefile.inc $(srcdir)/libm/machine/aarch64/Makefile.inc $(srcdir)/libm/ld128/Makefile.inc $(srcdir)/libm/machine/amdgcn/Makefile.inc $(srcdir)/libm/machine/arm/Makefile.inc $(srcdir)/libm/machine/i386/Makefile.inc $(srcdir)/libm/ld80/Makefile.inc $(srcdir)/libm/machine/mips/Makefile.inc $(srcdir)/libm/machine/nds32/Makefile.inc $(srcdir)/libm/machine/powerpc/Makefile.inc $(srcdir)/libm/machine/pru/Makefile.inc $(srcdir)/libm/machine/sparc/Makefile.inc $(srcdir)/libm/machine/spu/Makefile.inc $(srcdir)/libm/machine/riscv/Makefile.inc $(srcdir)/libm/ld128/Makefile.inc $(srcdir)/libm/machine/x86_64/Makefile.inc $(srcdir)/libm/ld80/Makefile.inc $(srcdir)/libm/machine/xtensa/Makefile.inc $(am__empty):
+$(srcdir)/../multilib.am $(srcdir)/doc/Makefile.inc $(srcdir)/libc/Makefile.inc $(srcdir)/libc/argz/Makefile.inc $(srcdir)/libc/stdlib/Makefile.inc $(srcdir)/libc/ctype/Makefile.inc $(srcdir)/libc/search/Makefile.inc $(srcdir)/libc/stdio/Makefile.inc $(srcdir)/libc/stdio64/Makefile.inc $(srcdir)/libc/string/Makefile.inc $(srcdir)/libc/signal/Makefile.inc $(srcdir)/libc/time/Makefile.inc $(srcdir)/libc/locale/Makefile.inc $(srcdir)/libc/reent/Makefile.inc $(srcdir)/libc/errno/Makefile.inc $(srcdir)/libc/misc/Makefile.inc $(srcdir)/libc/unix/Makefile.inc $(srcdir)/libc/posix/Makefile.inc $(srcdir)/libc/syscalls/Makefile.inc $(srcdir)/libc/stdbit/Makefile.inc $(srcdir)/libc/iconv/Makefile.inc $(srcdir)/libc/iconv/ces/Makefile.inc $(srcdir)/libc/iconv/ccs/Makefile.inc $(srcdir)/libc/iconv/ccs/binary/Makefile.inc $(srcdir)/libc/iconv/lib/Makefile.inc $(srcdir)/libc/xdr/Makefile.inc $(srcdir)/libc/ssp/Makefile.inc $(srcdir)/libc/sys/Makefile.inc $(srcdir)/libc/sys/a29khif/Makefile.inc $(srcdir)/libc/sys/amdgcn/Makefile.inc $(srcdir)/libc/sys/amigaos/Makefile.inc $(srcdir)/libc/sys/arm/Makefile.inc $(srcdir)/libc/sys/atari/Makefile.inc $(srcdir)/libc/sys/d10v/Makefile.inc $(srcdir)/libc/sys/epiphany/Makefile.inc $(srcdir)/libc/sys/h8300hms/Makefile.inc $(srcdir)/libc/sys/h8500hms/Makefile.inc $(srcdir)/libc/sys/m88kbug/Makefile.inc $(srcdir)/libc/sys/mmixware/Makefile.inc $(srcdir)/libc/sys/netware/Makefile.inc $(srcdir)/libc/sys/or1k/Makefile.inc $(srcdir)/libc/sys/rdos/Makefile.inc $(srcdir)/libc/sys/rtems/Makefile.inc $(srcdir)/libc/sys/sh/Makefile.inc $(srcdir)/libc/sys/sysmec/Makefile.inc $(srcdir)/libc/sys/sysnec810/Makefile.inc $(srcdir)/libc/sys/sysnecv850/Makefile.inc $(srcdir)/libc/sys/sysvi386/Makefile.inc $(srcdir)/libc/sys/sysvnecv70/Makefile.inc $(srcdir)/libc/sys/tic80/Makefile.inc $(srcdir)/libc/sys/tirtos/Makefile.inc $(srcdir)/libc/sys/w65/Makefile.inc $(srcdir)/libc/sys/z8ksim/Makefile.inc $(srcdir)/libc/machine/Makefile.inc $(srcdir)/libc/machine/aarch64/Makefile.inc $(srcdir)/libc/machine/amdgcn/Makefile.inc $(srcdir)/libc/machine/arc/Makefile.inc $(srcdir)/libc/machine/arc64/Makefile.inc $(srcdir)/libc/machine/arm/Makefile.inc $(srcdir)/libc/machine/bfin/Makefile.inc $(srcdir)/libc/machine/cr16/Makefile.inc $(srcdir)/libc/machine/cris/Makefile.inc $(srcdir)/libc/machine/crx/Makefile.inc $(srcdir)/libc/machine/csky/Makefile.inc $(srcdir)/libc/machine/d10v/Makefile.inc $(srcdir)/libc/machine/d30v/Makefile.inc $(srcdir)/libc/machine/epiphany/Makefile.inc $(srcdir)/libc/machine/fr30/Makefile.inc $(srcdir)/libc/machine/frv/Makefile.inc $(srcdir)/libc/machine/ft32/Makefile.inc $(srcdir)/libc/machine/h8300/Makefile.inc $(srcdir)/libc/machine/h8500/Makefile.inc $(srcdir)/libc/machine/hppa/Makefile.inc $(srcdir)/libc/machine/i386/Makefile.inc $(srcdir)/libc/machine/i960/Makefile.inc $(srcdir)/libc/machine/iq2000/Makefile.inc $(srcdir)/libc/machine/lm32/Makefile.inc $(srcdir)/libc/machine/m32c/Makefile.inc $(srcdir)/libc/machine/m32r/Makefile.inc $(srcdir)/libc/machine/m68hc11/Makefile.inc $(srcdir)/libc/machine/m68k/Makefile.inc $(srcdir)/libc/machine/m88k/Makefile.inc $(srcdir)/libc/machine/mep/Makefile.inc $(srcdir)/libc/machine/microblaze/Makefile.inc $(srcdir)/libc/machine/mips/Makefile.inc $(srcdir)/libc/machine/mn10200/Makefile.inc $(srcdir)/libc/machine/mn10300/Makefile.inc $(srcdir)/libc/machine/moxie/Makefile.inc $(srcdir)/libc/machine/msp430/Makefile.inc $(srcdir)/libc/machine/mt/Makefile.inc $(srcdir)/libc/machine/nds32/Makefile.inc $(srcdir)/libc/machine/necv70/Makefile.inc $(srcdir)/libc/machine/nios2/Makefile.inc $(srcdir)/libc/machine/nvptx/Makefile.inc $(srcdir)/libc/machine/or1k/Makefile.inc $(srcdir)/libc/machine/powerpc/Makefile.inc $(srcdir)/libc/machine/pru/Makefile.inc $(srcdir)/libc/machine/riscv/Makefile.inc $(srcdir)/libc/machine/rl78/Makefile.inc $(srcdir)/libc/machine/rx/Makefile.inc $(srcdir)/libc/machine/sh/Makefile.inc $(srcdir)/libc/machine/sparc/Makefile.inc $(srcdir)/libc/machine/spu/Makefile.inc $(srcdir)/libc/machine/tic4x/Makefile.inc $(srcdir)/libc/machine/tic6x/Makefile.inc $(srcdir)/libc/machine/tic80/Makefile.inc $(srcdir)/libc/machine/v850/Makefile.inc $(srcdir)/libc/machine/visium/Makefile.inc $(srcdir)/libc/machine/w65/Makefile.inc $(srcdir)/libc/machine/x86_64/Makefile.inc $(srcdir)/libc/machine/xc16x/Makefile.inc $(srcdir)/libc/machine/xstormy16/Makefile.inc $(srcdir)/libc/machine/xtensa/Makefile.inc $(srcdir)/libc/machine/z8k/Makefile.inc $(srcdir)/libm/Makefile.inc $(srcdir)/libm/mathfp/Makefile.inc $(srcdir)/libm/math/Makefile.inc $(srcdir)/libm/common/Makefile.inc $(srcdir)/libm/ld/Makefile.inc $(srcdir)/libm/complex/Makefile.inc $(srcdir)/libm/fenv/Makefile.inc $(srcdir)/libm/test/Makefile.inc $(srcdir)/libm/machine/aarch64/Makefile.inc $(srcdir)/libm/ld128/Makefile.inc $(srcdir)/libm/machine/amdgcn/Makefile.inc $(srcdir)/libm/machine/arm/Makefile.inc $(srcdir)/libm/machine/i386/Makefile.inc $(srcdir)/libm/ld80/Makefile.inc $(srcdir)/libm/machine/mips/Makefile.inc $(srcdir)/libm/machine/nds32/Makefile.inc $(srcdir)/libm/machine/powerpc/Makefile.inc $(srcdir)/libm/machine/pru/Makefile.inc $(srcdir)/libm/machine/sparc/Makefile.inc $(srcdir)/libm/machine/spu/Makefile.inc $(srcdir)/libm/machine/riscv/Makefile.inc $(srcdir)/libm/ld128/Makefile.inc $(srcdir)/libm/machine/x86_64/Makefile.inc $(srcdir)/libm/ld80/Makefile.inc $(srcdir)/libm/ld80/Makefile.inc $(srcdir)/libm/machine/xtensa/Makefile.inc $(am__empty):
 
 $(top_builddir)/config.status: $(top_srcdir)/configure $(CONFIG_STATUS_DEPENDENCIES)
 	$(SHELL) ./config.status --recheck

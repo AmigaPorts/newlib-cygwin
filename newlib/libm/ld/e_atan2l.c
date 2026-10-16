@@ -68,7 +68,7 @@ atan2l(long double y, long double x)
 	m = ((expsigny>>15)&1)|((expsignx>>14)&2);	/* 2*sign(x)+sign(y) */
 
     /* when y = 0 */
-	if(expty==0 && ((uy.bits.manh&~LDBL_NBIT)|uy.bits.manl)==0) {
+	if(expty==0 && (uy.bits.manh|uy.bits.manl)==0) {
 	    switch(m) {
 		case 0:
 		case 1: return y; 	/* atan(+-0,+anything)=+-0 */
@@ -77,7 +77,7 @@ atan2l(long double y, long double x)
 	    }
 	}
     /* when x = 0 */
-	if(exptx==0 && ((ux.bits.manh&~LDBL_NBIT)|ux.bits.manl)==0)
+	if(exptx==0 && (ux.bits.manh|ux.bits.manl)==0)
 	    return (expsigny<0)?  -pio2_hi-tiny: pio2_hi+tiny;
 
     /* when x is INF */
