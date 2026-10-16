@@ -968,6 +968,11 @@ if [ "x${xdr_dir}" = "x" ]; then
 	noinclude="${noinclude} rpc/types.h rpc/xdr.h"
 fi
 
+# Remove ftw.h if posix_dir not specified: ftw() and nftw() are in libc/posix
+if [ "x${posix_dir}" = "x" ]; then
+	noinclude="${noinclude} ftw.h"
+fi
+
 # Have init/finit if not explicitly specified otherwise
 if [ "x${have_init_fini}" != "xno" ]; then
 	newlib_cflags="${newlib_cflags} -D_HAVE_INIT_FINI"
