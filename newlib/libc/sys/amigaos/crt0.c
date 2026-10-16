@@ -185,6 +185,16 @@ void __initlibraries(void) {
  		  break;
 		}
 	}
+
+	/* On an FPU, the IEEE maths libraries set the FPCR of the task that
+	 * opens them: mathieeesingbas to $40 (round to single precision),
+	 * mathieeedoubbas to $10 (round toward zero).  Our soft-float goes
+	 * through them, so after mathieeesingbas every double would be rounded
+	 * to single precision.  A shell's commands also share its process and
+	 * inherit what the previous one left.  Start from the FPU's reset value,
+	 * which is what C expects: round to nearest, extended precision. */
+	if (SysBase->AttnFlags & AFF_68881)
+		__asm__ volatile ("moveq #0,d0\n\t.short 0xf200,0x9000" ::: "d0");	/* fmove.l d0,fpcr */
 }
 
 /**
