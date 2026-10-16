@@ -6,6 +6,7 @@
 #include <dos/dosextens.h>
 #include <inline/exec.h>
 #include <string.h>
+#include <reent.h>
 #include <stabs.h>
 #include "startup.h"
 
@@ -33,6 +34,8 @@ __entrypoint void callfuncs(int * p asm("a2"), unsigned short prioo asm("d2"));
 struct ExecBase * SysBase;
 static int __savedSp;
 static unsigned short cleanupflag;
+/* Set by exit(), not by _exit(): only a normal exit flushes stdio.  */
+static int normalexit;
 
 /* The command-line initializer owns __argc and __argv.  Their zero-filled
  * defaults are also the documented no-argument state when an application
@@ -89,6 +92,7 @@ void __entrypoint __restore_a4(void) {
 __saveds
 #endif
 __stdargs void exit(int rc) {
+	normalexit = 1;
 	__call_exitprocs(rc, NULL);
 	__crt0_exit(rc);
 	__builtin_unreachable();
@@ -221,8 +225,17 @@ void __exitcpp() {
  * the documented no-argument override. */
 static void (*used_commandline)(void) __attribute__((used)) = __nocommandline;
 
+/* Flush and close the streams on exit(), as newlib's generic exit() does.
+ * Here it runs from the exit list: after the static destructors, which may
+ * still write, and before open.c closes the file handles. */
+void __exitstdio(void) {
+	if (normalexit && _GLOBAL_REENT->__cleanup)
+		(*_GLOBAL_REENT->__cleanup)(_GLOBAL_REENT);
+}
+
 ADD2INIT(__initlibraries, -100);
 ADD2EXIT(__exitlibraries, -100);
 ADD2INIT(__initcpp, 100);
 ADD2EXIT(__exitcpp, 100);
+ADD2EXIT(__exitstdio, 0);
 
