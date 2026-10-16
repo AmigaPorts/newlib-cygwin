@@ -42,15 +42,13 @@ DESCRIPTION
 */
 
 int
-_isatty_r (ptr, fd)
-     struct _reent *ptr;
-     int fd;
+_isatty_r (struct _reent *ptr, int fd)
 {
   int ret;
 
   errno = 0;
   if ((ret = _isatty (fd)) == -1 && errno != 0)
-    ptr->_errno = errno;
+    _REENT_ERRNO(ptr) = errno;
   return ret;
 }
 

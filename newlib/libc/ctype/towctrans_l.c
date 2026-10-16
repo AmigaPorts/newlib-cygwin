@@ -1,8 +1,12 @@
 /* Modified (m) 2017 Thomas Wolff: revise Unicode and locale/wchar handling */
 #include <_ansi.h>
+#include <ctype.h>
 #include <wctype.h>
+#include <stdint.h>
 //#include <errno.h>
 #include "local.h"
+
+#ifdef _MB_CAPABLE
 
 /*
    struct caseconv_entry describes the case conversion behaviour
@@ -35,10 +39,10 @@
 enum {TO1, TOLO, TOUP, TOBOTH};
 enum {EVENCAP, ODDCAP};
 static struct caseconv_entry {
-  unsigned int first: 21;
-  unsigned short diff: 8;
-  unsigned char mode: 2;
-  int delta: 17;
+  uint_least32_t first: 21;
+  uint_least32_t diff: 8;
+  uint_least32_t mode: 2;
+  int_least32_t delta: 17;
 } __attribute__ ((packed))
 caseconv_table [] = {
 #include "caseconv.t"
@@ -68,9 +72,21 @@ bisearch (wint_t ucs, const struct caseconv_entry *table, int max)
   return 0;
 }
 
-static wint_t
-toulower (wint_t c)
+static int
+isturk (struct __locale_t *locale)
 {
+  const char * loc = getlocalename_l (LC_CTYPE, locale);
+  if (!loc)
+    return 0;
+  return 0 == strncmp (loc, "tr", 2) || 0 == strncmp (loc, "az", 2);
+}
+
+static wint_t
+toulower (wint_t c, struct __locale_t *locale)
+{
+  if (c == 'I' && isturk (locale))
+    return 0x131; // LATIN SMALL LETTER DOTLESS I
+
   const struct caseconv_entry * cce =
     bisearch(c, caseconv_table,
              sizeof(caseconv_table) / sizeof(*caseconv_table) - 1);
@@ -104,8 +120,11 @@ toulower (wint_t c)
 }
 
 static wint_t
-touupper (wint_t c)
+touupper (wint_t c, struct __locale_t *locale)
 {
+  if (c == 'i' && isturk (locale))
+    return 0x130; // LATIN CAPITAL LETTER I WITH DOT ABOVE
+
   const struct caseconv_entry * cce =
     bisearch(c, caseconv_table,
              sizeof(caseconv_table) / sizeof(*caseconv_table) - 1);
@@ -138,15 +157,18 @@ touupper (wint_t c)
   return c;
 }
 
+#endif /* _MB_CAPABLE */
+
 wint_t
 towctrans_l (wint_t c, wctrans_t w, struct __locale_t *locale)
 {
+#ifdef _MB_CAPABLE
   wint_t u = _jp2uc_l (c, locale);
   wint_t res;
   if (w == WCT_TOLOWER)
-    res = toulower (u);
+    res = toulower (u, locale);
   else if (w == WCT_TOUPPER)
-    res = touupper (u);
+    res = touupper (u, locale);
   else
     {
       // skipping the errno setting that was previously involved
@@ -158,4 +180,14 @@ towctrans_l (wint_t c, wctrans_t w, struct __locale_t *locale)
     return _uc2jp_l (res, locale);
   else
     return c;
+#else
+  if (c < (wint_t)0x100)
+    {
+      if (w == WCT_TOLOWER)
+	return tolower (c);
+      if (w == WCT_TOUPPER)
+	return toupper (c);
+    }
+  return c;
+#endif /* _MB_CAPABLE */
 }

@@ -60,11 +60,11 @@ static intmax_t
 _strtoimax_l(struct _reent *rptr, const char * __restrict nptr,
 	     char ** __restrict endptr, int base, locale_t loc)
 {
-	const char *s = (const unsigned char *)nptr;
-	uintmax_t acc;
+	const char *s = nptr;
+	uintmax_t acc = 0;
 	char c;
 	uintmax_t cutoff;
-	int neg = 0, any, cutlim;
+	int neg = 0, any = 0, cutlim;
 
 	/*
 	 * Skip white space and pick up leading +/- sign if any.
@@ -85,11 +85,15 @@ _strtoimax_l(struct _reent *rptr, const char * __restrict nptr,
 	if ((base == 0 || base == 16) &&
 	    c == '0' && (*s == 'x' || *s == 'X')) {
 		c = s[1];
+                nptr = s; /* prepares if no valid hex digit follows */
 		s += 2;
 		base = 16;
 	}
 	if (base == 0)
 		base = c == '0' ? 8 : 10;
+
+	if (base < 2 || base > 36)
+		goto noconv;
 
 	/*
 	 * Compute the cutoff value between legal numbers and illegal
@@ -133,10 +137,10 @@ _strtoimax_l(struct _reent *rptr, const char * __restrict nptr,
 	}
 	if (any < 0) {
 		acc = neg ? INTMAX_MIN : INTMAX_MAX;
-		rptr->_errno = ERANGE;
+		_REENT_ERRNO(rptr) = ERANGE;
 	} else if (!any) {
 noconv:
-		rptr->_errno = EINVAL;
+		_REENT_ERRNO(rptr) = EINVAL;
 	} else if (neg)
 		acc = -acc;
 	if (endptr != NULL)

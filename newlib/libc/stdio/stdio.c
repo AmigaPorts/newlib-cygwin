@@ -5,7 +5,7 @@
  * Redistribution and use in source and binary forms are permitted
  * provided that the above copyright notice and this paragraph are
  * duplicated in all such forms and that any documentation,
- * advertising materials, and other materials related to such
+ * and/or other materials related to such
  * distribution and use acknowledge that the software was developed
  * by the University of California, Berkeley.  The name of the
  * University may not be used to endorse or promote products derived
@@ -138,6 +138,10 @@ __stextmode (int fd)
   extern int _cygwin_istext_for_stdio (int);
   return _cygwin_istext_for_stdio (fd);
 #else
+  #ifdef __M68K_ATARI_ELF__
+    extern int atari_istext_for_stdio (int);
+    return atari_istext_for_stdio (fd);
+  #endif
   return 0;
 #endif
 }

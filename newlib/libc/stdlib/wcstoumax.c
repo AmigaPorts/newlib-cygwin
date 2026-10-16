@@ -84,6 +84,7 @@ _wcstoumax_l(struct _reent *rptr,const wchar_t * __restrict nptr,
 	if ((base == 0 || base == 16) &&
 	    c == L'0' && (*s == L'x' || *s == L'X')) {
 		c = s[1];
+                nptr = s; /* prepares if no valid hex digit follows */
 		s += 2;
 		base = 16;
 	}
@@ -121,10 +122,10 @@ _wcstoumax_l(struct _reent *rptr,const wchar_t * __restrict nptr,
 	}
 	if (any < 0) {
 		acc = UINTMAX_MAX;
-		rptr->_errno = ERANGE;
+		_REENT_ERRNO(rptr) = ERANGE;
 	} else if (!any) {
 noconv:
-		rptr->_errno = EINVAL;
+		_REENT_ERRNO(rptr) = EINVAL;
 	} else if (neg)
 		acc = -acc;
 	if (endptr != NULL)

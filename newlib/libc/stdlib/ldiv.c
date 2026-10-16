@@ -42,7 +42,9 @@ No supporting OS subroutines are required.
 */
 
 
-/*
+/*-
+ * SPDX-License-Identifier: BSD-3-Clause
+ *
  * Copyright (c) 1990 Regents of the University of California.
  * All rights reserved.
  *
@@ -57,11 +59,7 @@ No supporting OS subroutines are required.
  * 2. Redistributions in binary form must reproduce the above copyright
  *    notice, this list of conditions and the following disclaimer in the
  *    documentation and/or other materials provided with the distribution.
- * 3. All advertising materials mentioning features or use of this software
- *    must display the following acknowledgement:
- *	This product includes software developed by the University of
- *	California, Berkeley and its contributors.
- * 4. Neither the name of the University nor the names of its contributors
+ * 3. Neither the name of the University nor the names of its contributors
  *    may be used to endorse or promote products derived from this software
  *    without specific prior written permission.
  *
@@ -82,22 +80,12 @@ No supporting OS subroutines are required.
 #include <stdlib.h>		/* ldiv_t */
 
 ldiv_t
-ldiv (long num,
-        long denom)
+ldiv(long numer, long denom)
 {
 	ldiv_t r;
 
-	/* see div.c for comments */
+	r.quot = numer / denom;
+	r.rem = numer % denom;
 
-	r.quot = num / denom;
-	r.rem = num % denom;
-	if (num >= 0 && r.rem < 0) {
-		++r.quot;
-		r.rem -= denom;
-	}
-	else if (num < 0 && r.rem > 0) {
-		--r.quot;
-		r.rem += denom;
-	}
 	return (r);
 }

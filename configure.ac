@@ -23,6 +23,7 @@ m4_include(config/acx.m4)
 m4_include(config/override.m4)
 m4_include(config/proginstall.m4)
 m4_include(config/elf.m4)
+m4_include(config/gcc-plugin.m4)
 m4_include([libtool.m4])
 m4_include([ltoptions.m4])
 m4_include([ltsugar.m4])
@@ -31,7 +32,6 @@ m4_include([lt~obsolete.m4])
 m4_include([config/isl.m4])
 
 AC_INIT(move-if-change)
-AC_PREREQ(2.64)
 AC_DISABLE_OPTION_CHECKING
 
 progname=$0
@@ -337,7 +337,7 @@ case "${ENABLE_GOLD}" in
       *-*-elf* | *-*-sysv4* | *-*-unixware* | *-*-eabi* | hppa*64*-*-hpux* \
       | *-*-linux* | *-*-gnu* | frv-*-uclinux* | *-*-irix5* | *-*-irix6* \
       | *-*-netbsd* | *-*-openbsd* | *-*-freebsd* | *-*-dragonfly* \
-      | *-*-solaris2* | *-*-nto* | *-*-nacl*)
+      | *-*-solaris2* | *-*-nto* | *-*-nacl* | *-*-haiku*)
         case "${target}" in
           *-*-linux*aout* | *-*-linux*oldld*)
             ;;
@@ -1413,11 +1413,11 @@ if test "$GCC" = yes; then
   LDFLAGS="$LDFLAGS -static-libstdc++ -static-libgcc"
   AC_MSG_CHECKING([whether g++ accepts -static-libstdc++ -static-libgcc])
   AC_LANG_PUSH(C++)
-  AC_LINK_IFELSE([
+  AC_LINK_IFELSE([AC_LANG_SOURCE([
 #if (__GNUC__ < 4) || (__GNUC__ == 4 && __GNUC_MINOR__ < 5)
 #error -static-libstdc++ not implemented
 #endif
-int main() {}],
+int main() {}])],
     [AC_MSG_RESULT([yes]); have_static_libs=yes],
     [AC_MSG_RESULT([no])])
   AC_LANG_POP(C++)
@@ -2599,7 +2599,15 @@ esac
 
 # Some systems (e.g., one of the i386-aix systems the gas testers are
 # using) don't handle "\$" correctly, so don't use it here.
-tooldir='${exec_prefix}'/${target_noncanonical}
+AC_ARG_WITH([tooldir],
+  [AS_HELP_STRING([--with-tooldir=PATH],
+		[use given path to install target tools after build])],
+  [AS_CASE([x"$withval"],
+	[x/*],,
+	[AC_MSG_ERROR([argument to --with-tooldir must be an absolute path])])
+  ],
+  [with_tooldir='${exec_prefix}'/${target_noncanonical}])
+tooldir=${with_tooldir}
 build_tooldir=${tooldir}
 
 # Create a .gdbinit file which runs the one in srcdir
@@ -2787,7 +2795,9 @@ INSTALL_GDB_TK=`echo ${GDB_TK} | sed s/-all-/-install-/g`
 # extrasub-{build,host,target} not because there is any reason to split
 # the substitutions up that way, but only to remain below the limit of
 # 99 commands in a script, for HP-UX sed.
-# Do not nest @if/@endif pairs, because configure will not warn you at all.
+
+# Do not nest @if/@endif or @unless/@endunless pairs, because
+# configure will not warn you at all.
 
 case "$enable_bootstrap:$ENABLE_GOLD: $configdirs :,$stage1_languages," in
   yes:yes:*\ gold\ *:*,c++,*) ;;
@@ -2806,8 +2816,10 @@ for module in ${build_configdirs} ; do
   extrasub_build="$extrasub_build
 /^@if build-$module\$/d
 /^@endif build-$module\$/d
+/^@unless build-$module\$/,/^@endunless build-$module\$/d
 /^@if build-$module-$bootstrap_suffix\$/d
-/^@endif build-$module-$bootstrap_suffix\$/d"
+/^@endif build-$module-$bootstrap_suffix\$/d
+/^@unless build-$module-$bootstrap_suffix\$/,/^@endunless build-$module-$bootstrap_suffix\$/d"
 done
 extrasub_host=
 for module in ${configdirs} ; do
@@ -2826,8 +2838,10 @@ for module in ${configdirs} ; do
   extrasub_host="$extrasub_host
 /^@if $module\$/d
 /^@endif $module\$/d
+/^@unless $module\$/,/^@endunless $module\$/d
 /^@if $module-$host_bootstrap_suffix\$/d
-/^@endif $module-$host_bootstrap_suffix\$/d"
+/^@endif $module-$host_bootstrap_suffix\$/d
+/^@unless $module-$host_bootstrap_suffix\$/,/^@endunless $module-$host_bootstrap_suffix\$/d"
 done
 extrasub_target=
 for module in ${target_configdirs} ; do
@@ -2846,13 +2860,17 @@ for module in ${target_configdirs} ; do
   extrasub_target="$extrasub_target
 /^@if target-$module\$/d
 /^@endif target-$module\$/d
+/^@unless target-$module\$/,/^@endunless target-$module\$/d
 /^@if target-$module-$target_bootstrap_suffix\$/d
-/^@endif target-$module-$target_bootstrap_suffix\$/d"
+/^@endif target-$module-$target_bootstrap_suffix\$/d
+/^@unless target-$module-$target_bootstrap_suffix\$/,/^@endunless target-$module-$target_bootstrap_suffix\$/d"
 done
 
 # Do the final fixup along with target modules.
 extrasub_target="$extrasub_target
-/^@if /,/^@endif /d"
+/^@if /,/^@endif /d
+/^@unless /d
+/^@endunless /d"
 
 # Create the serialization dependencies.  This uses a temporary file.
 
@@ -3384,6 +3402,20 @@ AC_SUBST(CC)
 AC_SUBST(CXX)
 AC_SUBST(CFLAGS)
 AC_SUBST(CXXFLAGS)
+
+GCC_PLUGIN_OPTION(PLUGIN_OPTION)
+AR_PLUGIN_OPTION=
+RANLIB_PLUGIN_OPTION=
+if test -n "$PLUGIN_OPTION"; then
+  if $AR --help 2>&1 | grep -q "\--plugin"; then
+    AR_PLUGIN_OPTION="$PLUGIN_OPTION"
+  fi
+  if $RANLIB --help 2>&1 | grep -q "\--plugin"; then
+    RANLIB_PLUGIN_OPTION="$PLUGIN_OPTION"
+  fi
+fi
+AC_SUBST(AR_PLUGIN_OPTION)
+AC_SUBST(RANLIB_PLUGIN_OPTION)
 
 # Target tools.
 AC_ARG_WITH([build-time-tools], 
