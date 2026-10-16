@@ -230,13 +230,14 @@ exp2l(long double x)
 	ix = hx & 0x7fff;
 	if (ix >= BIAS + 14) {		/* |x| >= 16384 or x is NaN */
 		if (ix == BIAS + LDBL_MAX_EXP) {
-			if (hx & 0x8000 && u.xbits.man == 1ULL << 63)
+			/* The integer bit of an infinity may be clear.  */
+			if (hx & 0x8000 && (u.xbits.man << 1) == 0)
 				return (0.0L);	/* x is -Inf */
 			return (x + x); /* x is +Inf, NaN or unsupported */
 		}
 		if (x >= 16384)
 			return (huge * huge);	/* overflow */
-		if (x <= -16446)
+		if (x <= LDBL_MIN_EXP - LDBL_MANT_DIG - 1)
 			return (twom10000 * twom10000);	/* underflow */
 	} else if (ix <= BIAS - 66) {	/* |x| < 0x1p-65 (includes pseudos) */
 		return (1.0L + x);	/* 1 with inexact */

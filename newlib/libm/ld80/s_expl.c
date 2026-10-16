@@ -65,8 +65,13 @@ static const union IEEEl2bits
 /* log(2**16384 - 0.5 + 1) rounded towards zero for expm1l() is the same: */
 o_thresholdu = LD80C(0xb17217f7d1cf79ab, 13,  11356.5234062941439488L),
 #define o_threshold	 (o_thresholdu.e)
+#ifdef LDBL_EXP0_NOT_BUMPED
+/* log(2**(-16382-64-1)) rounded towards zero: */
+u_thresholdu = LD80C(0xb220c44769c201e7, 13, -11400.1916786694205035L);
+#else
 /* log(2**(-16381-64-1)) rounded towards zero: */
 u_thresholdu = LD80C(0xb21dfe7f09e2baa9, 13, -11399.4985314888605581L);
+#endif
 #define u_threshold	 (u_thresholdu.e)
 
 long double
