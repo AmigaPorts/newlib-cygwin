@@ -729,6 +729,13 @@ rm -f conftest*])
 if test $newlib_cv_ldbl_eq_dbl = yes; then
   AC_DEFINE(_LDBL_EQ_DBL, 1, [Define if the platform long double type is equal to double.])
 fi
+dnl libm/ld needs a machine/_fpmath.h and a long double wider than double:
+dnl m68k has the header for the 68881 format, but ColdFire's long double is
+dnl double.
+AM_CONDITIONAL([HAVE_FPMATH_H],
+  [test -r "${srcdir}/libc/machine/${machine_dir}/machine/_fpmath.h" &&
+   test "$IS_AARCH64_WINDOWS" = no &&
+   test "$newlib_cv_ldbl_eq_dbl" = no])
 
 AC_CONFIG_FILES([Makefile])
 AC_OUTPUT
