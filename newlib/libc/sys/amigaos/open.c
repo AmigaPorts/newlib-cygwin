@@ -51,9 +51,14 @@ int _open(const char *name, int flags, ...) {
 asm("_close: .globl _close");
 int _close(int file) {
 	int r = -1;
+	/* 0-2 are the shell's Input() and Output(), or the Workbench window
+	   __exit_fh() closes: not ours to Close().  Keep them, too: clearing
+	   __fh[0] would make __check_fno() open the window again.  */
+	if (file < 3)
+		return 0;
 	if (file < __maxfh) {
-		 r = Close(__fh[file]) == 0;
-		 __fh[file] = 0;
+		r = Close(__fh[file]) == 0;
+		__fh[file] = 0;
 	}
 	return r;
 }
