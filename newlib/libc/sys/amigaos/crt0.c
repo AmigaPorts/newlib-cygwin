@@ -27,7 +27,9 @@ __attribute__((section(".end_of_dlists,\"aw\"")))
 int __ZZZ_DLIST__[1] = {0};
 
 __stdargs void exit(int);
-__entrypoint __stdargs int __crt0_exit(int);
+/* noinline: it leaves through the startup stack pointer, so inlined into
+ * a noreturn caller it would lose its final rts.  */
+__entrypoint __stdargs int __crt0_exit(int) __attribute__((noinline));
 extern void __call_exitprocs(int, void *);
 __entrypoint void callfuncs(int * p asm("a2"), unsigned short prioo asm("d2"));
 
@@ -92,19 +94,32 @@ void __entrypoint __restore_a4(void) {
 __saveds
 #endif
 __stdargs void exit(int rc) {
-	normalexit = 1;
 	__call_exitprocs(rc, NULL);
+	/* Only now: a handler that calls _exit() or abort() skips stdio.  */
+	normalexit = 1;
 	__crt0_exit(rc);
 	__builtin_unreachable();
 }
 
 /**
- * Also _exit() and __exit(): run the exit list (library and stdio
- * cleanup, static destructors), then restore the startup stack pointer
- * and return the code from the program's entry point.
+ * _exit() and __exit(): the exit list without the stdio cleanup, also
+ * when called from an atexit() handler or a destructor during exit().
  */
 asm("___exit: .globl ___exit");
-asm("__exit: .globl __exit");
+#if defined(__pic__) || defined (__PIC__)
+__saveds
+#endif
+__stdargs void _exit(int rc) {
+	normalexit = 0;
+	__crt0_exit(rc);
+	__builtin_unreachable();
+}
+
+/**
+ * The rest of the exit: run the exit list (library and stdio cleanup,
+ * static destructors), then restore the startup stack pointer and return
+ * the code from the program's entry point.
+ */
 #if defined(__pic__) || defined (__PIC__)
 __saveds
 #endif
