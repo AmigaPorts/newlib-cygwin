@@ -52,6 +52,13 @@
 
 libm_a_SOURCES += $(%C%_src) $(%C%_fsrc) $(%C%_lsrc)
 
+## The argument reduction kernels need every operation rounded to its
+## type, which the 68881 does not do for double and float temporaries.
+if HAVE_LIBC_MACHINE_M68K
+libm_a_CFLAGS_%C%_k_rem_pio2.c = -fexcess-precision=standard
+libm_a_CFLAGS_%C%_kf_rem_pio2.c = -fexcess-precision=standard
+endif
+
 LIBM_CHEWOUT_FILES += \
 	%D%/w_acos.def %D%/w_acosh.def %D%/w_asin.def %D%/s_asinh.def \
 	%D%/s_atan.def %D%/w_atan2.def %D%/w_atanh.def %D%/w_j0.def \

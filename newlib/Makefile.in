@@ -5074,6 +5074,8 @@ LIBM_DOCBOOK_OUT_FILES = $(LIBM_CHEWOUT_FILES:.def=.xml)
 @NEWLIB_HW_FP_FALSE@	libm/math/wf_log2.c
 
 @NEWLIB_HW_FP_FALSE@libm_math_lsrc = libm/math/el_hypot.c
+@HAVE_LIBC_MACHINE_M68K_TRUE@@NEWLIB_HW_FP_FALSE@libm_a_CFLAGS_libm_math_k_rem_pio2.c = -fexcess-precision=standard
+@HAVE_LIBC_MACHINE_M68K_TRUE@@NEWLIB_HW_FP_FALSE@libm_a_CFLAGS_libm_math_kf_rem_pio2.c = -fexcess-precision=standard
 libm_common_src = \
 	libm/common/s_finite.c \
 	libm/common/s_copysign.c \
