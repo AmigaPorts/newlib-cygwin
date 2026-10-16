@@ -543,8 +543,12 @@
 #endif
 
 #if defined(__GNUC__)
+/* The hunk format has no aliases; an equate gives aliassym the address.  */
 #define	__strong_reference(sym,aliassym)	\
-	extern __typeof (sym) aliassym __attribute__ ((__alias__ (#sym)))
+	extern __typeof (sym) aliassym;	\
+	__asm__(".globl " __XSTRING(__USER_LABEL_PREFIX__) #aliassym "\n\t" \
+		".set " __XSTRING(__USER_LABEL_PREFIX__) #aliassym ", " \
+		__XSTRING(__USER_LABEL_PREFIX__) #sym)
 #ifdef __ELF__
 #ifdef __STDC__
 #define	__weak_reference(sym,alias)	\
