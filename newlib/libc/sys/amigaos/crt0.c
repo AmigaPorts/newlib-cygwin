@@ -127,7 +127,13 @@ __entrypoint __stdargs int __crt0_exit(int rc) {
 	register unsigned __d7 __asm("d7");
 	asm("move.l %0,d7"::"r"(rc));
 
-	cleanupflag ^= -1;
+	/* Turn the walk around for the exit list only once: an exit() from
+	 * an exit handler or a destructor resumes it where it is.  */
+	static short exiting;
+	if (!exiting) {
+		exiting = 1;
+		cleanupflag ^= -1;
+	}
 	callfuncs(&__EXIT_LIST__[0] + 1, -1);
 
 	if (_WBenchMsg) {
@@ -247,8 +253,10 @@ void __initcpp() {
     (*--p)();
 }
 
+/* Static, and advanced before each call: a destructor that calls exit()
+ * runs the exit list again, which must go on with the next destructor.  */
 void __exitcpp() {
-  func_ptr *p = __DTOR_LIST__ + 1;
+  static func_ptr *p = __DTOR_LIST__ + 1;
   while (*p)
     (*p++)();
 }
