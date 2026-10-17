@@ -610,6 +610,15 @@ __utf8_mbtowc (struct _reent *r,
 	  _REENT_ERRNO(r) = EILSEQ;
 	  return -1;
 	}
+      if (state->__value.__wchb[0] == 0xed && ch >= 0xa0
+	  && sizeof(wchar_t) == 4)
+	{
+	  /* UTF-16 surrogate, which UTF-8 does not encode (RFC 3629).
+	     With a 16-bit wchar_t, lone surrogates go through, so that
+	     file names containing them round-trip on Cygwin.  */
+	  _REENT_ERRNO(r) = EILSEQ;
+	  return -1;
+	}
       if (ch < 0x80 || ch > 0xbf)
 	{
 	  _REENT_ERRNO(r) = EILSEQ;
