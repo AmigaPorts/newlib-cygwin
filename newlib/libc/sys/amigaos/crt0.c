@@ -206,10 +206,17 @@ void __initlibraries(void) {
 	 * mathieeedoubbas to $10 (round toward zero).  Our soft-float goes
 	 * through them, so after mathieeesingbas every double would be rounded
 	 * to single precision.  A shell's commands also share its process and
-	 * inherit what the previous one left.  Start from the FPU's reset value,
-	 * which is what C expects: round to nearest, extended precision. */
-	if (SysBase->AttnFlags & AFF_68881)
-		__asm__ volatile ("moveq #0,d0\n\t.short 0xf200,0x9000" ::: "d0");	/* fmove.l d0,fpcr */
+	 * inherit what the previous one left, exception flags and trap enables
+	 * included.  Start from the FPU's reset values, which is what C expects
+	 * (Annex F.8.3): round to nearest, extended precision, no traps, and no
+	 * exception flags set.  The FPU instructions are hand-assembled
+	 * because the base multilib is built for the 68000. */
+	if (SysBase->AttnFlags & AFF_68881) {
+		__asm__ volatile ("moveq #0,d0\n\t"
+				  ".short 0xf200,0x9000\n\t"	/* fmove.l d0,fpcr */
+				  ".short 0xf200,0x8800"	/* fmove.l d0,fpsr */
+				  ::: "d0");
+	}
 }
 
 /**

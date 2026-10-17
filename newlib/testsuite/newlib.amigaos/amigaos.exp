@@ -1,0 +1,9 @@
+# AmigaOS-specific runtime tests.
+
+if { ![istarget m68k-*-amigaos*] } {
+    return
+}
+
+load_lib passfail.exp
+
+newlib_pass_fail_all
