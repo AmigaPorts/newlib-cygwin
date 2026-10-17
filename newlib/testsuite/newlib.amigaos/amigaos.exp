@@ -6,4 +6,4 @@ if { ![istarget m68k-*-amigaos*] } {
 
 load_lib passfail.exp
 
-newlib_pass_fail_all
+newlib_pass_fail_all -x [list]
