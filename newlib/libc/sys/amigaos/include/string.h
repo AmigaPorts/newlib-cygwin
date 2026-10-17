@@ -17,7 +17,7 @@
 #include <stddef.h>
 
 #if __POSIX_VISIBLE >= 200809
-#include <xlocale.h>
+#include <sys/_locale.h>
 #endif
 
 #if __BSD_VISIBLE
@@ -68,9 +68,11 @@ __stdargs void *	 memccpy (void *__restrict, const void *__restrict, int, size_t
 #endif
 #if __GNU_VISIBLE
 __stdargs void *	 mempcpy (void *, const void *, size_t);
-__stdargs void *	 memmem (const void *, size_t, const void *, size_t);
 __stdargs void *	 memrchr (const void *, int, size_t);
 __stdargs void *	 rawmemchr (const void *, int);
+#endif
+#if __GNU_VISIBLE || __POSIX_VISIBLE >= 202405
+__stdargs void *	 memmem (const void *, size_t, const void *, size_t);
 #endif
 #if __POSIX_VISIBLE >= 200809
 __stdargs char 	*stpcpy (char *__restrict, const char *__restrict);
@@ -81,11 +83,11 @@ __stdargs char	*strcasestr (const char *, const char *);
 __stdargs char 	*strchrnul (const char *, int);
 #endif
 #if __MISC_VISIBLE || __POSIX_VISIBLE >= 200809 || __XSI_VISIBLE >= 4
-__stdargs char 	*strdup (const char *);
+__stdargs char 	*strdup (const char *) __malloc_like __result_use_check;
 #endif
 __stdargs char 	*_strdup_r (struct _reent *, const char *);
 #if __POSIX_VISIBLE >= 200809
-__stdargs char 	*strndup (const char *, size_t);
+__stdargs char 	*strndup (const char *, size_t) __malloc_like __result_use_check;
 #endif
 __stdargs char 	*_strndup_r (struct _reent *, const char *, size_t);
 
@@ -111,7 +113,7 @@ __stdargs int	__xpg_strerror_r (int, char *, size_t);
 /* Reentrant version of strerror.  */
 __stdargs char *	_strerror_r (struct _reent *, int, int, int *);
 
-#if __BSD_VISIBLE
+#if __BSD_VISIBLE || __POSIX_VISIBLE >= 202405L
 __stdargs size_t	strlcat (char *, const char *, size_t);
 __stdargs size_t	strlcpy (char *, const char *, size_t);
 #endif
@@ -130,8 +132,8 @@ __stdargs char	*strlwr (char *);
 __stdargs char	*strupr (char *);
 #endif
 
-#ifndef DEFS_H	/* Kludge to work around problem compiling in gdb */
-__stdargs const char	*strsignal (int __signo);
+#if __POSIX_VISIBLE >= 200809
+__stdargs char	*strsignal (int __signo);
 #endif
 
 #ifdef __CYGWIN__

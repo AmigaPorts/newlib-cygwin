@@ -1,4 +1,6 @@
 /*-
+ * SPDX-License-Identifier: BSD-2-Clause
+ *
  * Copyright (c) 2001 Mike Barcroft <mike@FreeBSD.org>
  * All rights reserved.
  *
@@ -24,13 +26,9 @@
  * SUCH DAMAGE.
  */
 
-#include <sys/cdefs.h>
-__FBSDID("$FreeBSD: head/lib/libc/stdlib/imaxdiv.c 301115 2016-06-01 10:14:25Z ache $");
-
 #include <inttypes.h>
 #include <stdint.h>
 
-/* See comments in div.c for implementation details. */
 imaxdiv_t
 imaxdiv(intmax_t numer, intmax_t denom)
 {
@@ -38,11 +36,6 @@ imaxdiv(intmax_t numer, intmax_t denom)
 
 	retval.quot = numer / denom;
 	retval.rem = numer % denom;
-#if !defined(__STDC_VERSION__) || (__STDC_VERSION__ < 199901L)
-	if (numer >= 0 && retval.rem < 0) {
-		retval.quot++;
-		retval.rem -= denom;
-	}
-#endif
+
 	return (retval);
 }

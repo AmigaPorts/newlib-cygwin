@@ -52,7 +52,11 @@ QUICKREF
 #include <stdlib.h>
 #include <reent.h>
 
-const char *
+#ifdef _REENT_THREAD_LOCAL
+_Thread_local char _tls_signal_buf[_REENT_SIGNAL_SIZE];
+#endif
+
+char *
 strsignal (int signal)
 {
   char *buffer;

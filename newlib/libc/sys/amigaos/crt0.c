@@ -254,8 +254,8 @@ static void (*used_commandline)(void) __attribute__((used)) = __nocommandline;
  * Here it runs from the exit list: after the static destructors, which may
  * still write, and before open.c closes the file handles. */
 void __exitstdio(void) {
-	if (normalexit && _GLOBAL_REENT->__cleanup)
-		(*_GLOBAL_REENT->__cleanup)(_GLOBAL_REENT);
+	if (normalexit && __stdio_exit_handler != NULL)
+		(*__stdio_exit_handler)();
 }
 
 ADD2INIT(__initlibraries, -100);

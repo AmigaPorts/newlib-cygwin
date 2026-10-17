@@ -99,11 +99,7 @@ No supporting OS subroutines are required.
  * 2. Redistributions in binary form must reproduce the above copyright
  *    notice, this list of conditions and the following disclaimer in the
  *    documentation and/or other materials provided with the distribution.
- * 3. All advertising materials mentioning features or use of this software
- *    must display the following acknowledgement:
- *	This product includes software developed by the University of
- *	California, Berkeley and its contributors.
- * 4. Neither the name of the University nor the names of its contributors
+ * 3. Neither the name of the University nor the names of its contributors
  *    may be used to endorse or promote products derived from this software
  *    without specific prior written permission.
  *
@@ -158,6 +154,7 @@ _strtoll_l (struct _reent *rptr, const char *__restrict nptr,
 	if ((base == 0 || base == 16) &&
 	    c == '0' && (*s == 'x' || *s == 'X')) {
 		c = s[1];
+                nptr = s; /* prepares if no valid hex digit follows */
 		s += 2;
 		base = 16;
 	}
@@ -205,7 +202,7 @@ _strtoll_l (struct _reent *rptr, const char *__restrict nptr,
 	}
 	if (any < 0) {
 		acc = neg ? LONG_LONG_MIN : LONG_LONG_MAX;
-		rptr->_errno = ERANGE;
+		_REENT_ERRNO(rptr) = ERANGE;
 	} else if (neg)
 		acc = -acc;
 	if (endptr != 0)

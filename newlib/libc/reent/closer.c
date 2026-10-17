@@ -1,4 +1,5 @@
 /* Reentrant version of close system call.  */
+
 #include <reent.h>
 #include <unistd.h>
 #include <_syslist.h>
@@ -36,15 +37,13 @@ DESCRIPTION
 */
 
 int
-_close_r (ptr, fd)
-     struct _reent *ptr;
-     int fd;
+_close_r (struct _reent *ptr, int fd)
 {
   int ret;
 
   errno = 0;
   if ((ret = _close (fd)) == -1 && errno != 0)
-    ptr->_errno = errno;
+    _REENT_ERRNO(ptr) = errno;
   return ret;
 }
 

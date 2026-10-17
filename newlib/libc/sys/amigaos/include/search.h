@@ -36,6 +36,8 @@ typedef struct node {
 } node_t;
 #endif
 
+typedef void posix_tnode;
+
 struct hsearch_data
 {
   struct internal_head *htable;
@@ -44,7 +46,7 @@ struct hsearch_data
 
 #ifndef __compar_fn_t_defined
 #define __compar_fn_t_defined
-typedef int (*__compar_fn_t) (const void *, const void *);
+typedef __stdargs int (*__compar_fn_t) (const void *, const void *);
 #endif
 
 __BEGIN_DECLS
@@ -54,11 +56,11 @@ __stdargs ENTRY	*hsearch(ENTRY, ACTION);
 __stdargs int	 hcreate_r(size_t, struct hsearch_data *);
 __stdargs void	 hdestroy_r(struct hsearch_data *);
 __stdargs int	hsearch_r(ENTRY, ACTION, ENTRY **, struct hsearch_data *);
-__stdargs void	*tdelete(const void *__restrict, void **__restrict, __compar_fn_t);
-__stdargs void	tdestroy (void *, void (*)(void *));
-__stdargs void	*tfind(const void *, void **, __compar_fn_t);
-__stdargs void	*tsearch(const void *, void **, __compar_fn_t);
-__stdargs void      twalk(const void *, void (*)(const void *, VISIT, int));
+__stdargs void	*tdelete(const void *__restrict, posix_tnode **__restrict, __compar_fn_t);
+__stdargs void	tdestroy (void *, __stdargs void (*)(void *));
+__stdargs posix_tnode *tfind(const void *, posix_tnode *const *, __compar_fn_t);
+__stdargs posix_tnode *tsearch(const void *, posix_tnode **, __compar_fn_t);
+__stdargs void      twalk(const posix_tnode *, __stdargs void (*)(const posix_tnode *, VISIT, int));
 __END_DECLS
 
 #endif /* !_SEARCH_H_ */

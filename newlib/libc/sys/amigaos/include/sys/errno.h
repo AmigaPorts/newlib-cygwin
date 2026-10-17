@@ -11,12 +11,16 @@ extern "C" {
 #include <sys/reent.h>
 
 #ifndef __libnix__
+#ifdef _REENT_THREAD_LOCAL
+#define errno (_tls_errno)
+#else /* _REENT_THREAD_LOCAL */
+
 #ifndef _REENT_ONLY
 #define errno (*__errno())
 #ifdef __NO_INLINE__
-extern int *__errno (void);
+extern __stdargs int *__errno (void);
 #else
-static inline __stdargs int *
+static inline int *
 __errno ()
 {
   return &_REENT->_errno;
@@ -27,6 +31,8 @@ __errno ()
 #ifndef __IMPORT
 #define __IMPORT
 #endif
+
+#endif /* _REENT_THREAD_LOCAL */
 
 /* Please don't use these variables directly.
    Use strerror instead. */
@@ -39,7 +45,7 @@ extern __IMPORT char *program_invocation_name;
 extern __IMPORT char *program_invocation_short_name;
 #endif
 
-#define __errno_r(ptr) ((ptr)->_errno)
+#define __errno_r(ptr) _REENT_ERRNO(ptr)
 #endif // __libnix__
 
 #define	EPERM 1		/* Not owner */

@@ -12,6 +12,9 @@
 #endif
 
 #include <stdio.h>
+/* _BEGIN_STD_C and _ELIDABLE_INLINE: libnix's <stdio.h> does not include
+   it, and sys/_types.h stopped pulling it in.  */
+#include <_ansi.h>
 
 #define	FSETLOCKING_QUERY	0
 #define	FSETLOCKING_INTERNAL	1

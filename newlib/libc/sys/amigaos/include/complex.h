@@ -16,10 +16,24 @@
 
 __BEGIN_DECLS
 
+/* Implementation from FreeBSD */
+#if __ISO_C_VISIBLE >= 2011
+#ifdef __clang__
+#define	CMPLX(x, y)	((double complex){ x, y })
+#define	CMPLXF(x, y)	((float complex){ x, y })
+#define	CMPLXL(x, y)	((long double complex){ x, y })
+#elif __GNUC_PREREQ__(4, 7)
+#define	CMPLX(x, y)	__builtin_complex((double)(x), (double)(y))
+#define	CMPLXF(x, y)	__builtin_complex((float)(x), (float)(y))
+#define	CMPLXL(x, y)	__builtin_complex((long double)(x), (long double)(y))
+#endif
+#endif /* __ISO_C_VISIBLE >= 2011 */
+
 /* 7.3.5 Trigonometric functions */
 /* 7.3.5.1 The cacos functions */
 __stdargs double complex cacos(double complex);
 __stdargs float complex cacosf(float complex);
+__stdargs long double complex cacosl(long double complex);
 
 /* 7.3.5.2 The casin functions */
 __stdargs double complex casin(double complex);
@@ -34,44 +48,54 @@ __stdargs long double complex catanl(long double complex);
 /* 7.3.5.1 The ccos functions */
 __stdargs double complex ccos(double complex);
 __stdargs float complex ccosf(float complex);
+__stdargs long double complex ccosl(long double complex);
 
 /* 7.3.5.1 The csin functions */
 __stdargs double complex csin(double complex);
 __stdargs float complex csinf(float complex);
+__stdargs long double complex csinl(long double complex);
 
 /* 7.3.5.1 The ctan functions */
 __stdargs double complex ctan(double complex);
 __stdargs float complex ctanf(float complex);
+__stdargs long double complex ctanl(long double complex);
 
 /* 7.3.6 Hyperbolic functions */
 /* 7.3.6.1 The cacosh functions */
 __stdargs double complex cacosh(double complex);
 __stdargs float complex cacoshf(float complex);
+__stdargs long double complex cacoshl(long double complex);
 
 /* 7.3.6.2 The casinh functions */
 __stdargs double complex casinh(double complex);
 __stdargs float complex casinhf(float complex);
+__stdargs long double complex casinhl(long double complex);
 
 /* 7.3.6.3 The catanh functions */
 __stdargs double complex catanh(double complex);
 __stdargs float complex catanhf(float complex);
+__stdargs long double complex catanhl(long double complex);
 
 /* 7.3.6.4 The ccosh functions */
 __stdargs double complex ccosh(double complex);
 __stdargs float complex ccoshf(float complex);
+__stdargs long double complex ccoshl(long double complex);
 
 /* 7.3.6.5 The csinh functions */
 __stdargs double complex csinh(double complex);
 __stdargs float complex csinhf(float complex);
+__stdargs long double complex csinhl(long double complex);
 
 /* 7.3.6.6 The ctanh functions */
 __stdargs double complex ctanh(double complex);
 __stdargs float complex ctanhf(float complex);
+__stdargs long double complex ctanhl(long double complex);
 
 /* 7.3.7 Exponential and logarithmic functions */
 /* 7.3.7.1 The cexp functions */
 __stdargs double complex cexp(double complex);
 __stdargs float complex cexpf(float complex);
+__stdargs long double complex cexpl(long double complex);
 
 /* 7.3.7.2 The clog functions */
 __stdargs double complex clog(double complex);
@@ -83,7 +107,7 @@ __stdargs long double complex clogl(long double complex);
 /*#ifndef __LIBM0_SOURCE__ */
 /* avoid conflict with historical cabs(struct complex) */
 /* double cabs(double complex) __RENAME(__c99_cabs);
-   __stdargs float cabsf(float complex) __RENAME(__c99_cabsf);
+ float cabsf(float complex) __RENAME(__c99_cabsf);
    #endif
 */
 __stdargs long double cabsl(long double complex) ;
@@ -93,6 +117,7 @@ __stdargs float cabsf(float complex) ;
 /* 7.3.8.2 The cpow functions */
 __stdargs double complex cpow(double complex, double complex);
 __stdargs float complex cpowf(float complex, float complex);
+__stdargs long double complex cpowl(long double complex, long double complex);
 
 /* 7.3.8.3 The csqrt functions */
 __stdargs double complex csqrt(double complex);
@@ -113,10 +138,12 @@ __stdargs long double cimagl(long double complex);
 /* 7.3.9.3 The conj functions */
 __stdargs double complex conj(double complex);
 __stdargs float complex conjf(float complex);
+__stdargs long double complex conjl(long double complex);
 
 /* 7.3.9.4 The cproj functions */
 __stdargs double complex cproj(double complex);
 __stdargs float complex cprojf(float complex);
+__stdargs long double complex cprojl(long double complex);
 
 /* 7.3.9.5 The creal functions */
 __stdargs double creal(double complex);
@@ -126,27 +153,10 @@ __stdargs long double creall(long double complex);
 #if __GNU_VISIBLE
 __stdargs double complex clog10(double complex);
 __stdargs float complex clog10f(float complex);
-#endif
-
-#if defined(__CYGWIN__)
-__stdargs long double complex cacosl(long double complex);
-__stdargs long double complex ccosl(long double complex);
-__stdargs long double complex csinl(long double complex);
-__stdargs long double complex ctanl(long double complex);
-__stdargs long double complex cacoshl(long double complex);
-__stdargs long double complex casinhl(long double complex);
-__stdargs long double complex catanhl(long double complex);
-__stdargs long double complex ccoshl(long double complex);
-__stdargs long double complex csinhl(long double complex);
-__stdargs long double complex ctanhl(long double complex);
-__stdargs long double complex cexpl(long double complex);
-__stdargs long double complex cpowl(long double complex, long double complex);
-__stdargs long double complex conjl(long double complex);
-__stdargs long double complex cprojl(long double complex);
-#if __GNU_VISIBLE
+# if defined(__CYGWIN__)
 __stdargs long double complex clog10l(long double complex);
+# endif
 #endif
-#endif /* __CYGWIN__ */
 
 __END_DECLS
 

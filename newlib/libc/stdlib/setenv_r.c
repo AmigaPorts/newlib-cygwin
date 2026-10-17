@@ -11,9 +11,8 @@
  * notice and comment, and (2) distributions including binaries display
  * the following acknowledgement:  ``This product includes software
  * developed by the University of California, Berkeley and its contributors''
- * in the documentation or other materials provided with the distribution
- * and in all advertising materials mentioning features or use of this
- * software. Neither the name of the University nor the names of its
+ * in the documentation or other materials provided with the distribution.
+ * Neither the name of the University nor the names of its
  * contributors may be used to endorse or promote products derived
  * from this software without specific prior written permission.
  * THIS SOFTWARE IS PROVIDED ``AS IS'' AND WITHOUT ANY EXPRESS OR
@@ -31,7 +30,7 @@
 #include "envlock.h"
 
 extern char **environ;
-extern char ** initial_env;
+extern char *initial_env[];
 
 /* Only deal with a pointer to environ, to work around subtle bugs with shared
    libraries and/or small data systems where the user declares his own
@@ -87,7 +86,7 @@ _setenv_r (struct _reent *reent_ptr,
       register char **P;
 
       for (P = *p_environ, cnt = 0; *P; ++P, ++cnt);
-      if (environ != &initial_env)
+      if (environ != initial_env)
 	{			/* just increase size */
 	  *p_environ = (char **) _realloc_r (reent_ptr, (char *) environ,
 					     (size_t) (sizeof (char *) * (cnt + 2)));

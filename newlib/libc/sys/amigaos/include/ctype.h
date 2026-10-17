@@ -4,8 +4,8 @@
 #include "_ansi.h"
 #include <sys/cdefs.h>
 
-#if __POSIX_VISIBLE >= 200809 || __MISC_VISIBLE || defined (_COMPILING_NEWLIB)
-#include <xlocale.h>
+#if __POSIX_VISIBLE >= 200809 || __MISC_VISIBLE || defined (_LIBC)
+#include <sys/_locale.h>
 #endif
 
 _BEGIN_STD_C
@@ -66,7 +66,15 @@ extern __stdargs int toascii_l (int __c, locale_t __l);
 #define _X	0100
 #define	_B	0200
 
-const char *__locale_ctype_ptr (void);
+/* For C++ backward-compatibility only.  */
+extern	__IMPORT const char	_ctype_[];
+
+#ifdef __HAVE_LOCALE_INFO__
+__stdargs const char *__locale_ctype_ptr (void);
+#else
+#define __locale_ctype_ptr()	_ctype_
+#endif
+
 # define __CTYPE_PTR	(__locale_ctype_ptr ())
 
 #ifndef __cplusplus
@@ -77,7 +85,7 @@ const char *__locale_ctype_ptr (void);
    the use of a raw index inside the sizeof triggers the gcc warning if
    __c was of type char, and sizeof masks side effects of the extra __c.
    Meanwhile, the real index to __CTYPE_PTR+1 must be cast to int,
-   __stdargs since isalpha(0x100000001LL) must equal isalpha(1), rather than being
+   since isalpha(0x100000001LL) must equal isalpha(1), rather than being
    an out-of-bounds reference on a 64-bit machine.  */
 #define __ctype_lookup(__c) ((__CTYPE_PTR+sizeof(""[__c]))[(int)(__c)])
 
@@ -100,7 +108,16 @@ const char *__locale_ctype_ptr (void);
 #endif
 
 #if __POSIX_VISIBLE >= 200809
-const char *__locale_ctype_ptr_l (locale_t);
+#ifdef __HAVE_LOCALE_INFO__
+__stdargs const char *__locale_ctype_ptr_l (locale_t);
+#else
+static __inline const char *
+__locale_ctype_ptr_l(locale_t _l)
+{
+	(void)_l;
+	return __locale_ctype_ptr();
+}
+#endif
 #define __ctype_lookup_l(__c,__l) ((__locale_ctype_ptr_l(__l)+sizeof(""[__c]))[(int)(__c)])
 
 #define	isalpha_l(__c,__l)	(__ctype_lookup_l(__c,__l)&(_U|_L))
@@ -160,9 +177,6 @@ const char *__locale_ctype_ptr_l (locale_t);
 #endif /* __POSIX_VISIBLE >= 200809 */
 
 #endif /* !__cplusplus */
-
-/* For C++ backward-compatibility only.  */
-extern	__IMPORT const char	*_ctype_;
 
 _END_STD_C
 
