@@ -145,6 +145,18 @@ main (void)
   char *p;
   int ret;
 
+  /* Fill both buffers with the pattern once.  An iteration writes at most
+     the first SRC_DIRTY bytes of src and DEST_DIRTY bytes of dest, so only
+     those are refilled before each strcmp: filling the whole buffers every
+     time was most of the test's run time.  */
+#define SRC_DIRTY (MAX_OFFSET + MAX_BLOCK_SIZE + MAX_ZEROS)
+#define DEST_DIRTY (MAX_OFFSET + MAX_BLOCK_SIZE + MAX_DIFF + MAX_LEN + 1)
+  for (i = 0; i < BUFF_SIZE; i++)
+    {
+      src[i] = 'A' + (i % 26);
+      dest[i] = src[i];
+    }
+
   /* Make calls to strcmp with block sizes ranging between 1 and
      MAX_BLOCK_SIZE bytes, aligned and misaligned source and destination.  */
   for (sa = 0; sa <= MAX_OFFSET; sa++)
@@ -157,12 +169,11 @@ main (void)
 	    {
 	      if (n - m > MAX_DIFF)
 		continue;
-	      /* Make a copy of the source.  */
-	      for (i = 0; i < BUFF_SIZE; i++)
-		{
-		  src[i] = 'A' + (i % 26);
-		  dest[i] = src[i];
-		}
+	      /* Restore what the previous iteration changed.  */
+	      for (i = 0; i < SRC_DIRTY; i++)
+		src[i] = 'A' + (i % 26);
+	      for (i = 0; i < DEST_DIRTY; i++)
+		dest[i] = 'A' + (i % 26);
 	      memcpy (dest + da, src + sa, n);
 
 	      /* Make src 0-terminated.  */
