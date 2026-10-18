@@ -145,7 +145,7 @@ main (void)
 
           /* Check src is not modified.  */
           for (j = 0; j < BUFF_SIZE; j++)
-            if (src[i] != backup_src[i])
+            if (src[j] != backup_src[j])
               print_error ("\nFailed: after memcpy of %u bytes "
                            "with src_align %u and dst_align %u, "
                            "byte %u of src is modified.\n",
