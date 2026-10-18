@@ -117,6 +117,10 @@ int _isatty(int file) {
 	return (unsigned)file <= 2;
 }
 
+int isatty(int file) {
+	return _isatty(file);
+}
+
 ADD2INIT(__init_fh, -50);
 ADD2EXIT(__exit_fh, -50);
 
