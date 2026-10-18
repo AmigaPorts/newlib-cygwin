@@ -42,8 +42,9 @@ __stdargs void	psignal (int, const char *);
  *
  * SA_ONESHOT and SA_NOMASK are the historical Linux names for the Single
  * Unix names RESETHAND and NODEFER respectively.
+ *
+ * SA_NOCLDSTOP comes from <sys/signal.h>, with the same value.
  */
-#define SA_NOCLDSTOP        0x00000001
 #define SA_NOCLDWAIT        0x00000002
 #define SA_SIGINFO        0x00000004
 #define SA_ONSTACK        0x08000000
