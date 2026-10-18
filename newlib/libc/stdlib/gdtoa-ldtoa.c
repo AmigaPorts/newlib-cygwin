@@ -64,7 +64,14 @@ _ldtoa_r(struct _reent *ptr,
 	};
 	int be, kind;
 	char *ret;
-	struct ieee_ext *p = (struct ieee_ext *)&ld;
+	/* Through the union, not a cast of &ld: no aliasing violation, and
+	   gcc 6 (m68k) has an internal error on the bit-field read through
+	   the cast at -O1 and above.  */
+	union {
+		long double ld;
+		struct ieee_ext ext;
+	} u;
+	struct ieee_ext *p = &u.ext;
 	uint32_t bits[(LDBL_MANT_DIG + 31) / 32];
 	void *vbits = bits;
 
@@ -75,6 +82,8 @@ _ldtoa_r(struct _reent *ptr,
 		freedtoa (ptr, (char *) _REENT_MP_RESULT (ptr));
 		_REENT_MP_RESULT (ptr) = 0;
 	}
+
+	u.ld = ld;
 
 	/*
 	 * gdtoa doesn't know anything about the sign of the number, so
