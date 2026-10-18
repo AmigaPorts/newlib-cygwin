@@ -24,24 +24,43 @@
 #ifndef STDBIT_INTERNAL_h
 #define STDBIT_INTERNAL_h
 
+/* The __*_WIDTH__ predefines date from GCC 7; older compilers get the
+   widths from the type sizes, which are predefined since GCC 4.3 and
+   usable in #if like the widths.  */
 #ifndef UCHAR_WIDTH
-#define UCHAR_WIDTH __SCHAR_WIDTH__
+#define UCHAR_WIDTH __CHAR_BIT__
 #endif
 
 #ifndef USHRT_WIDTH
+#ifdef __SHRT_WIDTH__
 #define USHRT_WIDTH __SHRT_WIDTH__
+#else
+#define USHRT_WIDTH (__CHAR_BIT__ * __SIZEOF_SHORT__)
+#endif
 #endif
 
 #ifndef UINT_WIDTH
+#ifdef __INT_WIDTH__
 #define UINT_WIDTH __INT_WIDTH__
+#else
+#define UINT_WIDTH (__CHAR_BIT__ * __SIZEOF_INT__)
+#endif
 #endif
 
 #ifndef ULONG_WIDTH
-#define ULONG_WIDTH __LONG_LONG_WIDTH__
+#ifdef __LONG_WIDTH__
+#define ULONG_WIDTH __LONG_WIDTH__
+#else
+#define ULONG_WIDTH (__CHAR_BIT__ * __SIZEOF_LONG__)
+#endif
 #endif
 
 #ifndef ULLONG_WIDTH
+#ifdef __LONG_LONG_WIDTH__
 #define ULLONG_WIDTH __LONG_LONG_WIDTH__
+#else
+#define ULLONG_WIDTH (__CHAR_BIT__ * __SIZEOF_LONG_LONG__)
+#endif
 #endif
 
 #endif
