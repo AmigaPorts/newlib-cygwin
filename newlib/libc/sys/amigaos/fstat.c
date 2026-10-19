@@ -3,9 +3,9 @@
    defined here.  stdio sizes a stream's buffer from st_blksize and
    decides on line buffering from S_ISCHR().
 
-   Only what a file handle can tell without ExamineFH(), which the CI
-   simulator does not have: the type, from whether the handle seeks, and
-   the size.  Protection, dates and the inode need stat() on the name.  */
+   ExamineFH() (V36) tells everything stat() would.  A handler without it,
+   or a handle without a handler like NIL:, is a character device unless
+   it seeks like a file.  */
 
 #include <errno.h>
 #include <string.h>
@@ -16,9 +16,11 @@
 #include <inline/dos.h>
 
 extern BPTR __check_fno(unsigned file);
+extern void __fibstat(struct stat *st, const struct FileInfoBlock *fib);
 
 int _fstat(int fd, struct stat *st) {
 	BPTR fh = __check_fno(fd);
+	struct FileInfoBlock *fib;
 	LONG pos, end;
 
 	if (!fh) {
@@ -26,8 +28,6 @@ int _fstat(int fd, struct stat *st) {
 		return -1;
 	}
 
-	/* A character device, like NIL: (no handler) or a console, until a
-	   seek shows a file.  */
 	memset(st, 0, sizeof(*st));
 	st->st_mode = S_IFCHR | 0666;
 	st->st_nlink = 1;
@@ -36,11 +36,26 @@ int _fstat(int fd, struct stat *st) {
 
 	if (((struct FileHandle *)BADDR(fh))->fh_Type == NULL)
 		return 0;
-	SetIoErr(0);
+
+	if ((fib = AllocDosObject(DOS_FIB, NULL)) != NULL) {
+		int ok = ExamineFH(fh, fib);
+
+		if (ok)
+			__fibstat(st, fib);
+		FreeDosObject(DOS_FIB, fib);
+		if (ok)
+			return 0;
+	}
+
+	/* No ExamineFH(): a file if it seeks, and its size is the end.
+	   Seek() returns the old position, or -1 and leaves the position
+	   alone, so a failure here changes nothing.  */
 	pos = Seek(fh, 0, OFFSET_END);
-	if (pos < 0 || IoErr())
+	if (pos == -1)
 		return 0;
 	end = Seek(fh, pos, OFFSET_BEGINNING);
+	if (end == -1)
+		return 0;
 	st->st_mode = S_IFREG | 0666;
 	st->st_size = end;
 	st->st_blocks = (end + 511) / 512;
