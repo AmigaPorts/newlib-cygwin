@@ -1,9 +1,10 @@
-/* opendir, readdir, rewinddir and closedir for m68k-amigaos, reading a
-   directory a buffer at a time with ExAll().  newlib's own libc/posix
-   versions are not built for this target: they need getdents().
+/* opendir, readdir, rewinddir and closedir for m68k-amigaos, with
+   Examine() and ExNext().  newlib's own libc/posix versions are not
+   built for this target: they need getdents().
 
-   ExAll() keeps state in the handler until it returns FALSE, so a listing
-   that is left before its end is drained in rewinddir() and closedir().  */
+   Not ExAll(): its autodoc lists bugs in V36 and in the V39 FFS, and it
+   keeps state in the handler until the listing is over.  ExNext() asks
+   for one entry at a time and needs no cleanup when the reader stops.  */
 
 #include <dirent.h>
 #include <errno.h>
@@ -11,7 +12,6 @@
 #include <string.h>
 #include <dos/dos.h>
 #include <dos/dosextens.h>
-#include <dos/exall.h>
 #include <proto/dos.h>
 #include <inline/dos.h>
 
@@ -19,95 +19,77 @@ extern void __seterrno(void);
 
 struct __dirstream {
 	BPTR lock;
-	struct ExAllControl *eac;
-	struct ExAllData *next;	/* the next entry to hand out, in buf */
-	unsigned left;		/* entries left in buf */
-	LONG more;		/* ExAll() has more after buf */
+	struct FileInfoBlock *fib;
+	int started;		/* Examine() done, ExNext() continues it */
 	struct dirent ent;
-	char buf[2048];
 };
 
-/* Go on until ExAll() says the listing is over.  */
-static void drain(DIR *d) {
-	while (d->more)
-		d->more = ExAll(d->lock, d->buf, sizeof(d->buf), ED_TYPE, d->eac);
-}
-
 DIR *opendir(const char *path) {
-	struct FileInfoBlock *fib;
-	LONG type = 0;
 	DIR *d;
 
 	if ((d = calloc(1, sizeof(*d))) == NULL) {
 		errno = ENOMEM;
 		return NULL;
 	}
-	if ((d->lock = Lock((CONST_STRPTR)path, SHARED_LOCK)) == 0) {
+	if ((d->fib = AllocDosObject(DOS_FIB, NULL)) == NULL) {
+		free(d);
+		errno = ENOMEM;
+		return NULL;
+	}
+	if ((d->lock = Lock((CONST_STRPTR)path, SHARED_LOCK)) == 0
+	    || !Examine(d->lock, d->fib)) {
 		__seterrno();
-		free(d);
+		closedir(d);
 		return NULL;
 	}
-	if ((fib = AllocDosObject(DOS_FIB, NULL)) != NULL) {
-		if (Examine(d->lock, fib))
-			type = fib->fib_DirEntryType;
-		FreeDosObject(DOS_FIB, fib);
-	}
-	if (type < 0 || (d->eac = AllocDosObject(DOS_EXALLCONTROL, NULL)) == NULL) {
-		UnLock(d->lock);
-		free(d);
-		errno = type < 0 ? ENOTDIR : ENOMEM;
+	if (d->fib->fib_DirEntryType < 0) {
+		closedir(d);
+		errno = ENOTDIR;
 		return NULL;
 	}
-	d->eac->eac_LastKey = 0;
-	d->more = DOSTRUE;
+	d->started = 1;
 	return d;
 }
 
 struct dirent *readdir(DIR *d) {
-	struct ExAllData *ead;
 	size_t len;
 
-	while (d->left == 0) {
-		if (!d->more)
-			return NULL;
-		d->more = ExAll(d->lock, d->buf, sizeof(d->buf), ED_TYPE, d->eac);
-		if (!d->more && IoErr() != ERROR_NO_MORE_ENTRIES) {
+	if (!d->started) {
+		if (!Examine(d->lock, d->fib)) {
 			__seterrno();
 			return NULL;
 		}
-		d->left = d->eac->eac_Entries;
-		d->next = (struct ExAllData *)d->buf;
+		d->started = 1;
 	}
-	ead = d->next;
-	d->next = ead->ed_Next;
-	d->left--;
+	if (!ExNext(d->lock, d->fib)) {
+		if (IoErr() != ERROR_NO_MORE_ENTRIES)
+			__seterrno();
+		return NULL;
+	}
 
-	/* ExAll() gives no disk key with ED_TYPE; 1, never 0, which some
-	   programs take for a deleted entry.  */
-	d->ent.d_ino = 1;
+	/* Some programs take a zero inode for a deleted entry.  */
+	d->ent.d_ino = d->fib->fib_DiskKey ? d->fib->fib_DiskKey : 1;
 	d->ent.d_reclen = sizeof(d->ent);
-	d->ent.d_type = ead->ed_Type < 0 ? DT_REG
-		: ead->ed_Type == ST_SOFTLINK ? DT_LNK : DT_DIR;
-	len = strlen((const char *)ead->ed_Name);
+	d->ent.d_type = d->fib->fib_DirEntryType < 0 ? DT_REG
+		: d->fib->fib_DirEntryType == ST_SOFTLINK ? DT_LNK : DT_DIR;
+	len = strlen((const char *)d->fib->fib_FileName);
 	if (len > MAXNAMLEN)
 		len = MAXNAMLEN;
-	memcpy(d->ent.d_name, ead->ed_Name, len);
+	memcpy(d->ent.d_name, d->fib->fib_FileName, len);
 	d->ent.d_name[len] = 0;
 	d->ent.d_namlen = len;
 	return &d->ent;
 }
 
+/* The next readdir() starts over with Examine().  */
 void rewinddir(DIR *d) {
-	drain(d);
-	d->left = 0;
-	d->more = DOSTRUE;
-	d->eac->eac_LastKey = 0;
+	d->started = 0;
 }
 
 int closedir(DIR *d) {
-	drain(d);
-	FreeDosObject(DOS_EXALLCONTROL, d->eac);
-	UnLock(d->lock);
+	if (d->lock)
+		UnLock(d->lock);
+	FreeDosObject(DOS_FIB, d->fib);
 	free(d);
 	return 0;
 }
