@@ -621,53 +621,57 @@ check_PROGRAMS =
 @HAVE_LIBC_SYS_AMIGAOS_DIR_TRUE@	libc/sys/amigaos/msizer.c \
 @HAVE_LIBC_SYS_AMIGAOS_DIR_TRUE@	libc/sys/amigaos/pvallocr.c \
 @HAVE_LIBC_SYS_AMIGAOS_DIR_TRUE@	libc/sys/amigaos/vallocr.c
-@HAVE_LIBC_SYS_ARM_DIR_TRUE@am__append_45 = libc/sys/arm/access.c libc/sys/arm/aeabi_atexit.c libc/sys/arm/sysconf.c
-@HAVE_LIBC_SYS_ARM_DIR_TRUE@@MAY_SUPPLY_SYSCALLS_TRUE@am__append_46 = libc/sys/arm/libcfunc.c libc/sys/arm/trap.S libc/sys/arm/syscalls.c
-@HAVE_LIBC_SYS_ATARI_DIR_TRUE@am__append_47 = libc/sys/atari/filemode.c
-@HAVE_LIBC_SYS_D10V_DIR_TRUE@am__append_48 = libc/sys/d10v/syscalls.c libc/sys/d10v/trap.S libc/sys/d10v/creat.c
-@HAVE_LIBC_SYS_EPIPHANY_DIR_TRUE@am__append_49 = libc/sys/epiphany/e_printf.c
-@HAVE_LIBC_SYS_H8300HMS_DIR_TRUE@am__append_50 = \
+@HAVE_LIBC_SYS_AMIGAOS_DIR_TRUE@am__append_45 = newlib-crt0.o
+@HAVE_LIBC_SYS_AMIGAOS_DIR_TRUE@am__append_46 = newlib-crt0.o
+@HAVE_LIBC_SYS_AMIGAOS_DIR_TRUE@@HAVE_MULTISUBDIR_TRUE@am__append_47 = $(BUILD_MULTISUBDIR)/newlib-crt0.o
+@HAVE_LIBC_SYS_AMIGAOS_DIR_TRUE@am__append_48 = install-amigaos-remove-crt0
+@HAVE_LIBC_SYS_ARM_DIR_TRUE@am__append_49 = libc/sys/arm/access.c libc/sys/arm/aeabi_atexit.c libc/sys/arm/sysconf.c
+@HAVE_LIBC_SYS_ARM_DIR_TRUE@@MAY_SUPPLY_SYSCALLS_TRUE@am__append_50 = libc/sys/arm/libcfunc.c libc/sys/arm/trap.S libc/sys/arm/syscalls.c
+@HAVE_LIBC_SYS_ATARI_DIR_TRUE@am__append_51 = libc/sys/atari/filemode.c
+@HAVE_LIBC_SYS_D10V_DIR_TRUE@am__append_52 = libc/sys/d10v/syscalls.c libc/sys/d10v/trap.S libc/sys/d10v/creat.c
+@HAVE_LIBC_SYS_EPIPHANY_DIR_TRUE@am__append_53 = libc/sys/epiphany/e_printf.c
+@HAVE_LIBC_SYS_H8300HMS_DIR_TRUE@am__append_54 = \
 @HAVE_LIBC_SYS_H8300HMS_DIR_TRUE@	libc/sys/h8300hms/syscalls.c libc/sys/h8300hms/_exit.S libc/sys/h8300hms/sbrk.c libc/sys/h8300hms/misc.c libc/sys/h8300hms/crt1.c \
 @HAVE_LIBC_SYS_H8300HMS_DIR_TRUE@	libc/sys/h8300hms/close.S libc/sys/h8300hms/fstat.S libc/sys/h8300hms/lseek.S libc/sys/h8300hms/open.S libc/sys/h8300hms/read.S libc/sys/h8300hms/stat.S libc/sys/h8300hms/write.S
 
-@HAVE_LIBC_SYS_H8500HMS_DIR_TRUE@am__append_51 = libc/sys/h8500hms/syscalls.c libc/sys/h8500hms/misc.c
-@HAVE_LIBC_SYS_M88KBUG_DIR_TRUE@am__append_52 = libc/sys/m88kbug/syscalls.c
-@HAVE_LIBC_SYS_MMIXWARE_DIR_TRUE@am__append_53 = \
+@HAVE_LIBC_SYS_H8500HMS_DIR_TRUE@am__append_55 = libc/sys/h8500hms/syscalls.c libc/sys/h8500hms/misc.c
+@HAVE_LIBC_SYS_M88KBUG_DIR_TRUE@am__append_56 = libc/sys/m88kbug/syscalls.c
+@HAVE_LIBC_SYS_MMIXWARE_DIR_TRUE@am__append_57 = \
 @HAVE_LIBC_SYS_MMIXWARE_DIR_TRUE@	libc/sys/mmixware/_exit.c libc/sys/mmixware/access.c libc/sys/mmixware/chmod.c libc/sys/mmixware/chown.c libc/sys/mmixware/close.c libc/sys/mmixware/creat.c \
 @HAVE_LIBC_SYS_MMIXWARE_DIR_TRUE@	libc/sys/mmixware/execv.c libc/sys/mmixware/execve.c libc/sys/mmixware/fork.c libc/sys/mmixware/fstat.c libc/sys/mmixware/getpid.c libc/sys/mmixware/isatty.c \
 @HAVE_LIBC_SYS_MMIXWARE_DIR_TRUE@	libc/sys/mmixware/kill.c libc/sys/mmixware/link.c libc/sys/mmixware/lseek.c libc/sys/mmixware/open.c libc/sys/mmixware/pipe.c libc/sys/mmixware/read.c \
 @HAVE_LIBC_SYS_MMIXWARE_DIR_TRUE@	libc/sys/mmixware/sbrk.c libc/sys/mmixware/stat.c libc/sys/mmixware/time.c libc/sys/mmixware/unlink.c libc/sys/mmixware/utime.c libc/sys/mmixware/wait.c libc/sys/mmixware/write.c \
 @HAVE_LIBC_SYS_MMIXWARE_DIR_TRUE@	libc/sys/mmixware/times.c libc/sys/mmixware/gettime.c libc/sys/mmixware/setjmp.S
 
-@HAVE_LIBC_SYS_NETWARE_DIR_TRUE@am__append_54 = \
+@HAVE_LIBC_SYS_NETWARE_DIR_TRUE@am__append_58 = \
 @HAVE_LIBC_SYS_NETWARE_DIR_TRUE@	libc/sys/netware/getpid.c \
 @HAVE_LIBC_SYS_NETWARE_DIR_TRUE@	libc/sys/netware/link.c
 
-@HAVE_LIBC_SYS_OR1K_DIR_TRUE@am__append_55 = libc/sys/or1k/getreent.S libc/sys/or1k/mlock.c
-@HAVE_LIBC_SYS_RDOS_DIR_TRUE@am__append_56 = \
+@HAVE_LIBC_SYS_OR1K_DIR_TRUE@am__append_59 = libc/sys/or1k/getreent.S libc/sys/or1k/mlock.c
+@HAVE_LIBC_SYS_RDOS_DIR_TRUE@am__append_60 = \
 @HAVE_LIBC_SYS_RDOS_DIR_TRUE@	libc/sys/rdos/chown.c libc/sys/rdos/close.c libc/sys/rdos/execve.c libc/sys/rdos/fork.c libc/sys/rdos/fstat.c libc/sys/rdos/getenv.c \
 @HAVE_LIBC_SYS_RDOS_DIR_TRUE@	libc/sys/rdos/getpid.c libc/sys/rdos/gettod.c libc/sys/rdos/isatty.c libc/sys/rdos/kill.c libc/sys/rdos/link.c libc/sys/rdos/lseek.c libc/sys/rdos/open.c libc/sys/rdos/rdoshelp.c \
 @HAVE_LIBC_SYS_RDOS_DIR_TRUE@	libc/sys/rdos/rdos.S libc/sys/rdos/read.c libc/sys/rdos/readlink.c libc/sys/rdos/sbrk.c libc/sys/rdos/stat.c libc/sys/rdos/symlink.c libc/sys/rdos/times.c libc/sys/rdos/unlink.c \
 @HAVE_LIBC_SYS_RDOS_DIR_TRUE@	libc/sys/rdos/wait.c libc/sys/rdos/write.c
 
-@HAVE_LIBC_SYS_RTEMS_DIR_TRUE@am__append_57 = libc/sys/rtems/dummysys.c libc/sys/rtems/cpusetalloc.c libc/sys/rtems/cpusetfree.c
-@HAVE_LIBC_SYS_SH_DIR_TRUE@@MAY_SUPPLY_SYSCALLS_TRUE@am__append_58 = libc/sys/sh/syscalls.c libc/sys/sh/trap.S libc/sys/sh/creat.c libc/sys/sh/ftruncate.c libc/sys/sh/truncate.c
-@HAVE_LIBC_SYS_SYSMEC_DIR_TRUE@am__append_59 = \
+@HAVE_LIBC_SYS_RTEMS_DIR_TRUE@am__append_61 = libc/sys/rtems/dummysys.c libc/sys/rtems/cpusetalloc.c libc/sys/rtems/cpusetfree.c
+@HAVE_LIBC_SYS_SH_DIR_TRUE@@MAY_SUPPLY_SYSCALLS_TRUE@am__append_62 = libc/sys/sh/syscalls.c libc/sys/sh/trap.S libc/sys/sh/creat.c libc/sys/sh/ftruncate.c libc/sys/sh/truncate.c
+@HAVE_LIBC_SYS_SYSMEC_DIR_TRUE@am__append_63 = \
 @HAVE_LIBC_SYS_SYSMEC_DIR_TRUE@	libc/sys/sysmec/_exit.c libc/sys/sysmec/access.c libc/sys/sysmec/chmod.c libc/sys/sysmec/chown.c libc/sys/sysmec/close.c libc/sys/sysmec/creat.c libc/sys/sysmec/crt1.c \
 @HAVE_LIBC_SYS_SYSMEC_DIR_TRUE@	libc/sys/sysmec/execv.c libc/sys/sysmec/execve.c libc/sys/sysmec/fork.c libc/sys/sysmec/fstat.c libc/sys/sysmec/getpid.c libc/sys/sysmec/isatty.c \
 @HAVE_LIBC_SYS_SYSMEC_DIR_TRUE@	libc/sys/sysmec/kill.c libc/sys/sysmec/lseek.c libc/sys/sysmec/open.c libc/sys/sysmec/pipe.c libc/sys/sysmec/read.c \
 @HAVE_LIBC_SYS_SYSMEC_DIR_TRUE@	libc/sys/sysmec/sbrk.c libc/sys/sysmec/stat.c libc/sys/sysmec/time.c libc/sys/sysmec/trap.S libc/sys/sysmec/unlink.c libc/sys/sysmec/utime.c libc/sys/sysmec/wait.c libc/sys/sysmec/write.c \
 @HAVE_LIBC_SYS_SYSMEC_DIR_TRUE@	libc/sys/sysmec/times.c libc/sys/sysmec/gettime.c
 
-@HAVE_LIBC_SYS_SYSNEC810_DIR_TRUE@am__append_60 = libc/sys/sysnec810/io.S libc/sys/sysnec810/write.c libc/sys/sysnec810/sbrk.c libc/sys/sysnec810/misc.c
-@HAVE_LIBC_SYS_SYSNECV850_DIR_TRUE@@MAY_SUPPLY_SYSCALLS_TRUE@am__append_61 = \
+@HAVE_LIBC_SYS_SYSNEC810_DIR_TRUE@am__append_64 = libc/sys/sysnec810/io.S libc/sys/sysnec810/write.c libc/sys/sysnec810/sbrk.c libc/sys/sysnec810/misc.c
+@HAVE_LIBC_SYS_SYSNECV850_DIR_TRUE@@MAY_SUPPLY_SYSCALLS_TRUE@am__append_65 = \
 @HAVE_LIBC_SYS_SYSNECV850_DIR_TRUE@@MAY_SUPPLY_SYSCALLS_TRUE@	libc/sys/sysnecv850/_exit.c libc/sys/sysnecv850/access.c libc/sys/sysnecv850/chmod.c libc/sys/sysnecv850/chown.c libc/sys/sysnecv850/close.c libc/sys/sysnecv850/creat.c libc/sys/sysnecv850/crt1.c \
 @HAVE_LIBC_SYS_SYSNECV850_DIR_TRUE@@MAY_SUPPLY_SYSCALLS_TRUE@	libc/sys/sysnecv850/execv.c libc/sys/sysnecv850/execve.c libc/sys/sysnecv850/fork.c libc/sys/sysnecv850/fstat.c libc/sys/sysnecv850/getpid.c libc/sys/sysnecv850/isatty.c \
 @HAVE_LIBC_SYS_SYSNECV850_DIR_TRUE@@MAY_SUPPLY_SYSCALLS_TRUE@	libc/sys/sysnecv850/kill.c libc/sys/sysnecv850/lseek.c libc/sys/sysnecv850/open.c libc/sys/sysnecv850/pipe.c libc/sys/sysnecv850/read.c libc/sys/sysnecv850/link.c \
 @HAVE_LIBC_SYS_SYSNECV850_DIR_TRUE@@MAY_SUPPLY_SYSCALLS_TRUE@	libc/sys/sysnecv850/sbrk.c libc/sys/sysnecv850/stat.c libc/sys/sysnecv850/time.c libc/sys/sysnecv850/trap.S libc/sys/sysnecv850/unlink.c libc/sys/sysnecv850/utime.c libc/sys/sysnecv850/wait.c libc/sys/sysnecv850/write.c \
 @HAVE_LIBC_SYS_SYSNECV850_DIR_TRUE@@MAY_SUPPLY_SYSCALLS_TRUE@	libc/sys/sysnecv850/times.c libc/sys/sysnecv850/gettime.c libc/sys/sysnecv850/rename.c
 
-@HAVE_LIBC_SYS_SYSVI386_DIR_TRUE@am__append_62 = \
+@HAVE_LIBC_SYS_SYSVI386_DIR_TRUE@am__append_66 = \
 @HAVE_LIBC_SYS_SYSVI386_DIR_TRUE@	libc/sys/sysvi386/ioctl.S libc/sys/sysvi386/isatty.c libc/sys/sysvi386/read.S libc/sys/sysvi386/lseek.S libc/sys/sysvi386/close.S libc/sys/sysvi386/sbrk.c libc/sys/sysvi386/fstat.S libc/sys/sysvi386/cerror.S \
 @HAVE_LIBC_SYS_SYSVI386_DIR_TRUE@	libc/sys/sysvi386/_exit.S libc/sys/sysvi386/write.S libc/sys/sysvi386/open.S libc/sys/sysvi386/signal.S libc/sys/sysvi386/kill.S libc/sys/sysvi386/getpid.S libc/sys/sysvi386/brk.S libc/sys/sysvi386/fork.S libc/sys/sysvi386/wait.S \
 @HAVE_LIBC_SYS_SYSVI386_DIR_TRUE@	libc/sys/sysvi386/execve.S libc/sys/sysvi386/exec.c libc/sys/sysvi386/utime.S libc/sys/sysvi386/fcntl.S libc/sys/sysvi386/chmod.S libc/sys/sysvi386/getuid.S libc/sys/sysvi386/getgid.S libc/sys/sysvi386/time.S \
@@ -678,14 +682,14 @@ check_PROGRAMS =
 @HAVE_LIBC_SYS_SYSVI386_DIR_TRUE@	libc/sys/sysvi386/chdir.S libc/sys/sysvi386/dup2.c libc/sys/sysvi386/dup.c libc/sys/sysvi386/tcgetattr.c libc/sys/sysvi386/tcsetattr.c libc/sys/sysvi386/speed.c libc/sys/sysvi386/tcline.c \
 @HAVE_LIBC_SYS_SYSVI386_DIR_TRUE@	libc/sys/sysvi386/times.S libc/sys/sysvi386/pause.S libc/sys/sysvi386/sleep.c libc/sys/sysvi386/alarm.S libc/sys/sysvi386/access.S libc/sys/sysvi386/_longjmp.S libc/sys/sysvi386/_setjmp.S
 
-@HAVE_LIBC_SYS_SYSVNECV70_DIR_TRUE@am__append_63 = \
+@HAVE_LIBC_SYS_SYSVNECV70_DIR_TRUE@am__append_67 = \
 @HAVE_LIBC_SYS_SYSVNECV70_DIR_TRUE@	libc/sys/sysvnecv70/ioctl.S libc/sys/sysvnecv70/isatty.S libc/sys/sysvnecv70/read.S libc/sys/sysvnecv70/lseek.S libc/sys/sysvnecv70/close.S libc/sys/sysvnecv70/sbrk.S libc/sys/sysvnecv70/fstat.S \
 @HAVE_LIBC_SYS_SYSVNECV70_DIR_TRUE@	libc/sys/sysvnecv70/cerror.S libc/sys/sysvnecv70/exit.S libc/sys/sysvnecv70/write.S libc/sys/sysvnecv70/sysv60.S libc/sys/sysvnecv70/fpx.c libc/sys/sysvnecv70/fps.S libc/sys/sysvnecv70/open.S
 
-@HAVE_LIBC_SYS_TIRTOS_DIR_TRUE@am__append_64 = libc/sys/tirtos/lock.c
-@HAVE_LIBC_SYS_W65_DIR_TRUE@am__append_65 = libc/sys/w65/syscalls.c libc/sys/w65/trap.c
-@HAVE_LIBC_SYS_Z8KSIM_DIR_TRUE@am__append_66 = libc/sys/z8ksim/glue.c
-@HAVE_LIBC_MACHINE_AARCH64_TRUE@am__append_67 = \
+@HAVE_LIBC_SYS_TIRTOS_DIR_TRUE@am__append_68 = libc/sys/tirtos/lock.c
+@HAVE_LIBC_SYS_W65_DIR_TRUE@am__append_69 = libc/sys/w65/syscalls.c libc/sys/w65/trap.c
+@HAVE_LIBC_SYS_Z8KSIM_DIR_TRUE@am__append_70 = libc/sys/z8ksim/glue.c
+@HAVE_LIBC_MACHINE_AARCH64_TRUE@am__append_71 = \
 @HAVE_LIBC_MACHINE_AARCH64_TRUE@	libc/machine/aarch64/memchr-stub.c \
 @HAVE_LIBC_MACHINE_AARCH64_TRUE@	libc/machine/aarch64/memchr.S \
 @HAVE_LIBC_MACHINE_AARCH64_TRUE@	libc/machine/aarch64/memcmp-stub.c \
@@ -719,7 +723,7 @@ check_PROGRAMS =
 @HAVE_LIBC_MACHINE_AARCH64_TRUE@	libc/machine/aarch64/strrchr-stub.c \
 @HAVE_LIBC_MACHINE_AARCH64_TRUE@	libc/machine/aarch64/strrchr.S
 
-@HAVE_LIBC_MACHINE_AMDGCN_TRUE@am__append_68 = \
+@HAVE_LIBC_MACHINE_AMDGCN_TRUE@am__append_72 = \
 @HAVE_LIBC_MACHINE_AMDGCN_TRUE@	libc/machine/amdgcn/_exit.c \
 @HAVE_LIBC_MACHINE_AMDGCN_TRUE@	libc/machine/amdgcn/abort.c \
 @HAVE_LIBC_MACHINE_AMDGCN_TRUE@	libc/machine/amdgcn/atexit.c \
@@ -727,7 +731,7 @@ check_PROGRAMS =
 @HAVE_LIBC_MACHINE_AMDGCN_TRUE@	libc/machine/amdgcn/getreent.c \
 @HAVE_LIBC_MACHINE_AMDGCN_TRUE@	libc/machine/amdgcn/signal.c
 
-@HAVE_LIBC_MACHINE_ARC_TRUE@am__append_69 = \
+@HAVE_LIBC_MACHINE_ARC_TRUE@am__append_73 = \
 @HAVE_LIBC_MACHINE_ARC_TRUE@	libc/machine/arc/memcmp.S \
 @HAVE_LIBC_MACHINE_ARC_TRUE@	libc/machine/arc/memcmp-bs-norm.S \
 @HAVE_LIBC_MACHINE_ARC_TRUE@	libc/machine/arc/memcmp-stub.c \
@@ -755,7 +759,7 @@ check_PROGRAMS =
 @HAVE_LIBC_MACHINE_ARC_TRUE@	libc/machine/arc/strncpy-stub.c \
 @HAVE_LIBC_MACHINE_ARC_TRUE@	libc/machine/arc/strncpy-bs.S
 
-@HAVE_LIBC_MACHINE_ARC64_TRUE@am__append_70 = \
+@HAVE_LIBC_MACHINE_ARC64_TRUE@am__append_74 = \
 @HAVE_LIBC_MACHINE_ARC64_TRUE@	libc/machine/arc64/memcmp.S \
 @HAVE_LIBC_MACHINE_ARC64_TRUE@	libc/machine/arc64/memcmp-stub.c \
 @HAVE_LIBC_MACHINE_ARC64_TRUE@	libc/machine/arc64/memcpy.S \
@@ -769,7 +773,7 @@ check_PROGRAMS =
 @HAVE_LIBC_MACHINE_ARC64_TRUE@	libc/machine/arc64/strcmp.S \
 @HAVE_LIBC_MACHINE_ARC64_TRUE@	libc/machine/arc64/memchr.S
 
-@HAVE_LIBC_MACHINE_ARM_TRUE@am__append_71 = \
+@HAVE_LIBC_MACHINE_ARM_TRUE@am__append_75 = \
 @HAVE_LIBC_MACHINE_ARM_TRUE@	libc/machine/arm/setjmp.S libc/machine/arm/strcmp.S libc/machine/arm/strcpy.c \
 @HAVE_LIBC_MACHINE_ARM_TRUE@	libc/machine/arm/aeabi_memcpy.c libc/machine/arm/aeabi_memcpy-armv7a.S \
 @HAVE_LIBC_MACHINE_ARM_TRUE@	libc/machine/arm/aeabi_memmove.c libc/machine/arm/aeabi_memmove-soft.S \
@@ -781,39 +785,39 @@ check_PROGRAMS =
 @HAVE_LIBC_MACHINE_ARM_TRUE@	libc/machine/arm/strlen-stub.c \
 @HAVE_LIBC_MACHINE_ARM_TRUE@	libc/machine/arm/strlen.S
 
-@HAVE_LIBC_MACHINE_BFIN_TRUE@am__append_72 = libc/machine/bfin/setjmp.S libc/machine/bfin/longjmp.S
-@HAVE_LIBC_MACHINE_CR16_TRUE@am__append_73 = libc/machine/cr16/setjmp.S libc/machine/cr16/getenv.c
-@HAVE_LIBC_MACHINE_CRIS_TRUE@am__append_74 = libc/machine/cris/setjmp.c libc/machine/cris/memcpy.c libc/machine/cris/memset.c libc/machine/cris/memmove.c libc/machine/cris/libcdtor.c
+@HAVE_LIBC_MACHINE_BFIN_TRUE@am__append_76 = libc/machine/bfin/setjmp.S libc/machine/bfin/longjmp.S
+@HAVE_LIBC_MACHINE_CR16_TRUE@am__append_77 = libc/machine/cr16/setjmp.S libc/machine/cr16/getenv.c
+@HAVE_LIBC_MACHINE_CRIS_TRUE@am__append_78 = libc/machine/cris/setjmp.c libc/machine/cris/memcpy.c libc/machine/cris/memset.c libc/machine/cris/memmove.c libc/machine/cris/libcdtor.c
 
 # We also make a library with just the useful
 # machine-but-not-system-specific functions, usable as an add-on
 # by itself together with e.g. uclibc.
-@HAVE_LIBC_MACHINE_CRIS_TRUE@am__append_75 = libc/machine/cris/libic.a
-@HAVE_LIBC_MACHINE_CRX_TRUE@am__append_76 = libc/machine/crx/setjmp.S libc/machine/crx/getenv.c
-@HAVE_LIBC_MACHINE_CSKY_TRUE@am__append_77 = libc/machine/csky/setjmp.S
-@HAVE_LIBC_MACHINE_D10V_TRUE@am__append_78 = libc/machine/d10v/setjmp.S
-@HAVE_LIBC_MACHINE_D30V_TRUE@am__append_79 = libc/machine/d30v/setjmp.S
-@HAVE_LIBC_MACHINE_EPIPHANY_TRUE@am__append_80 = libc/machine/epiphany/setjmp.S
-@HAVE_LIBC_MACHINE_FR30_TRUE@am__append_81 = libc/machine/fr30/setjmp.S
-@HAVE_LIBC_MACHINE_FRV_TRUE@am__append_82 = libc/machine/frv/setjmp.S
-@HAVE_LIBC_MACHINE_FT32_TRUE@am__append_83 = libc/machine/ft32/setjmp.S libc/machine/ft32/strlen.S libc/machine/ft32/memcpy.S libc/machine/ft32/strcmp.S libc/machine/ft32/memset.S libc/machine/ft32/strcpy.S
-@HAVE_LIBC_MACHINE_H8300_TRUE@am__append_84 = \
+@HAVE_LIBC_MACHINE_CRIS_TRUE@am__append_79 = libc/machine/cris/libic.a
+@HAVE_LIBC_MACHINE_CRX_TRUE@am__append_80 = libc/machine/crx/setjmp.S libc/machine/crx/getenv.c
+@HAVE_LIBC_MACHINE_CSKY_TRUE@am__append_81 = libc/machine/csky/setjmp.S
+@HAVE_LIBC_MACHINE_D10V_TRUE@am__append_82 = libc/machine/d10v/setjmp.S
+@HAVE_LIBC_MACHINE_D30V_TRUE@am__append_83 = libc/machine/d30v/setjmp.S
+@HAVE_LIBC_MACHINE_EPIPHANY_TRUE@am__append_84 = libc/machine/epiphany/setjmp.S
+@HAVE_LIBC_MACHINE_FR30_TRUE@am__append_85 = libc/machine/fr30/setjmp.S
+@HAVE_LIBC_MACHINE_FRV_TRUE@am__append_86 = libc/machine/frv/setjmp.S
+@HAVE_LIBC_MACHINE_FT32_TRUE@am__append_87 = libc/machine/ft32/setjmp.S libc/machine/ft32/strlen.S libc/machine/ft32/memcpy.S libc/machine/ft32/strcmp.S libc/machine/ft32/memset.S libc/machine/ft32/strcpy.S
+@HAVE_LIBC_MACHINE_H8300_TRUE@am__append_88 = \
 @HAVE_LIBC_MACHINE_H8300_TRUE@	libc/machine/h8300/reg_memcpy.S libc/machine/h8300/reg_memset.S libc/machine/h8300/strcmp.S libc/machine/h8300/memcpy.S libc/machine/h8300/memset.S \
 @HAVE_LIBC_MACHINE_H8300_TRUE@	libc/machine/h8300/setjmp.S libc/machine/h8300/h8sx_strcpy.S
 
-@HAVE_LIBC_MACHINE_H8500_TRUE@am__append_85 = libc/machine/h8500/divsi3.c libc/machine/h8500/mulsi3.c libc/machine/h8500/divhi3.S libc/machine/h8500/shifts.c libc/machine/h8500/cmpsi.c libc/machine/h8500/psi.S libc/machine/h8500/setjmp.S
-@HAVE_LIBC_MACHINE_HPPA_TRUE@am__append_86 = \
+@HAVE_LIBC_MACHINE_H8500_TRUE@am__append_89 = libc/machine/h8500/divsi3.c libc/machine/h8500/mulsi3.c libc/machine/h8500/divhi3.S libc/machine/h8500/shifts.c libc/machine/h8500/cmpsi.c libc/machine/h8500/psi.S libc/machine/h8500/setjmp.S
+@HAVE_LIBC_MACHINE_HPPA_TRUE@am__append_90 = \
 @HAVE_LIBC_MACHINE_HPPA_TRUE@	libc/machine/hppa/memchr.S libc/machine/hppa/memcmp.S libc/machine/hppa/memcpy.S libc/machine/hppa/memset.S \
 @HAVE_LIBC_MACHINE_HPPA_TRUE@	libc/machine/hppa/setjmp.S \
 @HAVE_LIBC_MACHINE_HPPA_TRUE@	libc/machine/hppa/strcat.S libc/machine/hppa/strcmp.S \
 @HAVE_LIBC_MACHINE_HPPA_TRUE@	libc/machine/hppa/strcpy.S libc/machine/hppa/strlen.S libc/machine/hppa/strncat.S libc/machine/hppa/strncmp.S libc/machine/hppa/strncpy.S
 
-@HAVE_LIBC_MACHINE_I386_TRUE@@MACH_ADD_SETJMP_TRUE@am__append_87 = libc/machine/i386/setjmp.S
-@HAVE_LIBC_MACHINE_I386_TRUE@am__append_88 = \
+@HAVE_LIBC_MACHINE_I386_TRUE@@MACH_ADD_SETJMP_TRUE@am__append_91 = libc/machine/i386/setjmp.S
+@HAVE_LIBC_MACHINE_I386_TRUE@am__append_92 = \
 @HAVE_LIBC_MACHINE_I386_TRUE@	libc/machine/i386/memchr.S libc/machine/i386/memcmp.S libc/machine/i386/memcpy.S libc/machine/i386/memset.S libc/machine/i386/strchr.S \
 @HAVE_LIBC_MACHINE_I386_TRUE@	libc/machine/i386/memmove.S libc/machine/i386/strlen.S libc/machine/i386/i386mach.h
 
-@HAVE_LIBC_MACHINE_I960_TRUE@am__append_89 = \
+@HAVE_LIBC_MACHINE_I960_TRUE@am__append_93 = \
 @HAVE_LIBC_MACHINE_I960_TRUE@	libc/machine/i960/memccpy_ca.S \
 @HAVE_LIBC_MACHINE_I960_TRUE@	libc/machine/i960/memccpy.S \
 @HAVE_LIBC_MACHINE_I960_TRUE@	libc/machine/i960/memchr_ca.S \
@@ -843,43 +847,43 @@ check_PROGRAMS =
 @HAVE_LIBC_MACHINE_I960_TRUE@	libc/machine/i960/strpbrk.S \
 @HAVE_LIBC_MACHINE_I960_TRUE@	libc/machine/i960/strrchr.S
 
-@HAVE_LIBC_MACHINE_IQ2000_TRUE@am__append_90 = libc/machine/iq2000/setjmp.S
-@HAVE_LIBC_MACHINE_LM32_TRUE@am__append_91 = libc/machine/lm32/setjmp.S
-@HAVE_LIBC_MACHINE_M32C_TRUE@am__append_92 = libc/machine/m32c/setjmp.S
-@HAVE_LIBC_MACHINE_M32R_TRUE@am__append_93 = libc/machine/m32r/setjmp.S
-@HAVE_LIBC_MACHINE_M68HC11_TRUE@am__append_94 = libc/machine/m68hc11/setjmp.S
-@HAVE_LIBC_MACHINE_M68K_TRUE@am__append_95 = libc/machine/m68k/setjmp.S libc/machine/m68k/strcpy.c libc/machine/m68k/strlen.c libc/machine/m68k/memcpy.S libc/machine/m68k/memset.S
-@HAVE_LIBC_MACHINE_M88K_TRUE@am__append_96 = libc/machine/m88k/setjmp.S
-@HAVE_LIBC_MACHINE_MEP_TRUE@am__append_97 = libc/machine/mep/setjmp.S
-@HAVE_LIBC_MACHINE_MICROBLAZE_TRUE@am__append_98 = libc/machine/microblaze/strlen.c libc/machine/microblaze/strcmp.c libc/machine/microblaze/strcpy.c libc/machine/microblaze/setjmp.S libc/machine/microblaze/longjmp.S
-@HAVE_LIBC_MACHINE_MIPS_TRUE@am__append_99 = libc/machine/mips/setjmp.S libc/machine/mips/strlen.c libc/machine/mips/strcmp.S libc/machine/mips/strncpy.c libc/machine/mips/memset.c libc/machine/mips/memcpy.c
-@HAVE_LIBC_MACHINE_MN10200_TRUE@am__append_100 = libc/machine/mn10200/setjmp.S
-@HAVE_LIBC_MACHINE_MN10300_TRUE@am__append_101 = \
+@HAVE_LIBC_MACHINE_IQ2000_TRUE@am__append_94 = libc/machine/iq2000/setjmp.S
+@HAVE_LIBC_MACHINE_LM32_TRUE@am__append_95 = libc/machine/lm32/setjmp.S
+@HAVE_LIBC_MACHINE_M32C_TRUE@am__append_96 = libc/machine/m32c/setjmp.S
+@HAVE_LIBC_MACHINE_M32R_TRUE@am__append_97 = libc/machine/m32r/setjmp.S
+@HAVE_LIBC_MACHINE_M68HC11_TRUE@am__append_98 = libc/machine/m68hc11/setjmp.S
+@HAVE_LIBC_MACHINE_M68K_TRUE@am__append_99 = libc/machine/m68k/setjmp.S libc/machine/m68k/strcpy.c libc/machine/m68k/strlen.c libc/machine/m68k/memcpy.S libc/machine/m68k/memset.S
+@HAVE_LIBC_MACHINE_M88K_TRUE@am__append_100 = libc/machine/m88k/setjmp.S
+@HAVE_LIBC_MACHINE_MEP_TRUE@am__append_101 = libc/machine/mep/setjmp.S
+@HAVE_LIBC_MACHINE_MICROBLAZE_TRUE@am__append_102 = libc/machine/microblaze/strlen.c libc/machine/microblaze/strcmp.c libc/machine/microblaze/strcpy.c libc/machine/microblaze/setjmp.S libc/machine/microblaze/longjmp.S
+@HAVE_LIBC_MACHINE_MIPS_TRUE@am__append_103 = libc/machine/mips/setjmp.S libc/machine/mips/strlen.c libc/machine/mips/strcmp.S libc/machine/mips/strncpy.c libc/machine/mips/memset.c libc/machine/mips/memcpy.c
+@HAVE_LIBC_MACHINE_MN10200_TRUE@am__append_104 = libc/machine/mn10200/setjmp.S
+@HAVE_LIBC_MACHINE_MN10300_TRUE@am__append_105 = \
 @HAVE_LIBC_MACHINE_MN10300_TRUE@	libc/machine/mn10300/setjmp.S libc/machine/mn10300/memchr.S libc/machine/mn10300/memcmp.S libc/machine/mn10300/memcpy.S libc/machine/mn10300/memset.S libc/machine/mn10300/strchr.S \
 @HAVE_LIBC_MACHINE_MN10300_TRUE@	libc/machine/mn10300/strcmp.S libc/machine/mn10300/strcpy.S libc/machine/mn10300/strlen.S
 
-@HAVE_LIBC_MACHINE_MOXIE_TRUE@am__append_102 = libc/machine/moxie/setjmp.S
-@HAVE_LIBC_MACHINE_MSP430_TRUE@am__append_103 = libc/machine/msp430/setjmp.S
-@HAVE_LIBC_MACHINE_MSP430_TRUE@@NEWLIB_NANO_FORMATTED_IO_TRUE@am__append_104 = libc/machine/msp430/tiny-puts.c libc/machine/msp430/tiny-printf.c
-@HAVE_LIBC_MACHINE_MT_TRUE@am__append_105 = libc/machine/mt/setjmp.S
-@HAVE_LIBC_MACHINE_NDS32_TRUE@am__append_106 = \
+@HAVE_LIBC_MACHINE_MOXIE_TRUE@am__append_106 = libc/machine/moxie/setjmp.S
+@HAVE_LIBC_MACHINE_MSP430_TRUE@am__append_107 = libc/machine/msp430/setjmp.S
+@HAVE_LIBC_MACHINE_MSP430_TRUE@@NEWLIB_NANO_FORMATTED_IO_TRUE@am__append_108 = libc/machine/msp430/tiny-puts.c libc/machine/msp430/tiny-printf.c
+@HAVE_LIBC_MACHINE_MT_TRUE@am__append_109 = libc/machine/mt/setjmp.S
+@HAVE_LIBC_MACHINE_NDS32_TRUE@am__append_110 = \
 @HAVE_LIBC_MACHINE_NDS32_TRUE@	libc/machine/nds32/abort.c \
 @HAVE_LIBC_MACHINE_NDS32_TRUE@	libc/machine/nds32/setjmp.S \
 @HAVE_LIBC_MACHINE_NDS32_TRUE@	libc/machine/nds32/strcmp.S \
 @HAVE_LIBC_MACHINE_NDS32_TRUE@	libc/machine/nds32/strcpy.S
 
-@HAVE_LIBC_MACHINE_NDS32_TRUE@@IS_NDS32_ISA_V3M_FALSE@am__append_107 = libc/machine/nds32/memcpy.S libc/machine/nds32/memset.S
-@HAVE_LIBC_MACHINE_NECV70_TRUE@am__append_108 = libc/machine/necv70/fastmath.S libc/machine/necv70/setjmp.S
-@HAVE_LIBC_MACHINE_NIOS2_TRUE@am__append_109 = libc/machine/nios2/setjmp.s
-@HAVE_LIBC_MACHINE_NVPTX_TRUE@am__append_110 = \
+@HAVE_LIBC_MACHINE_NDS32_TRUE@@IS_NDS32_ISA_V3M_FALSE@am__append_111 = libc/machine/nds32/memcpy.S libc/machine/nds32/memset.S
+@HAVE_LIBC_MACHINE_NECV70_TRUE@am__append_112 = libc/machine/necv70/fastmath.S libc/machine/necv70/setjmp.S
+@HAVE_LIBC_MACHINE_NIOS2_TRUE@am__append_113 = libc/machine/nios2/setjmp.s
+@HAVE_LIBC_MACHINE_NVPTX_TRUE@am__append_114 = \
 @HAVE_LIBC_MACHINE_NVPTX_TRUE@	libc/machine/nvptx/_exit.c \
 @HAVE_LIBC_MACHINE_NVPTX_TRUE@	libc/machine/nvptx/calloc.c libc/machine/nvptx/callocr.c libc/machine/nvptx/malloc.c libc/machine/nvptx/mallocr.c libc/machine/nvptx/realloc.c libc/machine/nvptx/reallocr.c \
 @HAVE_LIBC_MACHINE_NVPTX_TRUE@	libc/machine/nvptx/free.c libc/machine/nvptx/write.c libc/machine/nvptx/assert.c libc/machine/nvptx/puts.c libc/machine/nvptx/putchar.c libc/machine/nvptx/printf.c libc/machine/nvptx/abort.c \
 @HAVE_LIBC_MACHINE_NVPTX_TRUE@	libc/machine/nvptx/misc.c libc/machine/nvptx/clock.c
 
-@HAVE_LIBC_MACHINE_OR1K_TRUE@am__append_111 = libc/machine/or1k/setjmp.S
-@HAVE_LIBC_MACHINE_POWERPC_TRUE@am__append_112 = libc/machine/powerpc/setjmp.S
-@HAVE_LIBC_MACHINE_POWERPC_TRUE@@HAVE_POWERPC_ALTIVEC_TRUE@am__append_113 = \
+@HAVE_LIBC_MACHINE_OR1K_TRUE@am__append_115 = libc/machine/or1k/setjmp.S
+@HAVE_LIBC_MACHINE_POWERPC_TRUE@am__append_116 = libc/machine/powerpc/setjmp.S
+@HAVE_LIBC_MACHINE_POWERPC_TRUE@@HAVE_POWERPC_ALTIVEC_TRUE@am__append_117 = \
 @HAVE_LIBC_MACHINE_POWERPC_TRUE@@HAVE_POWERPC_ALTIVEC_TRUE@	libc/machine/powerpc/vfprintf.c \
 @HAVE_LIBC_MACHINE_POWERPC_TRUE@@HAVE_POWERPC_ALTIVEC_TRUE@	libc/machine/powerpc/vfscanf.c \
 @HAVE_LIBC_MACHINE_POWERPC_TRUE@@HAVE_POWERPC_ALTIVEC_TRUE@	libc/machine/powerpc/vec_malloc.c \
@@ -890,7 +894,7 @@ check_PROGRAMS =
 @HAVE_LIBC_MACHINE_POWERPC_TRUE@@HAVE_POWERPC_ALTIVEC_TRUE@	libc/machine/powerpc/vec_callocr.c \
 @HAVE_LIBC_MACHINE_POWERPC_TRUE@@HAVE_POWERPC_ALTIVEC_TRUE@	libc/machine/powerpc/vec_reallocr.c
 
-@HAVE_LIBC_MACHINE_POWERPC_TRUE@@HAVE_POWERPC_SPE_TRUE@am__append_114 = \
+@HAVE_LIBC_MACHINE_POWERPC_TRUE@@HAVE_POWERPC_SPE_TRUE@am__append_118 = \
 @HAVE_LIBC_MACHINE_POWERPC_TRUE@@HAVE_POWERPC_SPE_TRUE@	libc/machine/powerpc/atosfix16.c \
 @HAVE_LIBC_MACHINE_POWERPC_TRUE@@HAVE_POWERPC_SPE_TRUE@	libc/machine/powerpc/atosfix32.c \
 @HAVE_LIBC_MACHINE_POWERPC_TRUE@@HAVE_POWERPC_SPE_TRUE@	libc/machine/powerpc/atosfix64.c \
@@ -908,8 +912,8 @@ check_PROGRAMS =
 @HAVE_LIBC_MACHINE_POWERPC_TRUE@@HAVE_POWERPC_SPE_TRUE@	libc/machine/powerpc/vfprintf.c \
 @HAVE_LIBC_MACHINE_POWERPC_TRUE@@HAVE_POWERPC_SPE_TRUE@	libc/machine/powerpc/vfscanf.c
 
-@HAVE_LIBC_MACHINE_PRU_TRUE@am__append_115 = libc/machine/pru/setjmp.s
-@HAVE_LIBC_MACHINE_RISCV_TRUE@am__append_116 = \
+@HAVE_LIBC_MACHINE_PRU_TRUE@am__append_119 = libc/machine/pru/setjmp.s
+@HAVE_LIBC_MACHINE_RISCV_TRUE@am__append_120 = \
 @HAVE_LIBC_MACHINE_RISCV_TRUE@	libc/machine/riscv/ffs.c \
 @HAVE_LIBC_MACHINE_RISCV_TRUE@	libc/machine/riscv/ieeefp.c \
 @HAVE_LIBC_MACHINE_RISCV_TRUE@	libc/machine/riscv/memccpy-asm.S \
@@ -935,16 +939,16 @@ check_PROGRAMS =
 @HAVE_LIBC_MACHINE_RISCV_TRUE@	libc/machine/riscv/strcpy.c \
 @HAVE_LIBC_MACHINE_RISCV_TRUE@	libc/machine/riscv/strlen.c
 
-@HAVE_LIBC_MACHINE_RL78_TRUE@am__append_117 = libc/machine/rl78/setjmp.S
-@HAVE_LIBC_MACHINE_RX_TRUE@am__append_118 = \
+@HAVE_LIBC_MACHINE_RL78_TRUE@am__append_121 = libc/machine/rl78/setjmp.S
+@HAVE_LIBC_MACHINE_RX_TRUE@am__append_122 = \
 @HAVE_LIBC_MACHINE_RX_TRUE@	libc/machine/rx/setjmp.S \
 @HAVE_LIBC_MACHINE_RX_TRUE@	libc/machine/rx/strncmp.S libc/machine/rx/strcmp.S libc/machine/rx/strncpy.S libc/machine/rx/strcpy.S libc/machine/rx/strlen.S libc/machine/rx/strcat.S libc/machine/rx/strncat.S \
 @HAVE_LIBC_MACHINE_RX_TRUE@	libc/machine/rx/memset.S libc/machine/rx/mempcpy.S libc/machine/rx/memcpy.S libc/machine/rx/memmove.S libc/machine/rx/memchr.S
 
-@HAVE_LIBC_MACHINE_SH_TRUE@am__append_119 = libc/machine/sh/memcpy.S libc/machine/sh/memset.S libc/machine/sh/setjmp.S libc/machine/sh/strcpy.S libc/machine/sh/strlen.S libc/machine/sh/strcmp.S
-@HAVE_LIBC_MACHINE_SH_TRUE@@SH64_TRUE@am__append_120 = libc/machine/sh/strncpy.S
-@HAVE_LIBC_MACHINE_SPARC_TRUE@am__append_121 = libc/machine/sparc/scan.c libc/machine/sparc/shuffle.c libc/machine/sparc/setjmp.S
-@HAVE_LIBC_MACHINE_SPU_TRUE@am__append_122 = \
+@HAVE_LIBC_MACHINE_SH_TRUE@am__append_123 = libc/machine/sh/memcpy.S libc/machine/sh/memset.S libc/machine/sh/setjmp.S libc/machine/sh/strcpy.S libc/machine/sh/strlen.S libc/machine/sh/strcmp.S
+@HAVE_LIBC_MACHINE_SH_TRUE@@SH64_TRUE@am__append_124 = libc/machine/sh/strncpy.S
+@HAVE_LIBC_MACHINE_SPARC_TRUE@am__append_125 = libc/machine/sparc/scan.c libc/machine/sparc/shuffle.c libc/machine/sparc/setjmp.S
+@HAVE_LIBC_MACHINE_SPU_TRUE@am__append_126 = \
 @HAVE_LIBC_MACHINE_SPU_TRUE@	libc/machine/spu/setjmp.S libc/machine/spu/assert.c libc/machine/spu/clearerr.c libc/machine/spu/creat.c libc/machine/spu/fclose.c libc/machine/spu/feof.c \
 @HAVE_LIBC_MACHINE_SPU_TRUE@	libc/machine/spu/ferror.c libc/machine/spu/fflush.c libc/machine/spu/fgetc.c libc/machine/spu/fgetpos.c libc/machine/spu/fgets.c libc/machine/spu/fileno.c libc/machine/spu/fiprintf.S \
 @HAVE_LIBC_MACHINE_SPU_TRUE@	libc/machine/spu/fiscanf.S libc/machine/spu/fopen.c libc/machine/spu/fprintf.S libc/machine/spu/fputc.c libc/machine/spu/fputs.c libc/machine/spu/fread.c libc/machine/spu/freopen.c \
@@ -962,7 +966,7 @@ check_PROGRAMS =
 @HAVE_LIBC_MACHINE_SPU_TRUE@	libc/machine/spu/spu_timer_slih.c libc/machine/spu/spu_timer_slih_reg.c libc/machine/spu/spu_timer_svcs.c \
 @HAVE_LIBC_MACHINE_SPU_TRUE@	libc/machine/spu/spu_timer_stop.c libc/machine/spu/spu_timer_free.c libc/machine/spu/spu_timebase.c libc/machine/spu/fdopen.c
 
-@HAVE_LIBC_MACHINE_SPU_TRUE@@HAVE_SPU_EA_TRUE@am__append_123 = \
+@HAVE_LIBC_MACHINE_SPU_TRUE@@HAVE_SPU_EA_TRUE@am__append_127 = \
 @HAVE_LIBC_MACHINE_SPU_TRUE@@HAVE_SPU_EA_TRUE@	libc/machine/spu/calloc_ea.c libc/machine/spu/free_ea.c libc/machine/spu/malloc_ea.c libc/machine/spu/memchr_ea.c libc/machine/spu/memcmp_ea.c \
 @HAVE_LIBC_MACHINE_SPU_TRUE@@HAVE_SPU_EA_TRUE@	libc/machine/spu/memcpy_ea.c libc/machine/spu/memmove_ea.c libc/machine/spu/memset_ea.c libc/machine/spu/mmap_ea.c libc/machine/spu/mremap_ea.c libc/machine/spu/msync_ea.c \
 @HAVE_LIBC_MACHINE_SPU_TRUE@@HAVE_SPU_EA_TRUE@	libc/machine/spu/munmap_ea.c libc/machine/spu/posix_memalign_ea.c libc/machine/spu/realloc_ea.c libc/machine/spu/strcat_ea.c libc/machine/spu/strchr_ea.c \
@@ -971,18 +975,18 @@ check_PROGRAMS =
 @HAVE_LIBC_MACHINE_SPU_TRUE@@HAVE_SPU_EA_TRUE@	libc/machine/spu/pread_ea.c libc/machine/spu/readv_ea.c libc/machine/spu/write_ea.c libc/machine/spu/pwrite_ea.c libc/machine/spu/writev_ea.c libc/machine/spu/spu-mcount.S \
 @HAVE_LIBC_MACHINE_SPU_TRUE@@HAVE_SPU_EA_TRUE@	libc/machine/spu/spu-gmon.c
 
-@HAVE_LIBC_MACHINE_TIC4X_TRUE@am__append_124 = libc/machine/tic4x/setjmp.S
-@HAVE_LIBC_MACHINE_TIC6X_TRUE@am__append_125 = libc/machine/tic6x/setjmp.S
-@HAVE_LIBC_MACHINE_TIC80_TRUE@am__append_126 = libc/machine/tic80/setjmp.S
-@HAVE_LIBC_MACHINE_V850_TRUE@am__append_127 = libc/machine/v850/setjmp.S
-@HAVE_LIBC_MACHINE_VISIUM_TRUE@am__append_128 = libc/machine/visium/memcpy.c libc/machine/visium/memset.c libc/machine/visium/memmove.c libc/machine/visium/setjmp.S
-@HAVE_LIBC_MACHINE_W65_TRUE@am__append_129 = \
+@HAVE_LIBC_MACHINE_TIC4X_TRUE@am__append_128 = libc/machine/tic4x/setjmp.S
+@HAVE_LIBC_MACHINE_TIC6X_TRUE@am__append_129 = libc/machine/tic6x/setjmp.S
+@HAVE_LIBC_MACHINE_TIC80_TRUE@am__append_130 = libc/machine/tic80/setjmp.S
+@HAVE_LIBC_MACHINE_V850_TRUE@am__append_131 = libc/machine/v850/setjmp.S
+@HAVE_LIBC_MACHINE_VISIUM_TRUE@am__append_132 = libc/machine/visium/memcpy.c libc/machine/visium/memset.c libc/machine/visium/memmove.c libc/machine/visium/setjmp.S
+@HAVE_LIBC_MACHINE_W65_TRUE@am__append_133 = \
 @HAVE_LIBC_MACHINE_W65_TRUE@	libc/machine/w65/udivhi3.S libc/machine/w65/umodhi3.S libc/machine/w65/smulhi3.S libc/machine/w65/lshrhi.S libc/machine/w65/sdivhi3.S libc/machine/w65/mulsi3.c \
 @HAVE_LIBC_MACHINE_W65_TRUE@	libc/machine/w65/divsi3.c libc/machine/w65/cmpsi.c
 
-@HAVE_LIBC_MACHINE_X86_64_TRUE@am__append_130 = libc/machine/x86_64/setjmp.S libc/machine/x86_64/memcpy.S libc/machine/x86_64/memset.S
-@HAVE_LIBC_MACHINE_XC16X_TRUE@am__append_131 = libc/machine/xc16x/setjmp.S libc/machine/xc16x/puts.c libc/machine/xc16x/putchar.c
-@HAVE_LIBC_MACHINE_XSTORMY16_TRUE@am__append_132 = \
+@HAVE_LIBC_MACHINE_X86_64_TRUE@am__append_134 = libc/machine/x86_64/setjmp.S libc/machine/x86_64/memcpy.S libc/machine/x86_64/memset.S
+@HAVE_LIBC_MACHINE_XC16X_TRUE@am__append_135 = libc/machine/xc16x/setjmp.S libc/machine/xc16x/puts.c libc/machine/xc16x/putchar.c
+@HAVE_LIBC_MACHINE_XSTORMY16_TRUE@am__append_136 = \
 @HAVE_LIBC_MACHINE_XSTORMY16_TRUE@	libc/machine/xstormy16/setjmp.S \
 @HAVE_LIBC_MACHINE_XSTORMY16_TRUE@	libc/machine/xstormy16/calloc.c \
 @HAVE_LIBC_MACHINE_XSTORMY16_TRUE@	libc/machine/xstormy16/callocr.c \
@@ -997,13 +1001,13 @@ check_PROGRAMS =
 @HAVE_LIBC_MACHINE_XSTORMY16_TRUE@	libc/machine/xstormy16/reallocr.c \
 @HAVE_LIBC_MACHINE_XSTORMY16_TRUE@	libc/machine/xstormy16/valloc.c
 
-@HAVE_LIBC_MACHINE_XTENSA_TRUE@am__append_133 = \
+@HAVE_LIBC_MACHINE_XTENSA_TRUE@am__append_137 = \
 @HAVE_LIBC_MACHINE_XTENSA_TRUE@	libc/machine/xtensa/memcpy.S libc/machine/xtensa/memset.S libc/machine/xtensa/setjmp.S libc/machine/xtensa/strcmp.S libc/machine/xtensa/strcpy.S \
 @HAVE_LIBC_MACHINE_XTENSA_TRUE@	libc/machine/xtensa/strlen.S libc/machine/xtensa/strncpy.S
 
-@HAVE_LIBC_MACHINE_Z8K_TRUE@am__append_134 = libc/machine/z8k/setjmp.S libc/machine/z8k/memset.S libc/machine/z8k/memcpy.S libc/machine/z8k/memmove.S libc/machine/z8k/memcmp.S
-@NEWLIB_HW_FP_TRUE@am__append_135 = $(libm_mathfp_src) $(libm_mathfp_fsrc)
-@NEWLIB_HW_FP_TRUE@am__append_136 = \
+@HAVE_LIBC_MACHINE_Z8K_TRUE@am__append_138 = libc/machine/z8k/setjmp.S libc/machine/z8k/memset.S libc/machine/z8k/memcpy.S libc/machine/z8k/memmove.S libc/machine/z8k/memcmp.S
+@NEWLIB_HW_FP_TRUE@am__append_139 = $(libm_mathfp_src) $(libm_mathfp_fsrc)
+@NEWLIB_HW_FP_TRUE@am__append_140 = \
 @NEWLIB_HW_FP_TRUE@	libm/mathfp/e_acosh.def \
 @NEWLIB_HW_FP_TRUE@	libm/mathfp/e_atanh.def \
 @NEWLIB_HW_FP_TRUE@	libm/mathfp/e_hypot.def \
@@ -1033,9 +1037,9 @@ check_PROGRAMS =
 @NEWLIB_HW_FP_TRUE@	libm/mathfp/s_tanh.def \
 @NEWLIB_HW_FP_TRUE@	libm/mathfp/w_jn.def
 
-@NEWLIB_HW_FP_TRUE@am__append_137 = libm/mathfp/mathfp.tex
-@NEWLIB_HW_FP_FALSE@am__append_138 = $(libm_math_src) $(libm_math_fsrc) $(libm_math_lsrc)
-@NEWLIB_HW_FP_FALSE@am__append_139 = \
+@NEWLIB_HW_FP_TRUE@am__append_141 = libm/mathfp/mathfp.tex
+@NEWLIB_HW_FP_FALSE@am__append_142 = $(libm_math_src) $(libm_math_fsrc) $(libm_math_lsrc)
+@NEWLIB_HW_FP_FALSE@am__append_143 = \
 @NEWLIB_HW_FP_FALSE@	libm/math/w_acos.def libm/math/w_acosh.def libm/math/w_asin.def libm/math/s_asinh.def \
 @NEWLIB_HW_FP_FALSE@	libm/math/s_atan.def libm/math/w_atan2.def libm/math/w_atanh.def libm/math/w_j0.def \
 @NEWLIB_HW_FP_FALSE@	libm/math/w_cosh.def libm/math/s_erf.def libm/math/w_exp.def libm/math/w_exp2.def \
@@ -1045,52 +1049,52 @@ check_PROGRAMS =
 @NEWLIB_HW_FP_FALSE@	libm/math/w_pow.def libm/math/w_remainder.def libm/math/s_sin.def libm/math/w_sinh.def \
 @NEWLIB_HW_FP_FALSE@	libm/math/w_sqrt.def libm/math/s_tan.def libm/math/s_tanh.def
 
-@NEWLIB_HW_FP_FALSE@am__append_140 = libm/math/math.tex
-@HAVE_LONG_DOUBLE_TRUE@am__append_141 = $(libm_common_lsrc)
-@HAVE_FPMATH_H_TRUE@@HAVE_LONG_DOUBLE_TRUE@am__append_142 = $(libm_ld_lsrc)
-@HAVE_FPMATH_H_TRUE@am__append_143 = 
-@HAVE_FPMATH_H_TRUE@am__append_144 = 
-@HAVE_LIBC_SYS_AMIGAOS_DIR_FALSE@am__append_145 = $(libm_fenv_src)
-@HAVE_LIBC_SYS_AMIGAOS_DIR_FALSE@am__append_146 = \
+@NEWLIB_HW_FP_FALSE@am__append_144 = libm/math/math.tex
+@HAVE_LONG_DOUBLE_TRUE@am__append_145 = $(libm_common_lsrc)
+@HAVE_FPMATH_H_TRUE@@HAVE_LONG_DOUBLE_TRUE@am__append_146 = $(libm_ld_lsrc)
+@HAVE_FPMATH_H_TRUE@am__append_147 = 
+@HAVE_FPMATH_H_TRUE@am__append_148 = 
+@HAVE_LIBC_SYS_AMIGAOS_DIR_FALSE@am__append_149 = $(libm_fenv_src)
+@HAVE_LIBC_SYS_AMIGAOS_DIR_FALSE@am__append_150 = \
 @HAVE_LIBC_SYS_AMIGAOS_DIR_FALSE@	libm/fenv/feclearexcept.def libm/fenv/fegetenv.def \
 @HAVE_LIBC_SYS_AMIGAOS_DIR_FALSE@	libm/fenv/fegetexceptflag.def libm/fenv/fegetround.def libm/fenv/feholdexcept.def \
 @HAVE_LIBC_SYS_AMIGAOS_DIR_FALSE@	libm/fenv/feraiseexcept.def libm/fenv/fesetenv.def libm/fenv/fesetexceptflag.def libm/fenv/fesetround.def \
 @HAVE_LIBC_SYS_AMIGAOS_DIR_FALSE@	libm/fenv/fetestexcept.def libm/fenv/feupdateenv.def
 
-@HAVE_LIBC_SYS_AMIGAOS_DIR_FALSE@am__append_147 = libm/fenv/fenv.tex
-@HAVE_LIBM_MACHINE_AARCH64_TRUE@am__append_148 = $(libm_machine_aarch64_src)
-@HAVE_FPMATH_H_TRUE@@HAVE_LIBM_MACHINE_AARCH64_TRUE@@HAVE_LONG_DOUBLE_TRUE@am__append_149 = $(libm_ld128_lsrc)
-@HAVE_FPMATH_H_TRUE@@HAVE_LIBM_MACHINE_AARCH64_TRUE@am__append_150 = 
-@HAVE_FPMATH_H_TRUE@@HAVE_LIBM_MACHINE_AARCH64_TRUE@am__append_151 = 
-@HAVE_LIBM_MACHINE_AMDGCN_TRUE@am__append_152 = $(libm_machine_amdgcn_src)
-@HAVE_LIBM_MACHINE_ARM_TRUE@am__append_153 = $(libm_machine_arm_src)
-@HAVE_LIBM_MACHINE_I386_TRUE@am__append_154 = $(libm_machine_i386_src)
-@HAVE_LIBM_MACHINE_I386_TRUE@@HAVE_LONG_DOUBLE_TRUE@am__append_155 = $(libm_ld80_lsrc)
-@HAVE_LIBM_MACHINE_I386_TRUE@am__append_156 = 
-@HAVE_LIBM_MACHINE_I386_TRUE@am__append_157 = 
-@HAVE_LIBM_MACHINE_MIPS_TRUE@am__append_158 = $(libm_machine_mips_src)
-@HAS_NDS32_FPU_SP_TRUE@@HAVE_LIBM_MACHINE_NDS32_TRUE@am__append_159 = libm/machine/nds32/wf_sqrt.S
-@HAS_NDS32_FPU_DP_TRUE@@HAVE_LIBM_MACHINE_NDS32_TRUE@am__append_160 = libm/machine/nds32/w_sqrt.S
-@HAVE_LIBM_MACHINE_NDS32_TRUE@am__append_161 = $(libm_machine_nds32_src)
-@HAVE_LIBM_MACHINE_POWERPC_TRUE@am__append_162 = $(libm_machine_powerpc_src)
-@HAVE_LIBM_MACHINE_PRU_TRUE@am__append_163 = $(libm_machine_pru_src)
-@HAVE_LIBM_MACHINE_SPARC_TRUE@am__append_164 = $(libm_machine_sparc_src)
-@HAVE_LIBM_MACHINE_SPU_TRUE@am__append_165 = $(libm_machine_spu_src)
-@HAVE_LIBM_MACHINE_RISCV_TRUE@am__append_166 = $(libm_machine_riscv_src)
-@HAVE_LIBM_MACHINE_RISCV_TRUE@@HAVE_LONG_DOUBLE_TRUE@am__append_167 = $(libm_ld128_lsrc)
-@HAVE_LIBM_MACHINE_RISCV_TRUE@am__append_168 = 
-@HAVE_LIBM_MACHINE_RISCV_TRUE@am__append_169 = 
-@HAVE_LIBM_MACHINE_X86_64_TRUE@am__append_170 = $(libm_machine_x86_64_src)
-@HAVE_LIBM_MACHINE_X86_64_TRUE@@HAVE_LONG_DOUBLE_TRUE@am__append_171 = $(libm_ld80_lsrc)
-@HAVE_LIBM_MACHINE_X86_64_TRUE@am__append_172 = 
-@HAVE_LIBM_MACHINE_X86_64_TRUE@am__append_173 = 
-@HAVE_FPMATH_H_TRUE@@HAVE_LIBC_MACHINE_M68K_TRUE@@HAVE_LONG_DOUBLE_TRUE@am__append_174 = $(libm_ld80_lsrc)
-@HAVE_FPMATH_H_TRUE@@HAVE_LIBC_MACHINE_M68K_TRUE@am__append_175 = 
-@HAVE_FPMATH_H_TRUE@@HAVE_LIBC_MACHINE_M68K_TRUE@am__append_176 = 
-@HAVE_LIBM_MACHINE_XTENSA_TRUE@@XTENSA_XCHAL_HAVE_FP_SQRT_TRUE@am__append_177 = \
+@HAVE_LIBC_SYS_AMIGAOS_DIR_FALSE@am__append_151 = libm/fenv/fenv.tex
+@HAVE_LIBM_MACHINE_AARCH64_TRUE@am__append_152 = $(libm_machine_aarch64_src)
+@HAVE_FPMATH_H_TRUE@@HAVE_LIBM_MACHINE_AARCH64_TRUE@@HAVE_LONG_DOUBLE_TRUE@am__append_153 = $(libm_ld128_lsrc)
+@HAVE_FPMATH_H_TRUE@@HAVE_LIBM_MACHINE_AARCH64_TRUE@am__append_154 = 
+@HAVE_FPMATH_H_TRUE@@HAVE_LIBM_MACHINE_AARCH64_TRUE@am__append_155 = 
+@HAVE_LIBM_MACHINE_AMDGCN_TRUE@am__append_156 = $(libm_machine_amdgcn_src)
+@HAVE_LIBM_MACHINE_ARM_TRUE@am__append_157 = $(libm_machine_arm_src)
+@HAVE_LIBM_MACHINE_I386_TRUE@am__append_158 = $(libm_machine_i386_src)
+@HAVE_LIBM_MACHINE_I386_TRUE@@HAVE_LONG_DOUBLE_TRUE@am__append_159 = $(libm_ld80_lsrc)
+@HAVE_LIBM_MACHINE_I386_TRUE@am__append_160 = 
+@HAVE_LIBM_MACHINE_I386_TRUE@am__append_161 = 
+@HAVE_LIBM_MACHINE_MIPS_TRUE@am__append_162 = $(libm_machine_mips_src)
+@HAS_NDS32_FPU_SP_TRUE@@HAVE_LIBM_MACHINE_NDS32_TRUE@am__append_163 = libm/machine/nds32/wf_sqrt.S
+@HAS_NDS32_FPU_DP_TRUE@@HAVE_LIBM_MACHINE_NDS32_TRUE@am__append_164 = libm/machine/nds32/w_sqrt.S
+@HAVE_LIBM_MACHINE_NDS32_TRUE@am__append_165 = $(libm_machine_nds32_src)
+@HAVE_LIBM_MACHINE_POWERPC_TRUE@am__append_166 = $(libm_machine_powerpc_src)
+@HAVE_LIBM_MACHINE_PRU_TRUE@am__append_167 = $(libm_machine_pru_src)
+@HAVE_LIBM_MACHINE_SPARC_TRUE@am__append_168 = $(libm_machine_sparc_src)
+@HAVE_LIBM_MACHINE_SPU_TRUE@am__append_169 = $(libm_machine_spu_src)
+@HAVE_LIBM_MACHINE_RISCV_TRUE@am__append_170 = $(libm_machine_riscv_src)
+@HAVE_LIBM_MACHINE_RISCV_TRUE@@HAVE_LONG_DOUBLE_TRUE@am__append_171 = $(libm_ld128_lsrc)
+@HAVE_LIBM_MACHINE_RISCV_TRUE@am__append_172 = 
+@HAVE_LIBM_MACHINE_RISCV_TRUE@am__append_173 = 
+@HAVE_LIBM_MACHINE_X86_64_TRUE@am__append_174 = $(libm_machine_x86_64_src)
+@HAVE_LIBM_MACHINE_X86_64_TRUE@@HAVE_LONG_DOUBLE_TRUE@am__append_175 = $(libm_ld80_lsrc)
+@HAVE_LIBM_MACHINE_X86_64_TRUE@am__append_176 = 
+@HAVE_LIBM_MACHINE_X86_64_TRUE@am__append_177 = 
+@HAVE_FPMATH_H_TRUE@@HAVE_LIBC_MACHINE_M68K_TRUE@@HAVE_LONG_DOUBLE_TRUE@am__append_178 = $(libm_ld80_lsrc)
+@HAVE_FPMATH_H_TRUE@@HAVE_LIBC_MACHINE_M68K_TRUE@am__append_179 = 
+@HAVE_FPMATH_H_TRUE@@HAVE_LIBC_MACHINE_M68K_TRUE@am__append_180 = 
+@HAVE_LIBM_MACHINE_XTENSA_TRUE@@XTENSA_XCHAL_HAVE_FP_SQRT_TRUE@am__append_181 = \
 @HAVE_LIBM_MACHINE_XTENSA_TRUE@@XTENSA_XCHAL_HAVE_FP_SQRT_TRUE@	libm/machine/xtensa/ef_sqrt.c
 
-@HAVE_LIBM_MACHINE_XTENSA_TRUE@am__append_178 = $(libm_machine_xtensa_src)
+@HAVE_LIBM_MACHINE_XTENSA_TRUE@am__append_182 = $(libm_machine_xtensa_src)
 subdir = .
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/../config/depstand.m4 \
@@ -4262,7 +4266,7 @@ ACLOCAL_AMFLAGS = -I . -I .. -I ../config
 
 # Variables that will accumulate in subdirs.
 CLEANFILES = libg.a $(MATHOBJS_IN_LIBC) stmp-targ-include \
-	libc/targetdep.tex libc/targetdep.tex.stamp \
+	$(am__append_46) libc/targetdep.tex libc/targetdep.tex.stamp \
 	$(LIBC_CHEWOUT_FILES) $(LIBC_DOCBOOK_OUT_FILES) libc/*.xml \
 	libc_man.stamp libc/*.3 libm/targetdep.tex \
 	libm/targetdep.tex.stamp $(LIBM_CHEWOUT_FILES) \
@@ -4272,8 +4276,8 @@ PHONY =
 SUFFIXES = $(am__append_4)
 info_TEXINFOS = libc/libc.texi libm/libm.texi
 noinst_DATA = libg.a $(am__append_1) $(am__append_2) $(am__append_3) \
-	$(libc_iconv_mkdeps_outputs)
-INSTALL_DATA_LOCAL = 
+	$(libc_iconv_mkdeps_outputs) $(am__append_47)
+INSTALL_DATA_LOCAL = $(am__append_48)
 @NEWLIB_HW_FP_FALSE@MATHDIR = math
 
 # The newlib hardware floating-point routines have been disabled due to
@@ -4328,9 +4332,9 @@ toollibdir = $(tooldir)/lib$(MULTISUBDIR)
 AM_CFLAGS = $(AM_CFLAGS_$(subst /,_,$(@D))) $(AM_CFLAGS_$(subst /,_,$(@D)_$(<F)))
 AM_CCASFLAGS = $(AM_CCASFLAGS_$(subst /,_,$(@D))) $(AM_CCASFLAGS_$(subst /,_,$(@D)_$(<F)))
 AM_CPPFLAGS = $(NEWLIB_CFLAGS) $(TARGET_CFLAGS) $(AM_CPPFLAGS_$(subst /,_,$(@D))) $(AM_CPPFLAGS_$(subst /,_,$(@D)_$(<F))) -idirafter $(srcroot)/include
-toollib_LIBRARIES = libm.a libc.a $(am__append_75)
+toollib_LIBRARIES = libm.a libc.a $(am__append_79)
 @HAVE_MULTISUBDIR_TRUE@BUILD_MULTISUBDIR = $(builddir)$(MULTISUBDIR)
-toollib_DATA = $(CRT0) $(CRT1)
+toollib_DATA = $(CRT0) $(CRT1) $(am__append_45)
 AWK_UNIQUE_OBJS = $(AWK) '{ \
   for (i = NF; i > 0; --i) { \
     count = split($$i, parts, "/"); \
@@ -4501,51 +4505,51 @@ libc_a_SOURCES = $(am__append_5) libc/stdlib/__adjust.c \
 	libc/stdbit/stdc_trailing_ones.c \
 	libc/stdbit/stdc_trailing_zeros.c $(am__append_36) \
 	$(am__append_38) $(am__append_41) $(am__append_42) \
-	$(am__append_43) $(am__append_44) $(am__append_45) \
-	$(am__append_46) $(am__append_47) $(am__append_48) \
-	$(am__append_49) $(am__append_50) $(am__append_51) \
-	$(am__append_52) $(am__append_53) $(am__append_54) \
-	$(am__append_55) $(am__append_56) $(am__append_57) \
-	$(am__append_58) $(am__append_59) $(am__append_60) \
-	$(am__append_61) $(am__append_62) $(am__append_63) \
-	$(am__append_64) $(am__append_65) $(am__append_66) \
-	$(am__append_67) $(am__append_68) $(am__append_69) \
-	$(am__append_70) $(am__append_71) $(am__append_72) \
-	$(am__append_73) $(am__append_74) $(am__append_76) \
-	$(am__append_77) $(am__append_78) $(am__append_79) \
-	$(am__append_80) $(am__append_81) $(am__append_82) \
-	$(am__append_83) $(am__append_84) $(am__append_85) \
-	$(am__append_86) $(am__append_87) $(am__append_88) \
-	$(am__append_89) $(am__append_90) $(am__append_91) \
-	$(am__append_92) $(am__append_93) $(am__append_94) \
-	$(am__append_95) $(am__append_96) $(am__append_97) \
-	$(am__append_98) $(am__append_99) $(am__append_100) \
-	$(am__append_101) $(am__append_102) $(am__append_103) \
-	$(am__append_104) $(am__append_105) $(am__append_106) \
-	$(am__append_107) $(am__append_108) $(am__append_109) \
-	$(am__append_110) $(am__append_111) $(am__append_112) \
-	$(am__append_113) $(am__append_114) $(am__append_115) \
-	$(am__append_116) $(am__append_117) $(am__append_118) \
-	$(am__append_119) $(am__append_120) $(am__append_121) \
-	$(am__append_122) $(am__append_123) $(am__append_124) \
-	$(am__append_125) $(am__append_126) $(am__append_127) \
-	$(am__append_128) $(am__append_129) $(am__append_130) \
-	$(am__append_131) $(am__append_132) $(am__append_133) \
-	$(am__append_134)
+	$(am__append_43) $(am__append_44) $(am__append_49) \
+	$(am__append_50) $(am__append_51) $(am__append_52) \
+	$(am__append_53) $(am__append_54) $(am__append_55) \
+	$(am__append_56) $(am__append_57) $(am__append_58) \
+	$(am__append_59) $(am__append_60) $(am__append_61) \
+	$(am__append_62) $(am__append_63) $(am__append_64) \
+	$(am__append_65) $(am__append_66) $(am__append_67) \
+	$(am__append_68) $(am__append_69) $(am__append_70) \
+	$(am__append_71) $(am__append_72) $(am__append_73) \
+	$(am__append_74) $(am__append_75) $(am__append_76) \
+	$(am__append_77) $(am__append_78) $(am__append_80) \
+	$(am__append_81) $(am__append_82) $(am__append_83) \
+	$(am__append_84) $(am__append_85) $(am__append_86) \
+	$(am__append_87) $(am__append_88) $(am__append_89) \
+	$(am__append_90) $(am__append_91) $(am__append_92) \
+	$(am__append_93) $(am__append_94) $(am__append_95) \
+	$(am__append_96) $(am__append_97) $(am__append_98) \
+	$(am__append_99) $(am__append_100) $(am__append_101) \
+	$(am__append_102) $(am__append_103) $(am__append_104) \
+	$(am__append_105) $(am__append_106) $(am__append_107) \
+	$(am__append_108) $(am__append_109) $(am__append_110) \
+	$(am__append_111) $(am__append_112) $(am__append_113) \
+	$(am__append_114) $(am__append_115) $(am__append_116) \
+	$(am__append_117) $(am__append_118) $(am__append_119) \
+	$(am__append_120) $(am__append_121) $(am__append_122) \
+	$(am__append_123) $(am__append_124) $(am__append_125) \
+	$(am__append_126) $(am__append_127) $(am__append_128) \
+	$(am__append_129) $(am__append_130) $(am__append_131) \
+	$(am__append_132) $(am__append_133) $(am__append_134) \
+	$(am__append_135) $(am__append_136) $(am__append_137) \
+	$(am__append_138)
 libc_a_CFLAGS = $(AM_CFLAGS) $(libc_a_CFLAGS_$(subst /,_,$(@D))) $(libc_a_CFLAGS_$(subst /,_,$(@D)_$(<F)))
 libc_a_CCASFLAGS = $(AM_CCASFLAGS) $(libc_a_CCASFLAGS_$(subst /,_,$(@D))) $(libc_a_CCASFLAGS_$(subst /,_,$(@D)_$(<F)))
 libc_a_CPPFLAGS = $(AM_CPPFLAGS) $(libc_a_CPPFLAGS_$(subst /,_,$(@D))) $(libc_a_CPPFLAGS_$(subst /,_,$(@D)_$(<F)))
 libc_a_DEPENDENCIES = stamp-libc-math-objects
-libm_a_SOURCES = $(am__append_135) $(am__append_138) \
-	$(libm_common_src) $(libm_common_fsrc) $(am__append_141) \
-	$(am__append_142) $(libm_complex_src) $(libm_complex_fsrc) \
-	$(libm_complex_lsrc) $(am__append_145) $(am__append_148) \
-	$(am__append_149) $(am__append_152) $(am__append_153) \
-	$(am__append_154) $(am__append_155) $(am__append_158) \
-	$(am__append_161) $(am__append_162) $(am__append_163) \
-	$(am__append_164) $(am__append_165) $(am__append_166) \
-	$(am__append_167) $(am__append_170) $(am__append_171) \
-	$(am__append_174) $(am__append_178)
+libm_a_SOURCES = $(am__append_139) $(am__append_142) \
+	$(libm_common_src) $(libm_common_fsrc) $(am__append_145) \
+	$(am__append_146) $(libm_complex_src) $(libm_complex_fsrc) \
+	$(libm_complex_lsrc) $(am__append_149) $(am__append_152) \
+	$(am__append_153) $(am__append_156) $(am__append_157) \
+	$(am__append_158) $(am__append_159) $(am__append_162) \
+	$(am__append_165) $(am__append_166) $(am__append_167) \
+	$(am__append_168) $(am__append_169) $(am__append_170) \
+	$(am__append_171) $(am__append_174) $(am__append_175) \
+	$(am__append_178) $(am__append_182)
 libm_a_CFLAGS = $(AM_CFLAGS) $(libm_a_CFLAGS_$(subst /,_,$(@D))) $(libm_a_CFLAGS_$(subst /,_,$(@D)_$(<F)))
 libm_a_CCASFLAGS = $(AM_CCASFLAGS) $(libm_a_CCASFLAGS_$(subst /,_,$(@D))) $(libm_a_CCASFLAGS_$(subst /,_,$(@D)_$(<F)))
 libm_a_CPPFLAGS = $(AM_CPPFLAGS) -I$(srcdir)/libm/common $(libm_a_CPPFLAGS_$(subst /,_,$(@D))) $(libm_a_CPPFLAGS_$(subst /,_,$(@D)_$(<F)))
@@ -4948,7 +4952,7 @@ libc_ssp_ELIX_SOURCES = libc/ssp/chk_fail.c libc/ssp/stack_protector.c \
 @HAVE_LIBC_MACHINE_XTENSA_TRUE@@XTENSA_ESP32_PSRAM_CACHE_FIX_TRUE@	-DXTENSA_ESP32_PSRAM_CACHE_FIX
 
 libm_libm_TEXINFOS = libm/targetdep.tex $(LIBM_CHEWOUT_FILES)
-LIBM_CHEWOUT_FILES = $(am__append_136) $(am__append_139) \
+LIBM_CHEWOUT_FILES = $(am__append_140) $(am__append_143) \
 	libm/common/s_cbrt.def libm/common/s_copysign.def \
 	libm/common/s_exp10.def libm/common/s_expm1.def \
 	libm/common/s_ilogb.def libm/common/s_infinity.def \
@@ -4963,7 +4967,7 @@ LIBM_CHEWOUT_FILES = $(am__append_136) $(am__append_139) \
 	libm/common/s_remquo.def libm/common/s_rint.def \
 	libm/common/s_round.def libm/common/s_signbit.def \
 	libm/common/s_trunc.def libm/common/isgreater.def \
-	$(am__append_143) libm/complex/cabs.def libm/complex/cacos.def \
+	$(am__append_147) libm/complex/cabs.def libm/complex/cacos.def \
 	libm/complex/cacosh.def libm/complex/carg.def \
 	libm/complex/casin.def libm/complex/casinh.def \
 	libm/complex/catan.def libm/complex/catanh.def \
@@ -4974,13 +4978,13 @@ LIBM_CHEWOUT_FILES = $(am__append_136) $(am__append_139) \
 	libm/complex/cproj.def libm/complex/creal.def \
 	libm/complex/csin.def libm/complex/csinh.def \
 	libm/complex/csqrt.def libm/complex/ctan.def \
-	libm/complex/ctanh.def $(am__append_146) $(am__append_150) \
-	$(am__append_156) $(am__append_168) $(am__append_172) \
-	$(am__append_175)
-LIBM_CHAPTERS = $(am__append_137) $(am__append_140) $(am__append_144) \
-	libm/complex/complex.tex $(am__append_147) $(am__append_151) \
-	$(am__append_157) $(am__append_169) $(am__append_173) \
-	$(am__append_176)
+	libm/complex/ctanh.def $(am__append_150) $(am__append_154) \
+	$(am__append_160) $(am__append_172) $(am__append_176) \
+	$(am__append_179)
+LIBM_CHAPTERS = $(am__append_141) $(am__append_144) $(am__append_148) \
+	libm/complex/complex.tex $(am__append_151) $(am__append_155) \
+	$(am__append_161) $(am__append_173) $(am__append_177) \
+	$(am__append_180)
 LIBM_DOCBOOK_OUT_FILES = $(LIBM_CHEWOUT_FILES:.def=.xml)
 @NEWLIB_HW_FP_TRUE@libm_mathfp_src = \
 @NEWLIB_HW_FP_TRUE@	libm/mathfp/s_acos.c libm/mathfp/s_frexp.c libm/mathfp/s_mathcnst.c \
@@ -5531,8 +5535,8 @@ libm_test_test_LDADD = $(CRT0) libm.a libc.a
 # fenv.c cannot be compiled as mips16 since it uses the cfc1 instruction.
 @HAVE_LIBM_MACHINE_MIPS_TRUE@libm_a_CFLAGS_libm_machine_mips_fenv.c = -mno-mips16
 @HAVE_LIBM_MACHINE_NDS32_TRUE@libm_machine_nds32_src =  \
-@HAVE_LIBM_MACHINE_NDS32_TRUE@	$(am__append_159) \
-@HAVE_LIBM_MACHINE_NDS32_TRUE@	$(am__append_160)
+@HAVE_LIBM_MACHINE_NDS32_TRUE@	$(am__append_163) \
+@HAVE_LIBM_MACHINE_NDS32_TRUE@	$(am__append_164)
 @HAVE_LIBM_MACHINE_POWERPC_TRUE@libm_machine_powerpc_src = \
 @HAVE_LIBM_MACHINE_POWERPC_TRUE@	libm/machine/powerpc/feclearexcept.c libm/machine/powerpc/fegetenv.c libm/machine/powerpc/fegetexceptflag.c \
 @HAVE_LIBM_MACHINE_POWERPC_TRUE@	libm/machine/powerpc/fegetround.c libm/machine/powerpc/feholdexcept.c libm/machine/powerpc/fenv.c libm/machine/powerpc/feraiseexcept.c libm/machine/powerpc/fesetenv.c \
@@ -5603,7 +5607,7 @@ libm_test_test_LDADD = $(CRT0) libm.a libc.a
 @HAVE_LIBM_MACHINE_XTENSA_TRUE@	libm/machine/xtensa/feraiseexcept.c \
 @HAVE_LIBM_MACHINE_XTENSA_TRUE@	libm/machine/xtensa/fetestexcept.c \
 @HAVE_LIBM_MACHINE_XTENSA_TRUE@	libm/machine/xtensa/feupdateenv.c \
-@HAVE_LIBM_MACHINE_XTENSA_TRUE@	$(am__append_177)
+@HAVE_LIBM_MACHINE_XTENSA_TRUE@	$(am__append_181)
 @HAVE_LIBM_MACHINE_XTENSA_TRUE@libm_a_CFLAGS_libm_machine_xtensa = -D_LIBM
 all: newlib.h _newlib_version.h
 	$(MAKE) $(AM_MAKEFLAGS) all-am
@@ -53041,6 +53045,15 @@ install-man: libc_install-man
 
 $(libc_iconv_mkdeps_outputs): @MAINTAINER_MODE_TRUE@ $(srcdir)/libc/iconv/ces/mkdeps.pl $(srcdir)/libc/iconv/lib/encoding.deps
 	$(AM_V_GEN)cd $(srcdir)/libc/iconv/ces && ./mkdeps.pl
+@HAVE_LIBC_SYS_AMIGAOS_DIR_TRUE@newlib-crt0.o: libc/sys/amigaos/crt0.o
+@HAVE_LIBC_SYS_AMIGAOS_DIR_TRUE@	$(AM_V_at)rm -f $@
+@HAVE_LIBC_SYS_AMIGAOS_DIR_TRUE@	$(AM_V_GEN)ln $< $@ >/dev/null 2>/dev/null || cp $< $@
+@HAVE_LIBC_SYS_AMIGAOS_DIR_TRUE@libc/sys/amigaos/crt0.o: stmp-targ-include
+@HAVE_LIBC_SYS_AMIGAOS_DIR_TRUE@@HAVE_MULTISUBDIR_TRUE@$(BUILD_MULTISUBDIR)/newlib-crt0.o: libc/sys/amigaos/crt0.o $(BUILD_MULTISUBDIR)
+@HAVE_LIBC_SYS_AMIGAOS_DIR_TRUE@@HAVE_MULTISUBDIR_TRUE@	$(AM_V_at)rm -f $@
+@HAVE_LIBC_SYS_AMIGAOS_DIR_TRUE@@HAVE_MULTISUBDIR_TRUE@	$(AM_V_GEN)ln $< $@ >/dev/null 2>/dev/null || cp $< $@
+@HAVE_LIBC_SYS_AMIGAOS_DIR_TRUE@install-amigaos-remove-crt0:
+@HAVE_LIBC_SYS_AMIGAOS_DIR_TRUE@	rm -f $(DESTDIR)$(toollibdir)/crt0.o
 $(LIBM_CHEWOUT_FILES): $(MKDOC)
 
 libm/libm.dvi: libm/targetdep.tex $(LIBM_CHEWOUT_FILES)

@@ -18,3 +18,26 @@ libc_a_SOURCES += \
 	%D%/mallocr.cpp %D%/callocr.c %D%/reallocr.c \
 	%D%/cfreer.c %D%/freer.c %D%/malignr.c %D%/mallinfor.c %D%/malloptr.c \
 	%D%/mallstatsr.c %D%/msizer.c %D%/pvallocr.c %D%/vallocr.c
+
+## The startup file is installed as newlib-crt0.o, not crt0.o: on this
+## target crt0.o, bcrt0.o and friends are ixemul's, and a crt0.o in the
+## multilib directories shadowed ixemul's flat ixemul/lib/crt0.o in gcc's
+## startfile search.  configure.host turns the generic crt0.o off.
+toollib_DATA += newlib-crt0.o
+newlib-crt0.o: %D%/crt0.o
+	$(AM_V_at)rm -f $@
+	$(AM_V_GEN)ln $< $@ >/dev/null 2>/dev/null || cp $< $@
+%D%/crt0.o: stmp-targ-include
+CLEANFILES += newlib-crt0.o
+if HAVE_MULTISUBDIR
+noinst_DATA += $(BUILD_MULTISUBDIR)/newlib-crt0.o
+$(BUILD_MULTISUBDIR)/newlib-crt0.o: %D%/crt0.o $(BUILD_MULTISUBDIR)
+	$(AM_V_at)rm -f $@
+	$(AM_V_GEN)ln $< $@ >/dev/null 2>/dev/null || cp $< $@
+endif
+
+## Earlier installs put the startup file in toollibdir as crt0.o, where it
+## would keep shadowing ixemul's; remove it.
+INSTALL_DATA_LOCAL += install-amigaos-remove-crt0
+install-amigaos-remove-crt0:
+	rm -f $(DESTDIR)$(toollibdir)/crt0.o

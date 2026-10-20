@@ -432,6 +432,8 @@ fi
 case "${host}" in
   *-*-amiga*)
 	sys_dir=amigaos
+	# libc/sys/amigaos installs its crt0 as newlib-crt0.o
+	have_crt0="no"
 	newlib_cflags="${newlib_cflags} -DSIGNAL_PROVIDED"
   	;;
   *-*-cygwin*)
