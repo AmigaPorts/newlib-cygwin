@@ -3,9 +3,9 @@
    defined here.  stdio sizes a stream's buffer from st_blksize and
    decides on line buffering from S_ISCHR().
 
-   ExamineFH() (V36) tells everything stat() would.  A handler without it,
-   or a handle without a handler like NIL:, is a character device unless
-   it seeks like a file.  */
+   ExamineFH() (V36) tells everything stat() would.  A console, a handle
+   without a handler like NIL:, or one whose handler knows neither
+   ExamineFH() nor Seek(), like PIPE:, is a character device.  */
 
 #include <errno.h>
 #include <string.h>
@@ -35,7 +35,9 @@ int _fstat(int fd, struct stat *st) {
 	st->st_blksize = 512;
 	st->st_ino = (ino_t)fh;
 
-	if (((struct FileHandle *)BADDR(fh))->fh_Type == NULL)
+	/* A console is a character device.  IsInteractive() reads a flag in
+	   the handle, so this costs no packet: stdio asks this of fds 0-2.  */
+	if (((struct FileHandle *)BADDR(fh))->fh_Type == NULL || IsInteractive(fh))
 		return 0;
 
 	if ((fib = AllocDosObject(DOS_FIB, NULL)) != NULL) {
@@ -49,8 +51,8 @@ int _fstat(int fd, struct stat *st) {
 	}
 
 	/* No ExamineFH(): a file if it seeks, and its size is the end.
-	   Consoles, pipes and the other stream handlers know neither, and
-	   their Seek() returns 0 rather than -1, with IoErr() set to
+	   Pipes and the other stream handlers know neither, and their
+	   Seek() returns 0 rather than -1, with IoErr() set to
 	   ERROR_ACTION_NOT_KNOWN: 0 is also the position of a file just
 	   opened, so only IoErr() tells them apart.  */
 	SetIoErr(0);
