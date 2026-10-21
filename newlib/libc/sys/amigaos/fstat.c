@@ -17,6 +17,7 @@
 
 extern BPTR __check_fno(unsigned file);
 extern void __fibstat(struct stat *st, const struct FileInfoBlock *fib);
+extern void __seterrno(void);
 
 int _fstat(int fd, struct stat *st) {
 	BPTR fh = __check_fno(fd);
@@ -38,7 +39,7 @@ int _fstat(int fd, struct stat *st) {
 		return 0;
 
 	if ((fib = AllocDosObject(DOS_FIB, NULL)) != NULL) {
-		int ok = ExamineFH(fh, fib);
+		LONG ok = ExamineFH(fh, fib);
 
 		if (ok)
 			__fibstat(st, fib);
@@ -48,14 +49,21 @@ int _fstat(int fd, struct stat *st) {
 	}
 
 	/* No ExamineFH(): a file if it seeks, and its size is the end.
-	   Seek() returns the old position, or -1 and leaves the position
-	   alone, so a failure here changes nothing.  */
+	   Consoles, pipes and the other stream handlers know neither, and
+	   their Seek() returns 0 rather than -1, with IoErr() set to
+	   ERROR_ACTION_NOT_KNOWN: 0 is also the position of a file just
+	   opened, so only IoErr() tells them apart.  */
+	SetIoErr(0);
 	pos = Seek(fh, 0, OFFSET_END);
-	if (pos == -1)
+	if (pos == -1 || IoErr() == ERROR_ACTION_NOT_KNOWN)
 		return 0;
+	/* Seeking back can only fail on a broken handler, but then the
+	   position has moved.  */
 	end = Seek(fh, pos, OFFSET_BEGINNING);
-	if (end == -1)
-		return 0;
+	if (end == -1) {
+		__seterrno();
+		return -1;
+	}
 	st->st_mode = S_IFREG | 0666;
 	st->st_size = end;
 	st->st_blocks = (end + 511) / 512;
