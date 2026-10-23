@@ -1,3 +1,4 @@
+#include <errno.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <fcntl.h>
@@ -11,21 +12,55 @@
 
 BPTR * __fh;
 int __maxfh;
+/* Per descriptor, whether it was opened with O_APPEND: AmigaDOS has no
+   such mode, so _write() seeks to the end first.  */
+static unsigned char *__fhappend;
+
+extern void __seterrno(void);
+
+/* Whether name exists, for the open() flags AmigaDOS has no mode for.  A
+   file another handle holds exclusively cannot be locked, but exists.  */
+static int __exists(const char *name) {
+	BPTR lock = Lock(name, SHARED_LOCK);
+
+	if (lock) {
+		UnLock(lock);
+		return 1;
+	}
+	return IoErr() == ERROR_OBJECT_IN_USE;
+}
 
 asm("_open: .globl _open");
 int _open(const char *name, int flags, ...) {
 	int mode;
-	if (flags & O_CREAT) {
-		if (flags & O_TRUNC)
-			mode = MODE_NEWFILE;
-		else
-			mode = MODE_READWRITE;
-	} else
+
+	/* O_EXCL, and O_TRUNC without O_CREAT, test for the file first: not
+	   atomic, as AmigaDOS offers nothing that is.  */
+	if ((flags & (O_CREAT | O_EXCL)) == (O_CREAT | O_EXCL) && __exists(name)) {
+		errno = EEXIST;
+		return -1;
+	}
+	if ((flags & (O_CREAT | O_TRUNC)) == O_TRUNC && !__exists(name)) {
+		__seterrno();
+		return -1;
+	}
+
+	if (flags & O_TRUNC)
+		mode = MODE_NEWFILE;
+	else if (flags & O_CREAT)
+		mode = MODE_READWRITE;
+	else
 		mode = MODE_OLDFILE;
 
 	BPTR r = Open(name, mode);
-	if (!r)
+	/* Some handlers do not create a missing file for MODE_READWRITE
+	   (libnix has the same fallback).  */
+	if (!r && mode == MODE_READWRITE && IoErr() == ERROR_OBJECT_NOT_FOUND)
+		r = Open(name, MODE_NEWFILE);
+	if (!r) {
+		__seterrno();
 		return -1;
+	}
 
 	int fh = 3;
 	while(fh < __maxfh) {
@@ -37,14 +72,17 @@ int _open(const char *name, int flags, ...) {
 	if (fh == __maxfh) {
 		int n = __maxfh + __maxfh + 8;
 		__fh = (BPTR*)realloc(__fh, n * sizeof(BPTR));
-		if (!__fh) {
+		__fhappend = (unsigned char *)realloc(__fhappend, n);
+		if (!__fh || !__fhappend) {
 			exit(ENOMEM);
 		}
 		while (__maxfh < n) {
+			__fhappend[__maxfh] = 0;
 			__fh[__maxfh++] = 0;
 		}
 	}
 	__fh[fh] = r;
+	__fhappend[fh] = (flags & O_APPEND) != 0;
 	return fh;
 }
 
@@ -59,6 +97,7 @@ int _close(int file) {
 	if (file < __maxfh) {
 		r = Close(__fh[file]) == 0;
 		__fh[file] = 0;
+		__fhappend[file] = 0;
 	}
 	return r;
 }
@@ -87,8 +126,12 @@ BPTR __check_fno(unsigned file) {
 
 asm("_write: .globl _write");
 int _write(int file, char *ptr, int len) {
-	if (__check_fno(file))
+	if (__check_fno(file)) {
+		/* A stream cannot seek; it writes at its end anyway.  */
+		if (__fhappend[file])
+			Seek(__fh[file], 0, OFFSET_END);
 		return Write(__fh[file], ptr, len);
+	}
 	return -1;
 }
 
@@ -102,7 +145,8 @@ int _read(int file, char *ptr, int len) {
 
 void __init_fh() {
 	__fh = (BPTR *)calloc(4, sizeof(BPTR));
-	if (!__fh)
+	__fhappend = (unsigned char *)calloc(4, 1);
+	if (!__fh || !__fhappend)
 		exit(ENOMEM);
 
 	__maxfh = 4;
