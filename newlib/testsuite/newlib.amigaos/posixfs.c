@@ -59,6 +59,27 @@ int main(void)
   check(stat(FILE_NAME, &st) == 0 && S_ISREG(st.st_mode) && st.st_size == 10, "stat: a file");
   check(fstat(1, &st) == 0, "fstat: stdout");
 
+  /* open() flags AmigaDOS has no mode for */
+  fd = open(FILE_NAME, O_WRONLY | O_APPEND);
+  check(fd >= 0, "open: O_APPEND");
+  check(write(fd, "abc", 3) == 3, "write: O_APPEND");
+  lseek(fd, 0, SEEK_SET);
+  check(write(fd, "de", 2) == 2 && lseek(fd, 0, SEEK_CUR) == 15,
+        "write: O_APPEND after lseek writes at the end");
+  close(fd);
+  check(stat(FILE_NAME, &st) == 0 && st.st_size == 15, "O_APPEND: size");
+  check(open(FILE_NAME, O_WRONLY | O_CREAT | O_EXCL, 0644) == -1 && errno == EEXIST,
+        "open: O_EXCL on an existing file");
+  check(open(DIR_NAME "/missing", O_WRONLY | O_TRUNC) == -1 && errno == ENOENT,
+        "open: O_TRUNC without O_CREAT does not create");
+  fd = open(FILE_NAME, O_WRONLY | O_TRUNC);
+  check(fd >= 0, "open: O_TRUNC");
+  close(fd);
+  check(stat(FILE_NAME, &st) == 0 && st.st_size == 0, "O_TRUNC: truncates");
+  fd = open(FILE_NAME, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+  check(fd >= 0 && write(fd, "0123456789", 10) == 10, "open: rewrite");
+  close(fd);
+
   check(chmod(FILE_NAME, 0444) == 0, "chmod");
   check(stat(FILE_NAME, &st) == 0 && !(st.st_mode & S_IWUSR) && (st.st_mode & S_IRUSR), "chmod: read-only");
   check(chmod(FILE_NAME, 0644) == 0, "chmod: back");
