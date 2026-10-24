@@ -609,6 +609,18 @@ check_PROGRAMS =
 @HAVE_LIBC_SYS_AMIGAOS_DIR_TRUE@	libc/sys/amigaos/clock.c \
 @HAVE_LIBC_SYS_AMIGAOS_DIR_TRUE@	libc/sys/amigaos/statvfs.c \
 @HAVE_LIBC_SYS_AMIGAOS_DIR_TRUE@	libc/sys/amigaos/__stdiowin.c \
+@HAVE_LIBC_SYS_AMIGAOS_DIR_TRUE@	libc/sys/amigaos/__seterrno.c \
+@HAVE_LIBC_SYS_AMIGAOS_DIR_TRUE@	libc/sys/amigaos/stat.c \
+@HAVE_LIBC_SYS_AMIGAOS_DIR_TRUE@	libc/sys/amigaos/fstat.c \
+@HAVE_LIBC_SYS_AMIGAOS_DIR_TRUE@	libc/sys/amigaos/mkdir.c \
+@HAVE_LIBC_SYS_AMIGAOS_DIR_TRUE@	libc/sys/amigaos/chmod.c \
+@HAVE_LIBC_SYS_AMIGAOS_DIR_TRUE@	libc/sys/amigaos/chdir.c \
+@HAVE_LIBC_SYS_AMIGAOS_DIR_TRUE@	libc/sys/amigaos/gettimeofday.c \
+@HAVE_LIBC_SYS_AMIGAOS_DIR_TRUE@	libc/sys/amigaos/sleep.c \
+@HAVE_LIBC_SYS_AMIGAOS_DIR_TRUE@	libc/sys/amigaos/utime.c \
+@HAVE_LIBC_SYS_AMIGAOS_DIR_TRUE@	libc/sys/amigaos/dirent.c \
+@HAVE_LIBC_SYS_AMIGAOS_DIR_TRUE@	libc/sys/amigaos/kill.c \
+@HAVE_LIBC_SYS_AMIGAOS_DIR_TRUE@	libc/sys/amigaos/link.c \
 @HAVE_LIBC_SYS_AMIGAOS_DIR_TRUE@	libc/sys/amigaos/mallocr.cpp \
 @HAVE_LIBC_SYS_AMIGAOS_DIR_TRUE@	libc/sys/amigaos/callocr.c \
 @HAVE_LIBC_SYS_AMIGAOS_DIR_TRUE@	libc/sys/amigaos/reallocr.c \
@@ -1811,6 +1823,18 @@ am__objects_51 = libc/ssp/libc_a-chk_fail.$(OBJEXT) \
 @HAVE_LIBC_SYS_AMIGAOS_DIR_TRUE@	libc/sys/amigaos/libc_a-clock.$(OBJEXT) \
 @HAVE_LIBC_SYS_AMIGAOS_DIR_TRUE@	libc/sys/amigaos/libc_a-statvfs.$(OBJEXT) \
 @HAVE_LIBC_SYS_AMIGAOS_DIR_TRUE@	libc/sys/amigaos/libc_a-__stdiowin.$(OBJEXT) \
+@HAVE_LIBC_SYS_AMIGAOS_DIR_TRUE@	libc/sys/amigaos/libc_a-__seterrno.$(OBJEXT) \
+@HAVE_LIBC_SYS_AMIGAOS_DIR_TRUE@	libc/sys/amigaos/libc_a-stat.$(OBJEXT) \
+@HAVE_LIBC_SYS_AMIGAOS_DIR_TRUE@	libc/sys/amigaos/libc_a-fstat.$(OBJEXT) \
+@HAVE_LIBC_SYS_AMIGAOS_DIR_TRUE@	libc/sys/amigaos/libc_a-mkdir.$(OBJEXT) \
+@HAVE_LIBC_SYS_AMIGAOS_DIR_TRUE@	libc/sys/amigaos/libc_a-chmod.$(OBJEXT) \
+@HAVE_LIBC_SYS_AMIGAOS_DIR_TRUE@	libc/sys/amigaos/libc_a-chdir.$(OBJEXT) \
+@HAVE_LIBC_SYS_AMIGAOS_DIR_TRUE@	libc/sys/amigaos/libc_a-gettimeofday.$(OBJEXT) \
+@HAVE_LIBC_SYS_AMIGAOS_DIR_TRUE@	libc/sys/amigaos/libc_a-sleep.$(OBJEXT) \
+@HAVE_LIBC_SYS_AMIGAOS_DIR_TRUE@	libc/sys/amigaos/libc_a-utime.$(OBJEXT) \
+@HAVE_LIBC_SYS_AMIGAOS_DIR_TRUE@	libc/sys/amigaos/libc_a-dirent.$(OBJEXT) \
+@HAVE_LIBC_SYS_AMIGAOS_DIR_TRUE@	libc/sys/amigaos/libc_a-kill.$(OBJEXT) \
+@HAVE_LIBC_SYS_AMIGAOS_DIR_TRUE@	libc/sys/amigaos/libc_a-link.$(OBJEXT) \
 @HAVE_LIBC_SYS_AMIGAOS_DIR_TRUE@	libc/sys/amigaos/libc_a-mallocr.$(OBJEXT) \
 @HAVE_LIBC_SYS_AMIGAOS_DIR_TRUE@	libc/sys/amigaos/libc_a-callocr.$(OBJEXT) \
 @HAVE_LIBC_SYS_AMIGAOS_DIR_TRUE@	libc/sys/amigaos/libc_a-reallocr.$(OBJEXT) \
@@ -7769,6 +7793,42 @@ libc/sys/amigaos/libc_a-statvfs.$(OBJEXT):  \
 	libc/sys/amigaos/$(am__dirstamp) \
 	libc/sys/amigaos/$(DEPDIR)/$(am__dirstamp)
 libc/sys/amigaos/libc_a-__stdiowin.$(OBJEXT):  \
+	libc/sys/amigaos/$(am__dirstamp) \
+	libc/sys/amigaos/$(DEPDIR)/$(am__dirstamp)
+libc/sys/amigaos/libc_a-__seterrno.$(OBJEXT):  \
+	libc/sys/amigaos/$(am__dirstamp) \
+	libc/sys/amigaos/$(DEPDIR)/$(am__dirstamp)
+libc/sys/amigaos/libc_a-stat.$(OBJEXT):  \
+	libc/sys/amigaos/$(am__dirstamp) \
+	libc/sys/amigaos/$(DEPDIR)/$(am__dirstamp)
+libc/sys/amigaos/libc_a-fstat.$(OBJEXT):  \
+	libc/sys/amigaos/$(am__dirstamp) \
+	libc/sys/amigaos/$(DEPDIR)/$(am__dirstamp)
+libc/sys/amigaos/libc_a-mkdir.$(OBJEXT):  \
+	libc/sys/amigaos/$(am__dirstamp) \
+	libc/sys/amigaos/$(DEPDIR)/$(am__dirstamp)
+libc/sys/amigaos/libc_a-chmod.$(OBJEXT):  \
+	libc/sys/amigaos/$(am__dirstamp) \
+	libc/sys/amigaos/$(DEPDIR)/$(am__dirstamp)
+libc/sys/amigaos/libc_a-chdir.$(OBJEXT):  \
+	libc/sys/amigaos/$(am__dirstamp) \
+	libc/sys/amigaos/$(DEPDIR)/$(am__dirstamp)
+libc/sys/amigaos/libc_a-gettimeofday.$(OBJEXT):  \
+	libc/sys/amigaos/$(am__dirstamp) \
+	libc/sys/amigaos/$(DEPDIR)/$(am__dirstamp)
+libc/sys/amigaos/libc_a-sleep.$(OBJEXT):  \
+	libc/sys/amigaos/$(am__dirstamp) \
+	libc/sys/amigaos/$(DEPDIR)/$(am__dirstamp)
+libc/sys/amigaos/libc_a-utime.$(OBJEXT):  \
+	libc/sys/amigaos/$(am__dirstamp) \
+	libc/sys/amigaos/$(DEPDIR)/$(am__dirstamp)
+libc/sys/amigaos/libc_a-dirent.$(OBJEXT):  \
+	libc/sys/amigaos/$(am__dirstamp) \
+	libc/sys/amigaos/$(DEPDIR)/$(am__dirstamp)
+libc/sys/amigaos/libc_a-kill.$(OBJEXT):  \
+	libc/sys/amigaos/$(am__dirstamp) \
+	libc/sys/amigaos/$(DEPDIR)/$(am__dirstamp)
+libc/sys/amigaos/libc_a-link.$(OBJEXT):  \
 	libc/sys/amigaos/$(am__dirstamp) \
 	libc/sys/amigaos/$(DEPDIR)/$(am__dirstamp)
 libc/sys/amigaos/libc_a-mallocr.$(OBJEXT):  \
@@ -14522,6 +14582,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@libc/sys/amigaos/$(DEPDIR)/libc_a-__negdf2.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@libc/sys/amigaos/$(DEPDIR)/libc_a-__negsf2.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@libc/sys/amigaos/$(DEPDIR)/libc_a-__nocommandline.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@libc/sys/amigaos/$(DEPDIR)/libc_a-__seterrno.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@libc/sys/amigaos/$(DEPDIR)/libc_a-__stdiowin.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@libc/sys/amigaos/$(DEPDIR)/libc_a-__subdf3.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@libc/sys/amigaos/$(DEPDIR)/libc_a-__subsf3.Po@am__quote@
@@ -14532,27 +14593,38 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@libc/sys/amigaos/$(DEPDIR)/libc_a-basename.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@libc/sys/amigaos/$(DEPDIR)/libc_a-callocr.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@libc/sys/amigaos/$(DEPDIR)/libc_a-cfreer.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@libc/sys/amigaos/$(DEPDIR)/libc_a-chdir.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@libc/sys/amigaos/$(DEPDIR)/libc_a-chmod.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@libc/sys/amigaos/$(DEPDIR)/libc_a-clock.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@libc/sys/amigaos/$(DEPDIR)/libc_a-cxxglue.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@libc/sys/amigaos/$(DEPDIR)/libc_a-dirent.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@libc/sys/amigaos/$(DEPDIR)/libc_a-dirname.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@libc/sys/amigaos/$(DEPDIR)/libc_a-dummy.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@libc/sys/amigaos/$(DEPDIR)/libc_a-freer.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@libc/sys/amigaos/$(DEPDIR)/libc_a-fstat.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@libc/sys/amigaos/$(DEPDIR)/libc_a-getpid.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@libc/sys/amigaos/$(DEPDIR)/libc_a-gettimeofday.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@libc/sys/amigaos/$(DEPDIR)/libc_a-isinf.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@libc/sys/amigaos/$(DEPDIR)/libc_a-isnan.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@libc/sys/amigaos/$(DEPDIR)/libc_a-kill.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@libc/sys/amigaos/$(DEPDIR)/libc_a-link.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@libc/sys/amigaos/$(DEPDIR)/libc_a-lseek.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@libc/sys/amigaos/$(DEPDIR)/libc_a-malignr.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@libc/sys/amigaos/$(DEPDIR)/libc_a-mallinfor.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@libc/sys/amigaos/$(DEPDIR)/libc_a-mallocr.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@libc/sys/amigaos/$(DEPDIR)/libc_a-malloptr.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@libc/sys/amigaos/$(DEPDIR)/libc_a-mallstatsr.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@libc/sys/amigaos/$(DEPDIR)/libc_a-mkdir.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@libc/sys/amigaos/$(DEPDIR)/libc_a-msizer.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@libc/sys/amigaos/$(DEPDIR)/libc_a-open.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@libc/sys/amigaos/$(DEPDIR)/libc_a-pvallocr.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@libc/sys/amigaos/$(DEPDIR)/libc_a-reallocr.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@libc/sys/amigaos/$(DEPDIR)/libc_a-sleep.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@libc/sys/amigaos/$(DEPDIR)/libc_a-stat.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@libc/sys/amigaos/$(DEPDIR)/libc_a-statvfs.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@libc/sys/amigaos/$(DEPDIR)/libc_a-uname.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@libc/sys/amigaos/$(DEPDIR)/libc_a-unlink.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@libc/sys/amigaos/$(DEPDIR)/libc_a-utime.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@libc/sys/amigaos/$(DEPDIR)/libc_a-vallocr.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@libc/sys/arm/$(DEPDIR)/libc_a-access.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@libc/sys/arm/$(DEPDIR)/libc_a-aeabi_atexit.Po@am__quote@
@@ -32688,6 +32760,174 @@ libc/sys/amigaos/libc_a-__stdiowin.obj: libc/sys/amigaos/__stdiowin.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='libc/sys/amigaos/__stdiowin.c' object='libc/sys/amigaos/libc_a-__stdiowin.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libc_a_CPPFLAGS) $(CPPFLAGS) $(libc_a_CFLAGS) $(CFLAGS) -c -o libc/sys/amigaos/libc_a-__stdiowin.obj `if test -f 'libc/sys/amigaos/__stdiowin.c'; then $(CYGPATH_W) 'libc/sys/amigaos/__stdiowin.c'; else $(CYGPATH_W) '$(srcdir)/libc/sys/amigaos/__stdiowin.c'; fi`
+
+libc/sys/amigaos/libc_a-__seterrno.o: libc/sys/amigaos/__seterrno.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libc_a_CPPFLAGS) $(CPPFLAGS) $(libc_a_CFLAGS) $(CFLAGS) -MT libc/sys/amigaos/libc_a-__seterrno.o -MD -MP -MF libc/sys/amigaos/$(DEPDIR)/libc_a-__seterrno.Tpo -c -o libc/sys/amigaos/libc_a-__seterrno.o `test -f 'libc/sys/amigaos/__seterrno.c' || echo '$(srcdir)/'`libc/sys/amigaos/__seterrno.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) libc/sys/amigaos/$(DEPDIR)/libc_a-__seterrno.Tpo libc/sys/amigaos/$(DEPDIR)/libc_a-__seterrno.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='libc/sys/amigaos/__seterrno.c' object='libc/sys/amigaos/libc_a-__seterrno.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libc_a_CPPFLAGS) $(CPPFLAGS) $(libc_a_CFLAGS) $(CFLAGS) -c -o libc/sys/amigaos/libc_a-__seterrno.o `test -f 'libc/sys/amigaos/__seterrno.c' || echo '$(srcdir)/'`libc/sys/amigaos/__seterrno.c
+
+libc/sys/amigaos/libc_a-__seterrno.obj: libc/sys/amigaos/__seterrno.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libc_a_CPPFLAGS) $(CPPFLAGS) $(libc_a_CFLAGS) $(CFLAGS) -MT libc/sys/amigaos/libc_a-__seterrno.obj -MD -MP -MF libc/sys/amigaos/$(DEPDIR)/libc_a-__seterrno.Tpo -c -o libc/sys/amigaos/libc_a-__seterrno.obj `if test -f 'libc/sys/amigaos/__seterrno.c'; then $(CYGPATH_W) 'libc/sys/amigaos/__seterrno.c'; else $(CYGPATH_W) '$(srcdir)/libc/sys/amigaos/__seterrno.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) libc/sys/amigaos/$(DEPDIR)/libc_a-__seterrno.Tpo libc/sys/amigaos/$(DEPDIR)/libc_a-__seterrno.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='libc/sys/amigaos/__seterrno.c' object='libc/sys/amigaos/libc_a-__seterrno.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libc_a_CPPFLAGS) $(CPPFLAGS) $(libc_a_CFLAGS) $(CFLAGS) -c -o libc/sys/amigaos/libc_a-__seterrno.obj `if test -f 'libc/sys/amigaos/__seterrno.c'; then $(CYGPATH_W) 'libc/sys/amigaos/__seterrno.c'; else $(CYGPATH_W) '$(srcdir)/libc/sys/amigaos/__seterrno.c'; fi`
+
+libc/sys/amigaos/libc_a-stat.o: libc/sys/amigaos/stat.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libc_a_CPPFLAGS) $(CPPFLAGS) $(libc_a_CFLAGS) $(CFLAGS) -MT libc/sys/amigaos/libc_a-stat.o -MD -MP -MF libc/sys/amigaos/$(DEPDIR)/libc_a-stat.Tpo -c -o libc/sys/amigaos/libc_a-stat.o `test -f 'libc/sys/amigaos/stat.c' || echo '$(srcdir)/'`libc/sys/amigaos/stat.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) libc/sys/amigaos/$(DEPDIR)/libc_a-stat.Tpo libc/sys/amigaos/$(DEPDIR)/libc_a-stat.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='libc/sys/amigaos/stat.c' object='libc/sys/amigaos/libc_a-stat.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libc_a_CPPFLAGS) $(CPPFLAGS) $(libc_a_CFLAGS) $(CFLAGS) -c -o libc/sys/amigaos/libc_a-stat.o `test -f 'libc/sys/amigaos/stat.c' || echo '$(srcdir)/'`libc/sys/amigaos/stat.c
+
+libc/sys/amigaos/libc_a-stat.obj: libc/sys/amigaos/stat.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libc_a_CPPFLAGS) $(CPPFLAGS) $(libc_a_CFLAGS) $(CFLAGS) -MT libc/sys/amigaos/libc_a-stat.obj -MD -MP -MF libc/sys/amigaos/$(DEPDIR)/libc_a-stat.Tpo -c -o libc/sys/amigaos/libc_a-stat.obj `if test -f 'libc/sys/amigaos/stat.c'; then $(CYGPATH_W) 'libc/sys/amigaos/stat.c'; else $(CYGPATH_W) '$(srcdir)/libc/sys/amigaos/stat.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) libc/sys/amigaos/$(DEPDIR)/libc_a-stat.Tpo libc/sys/amigaos/$(DEPDIR)/libc_a-stat.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='libc/sys/amigaos/stat.c' object='libc/sys/amigaos/libc_a-stat.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libc_a_CPPFLAGS) $(CPPFLAGS) $(libc_a_CFLAGS) $(CFLAGS) -c -o libc/sys/amigaos/libc_a-stat.obj `if test -f 'libc/sys/amigaos/stat.c'; then $(CYGPATH_W) 'libc/sys/amigaos/stat.c'; else $(CYGPATH_W) '$(srcdir)/libc/sys/amigaos/stat.c'; fi`
+
+libc/sys/amigaos/libc_a-fstat.o: libc/sys/amigaos/fstat.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libc_a_CPPFLAGS) $(CPPFLAGS) $(libc_a_CFLAGS) $(CFLAGS) -MT libc/sys/amigaos/libc_a-fstat.o -MD -MP -MF libc/sys/amigaos/$(DEPDIR)/libc_a-fstat.Tpo -c -o libc/sys/amigaos/libc_a-fstat.o `test -f 'libc/sys/amigaos/fstat.c' || echo '$(srcdir)/'`libc/sys/amigaos/fstat.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) libc/sys/amigaos/$(DEPDIR)/libc_a-fstat.Tpo libc/sys/amigaos/$(DEPDIR)/libc_a-fstat.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='libc/sys/amigaos/fstat.c' object='libc/sys/amigaos/libc_a-fstat.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libc_a_CPPFLAGS) $(CPPFLAGS) $(libc_a_CFLAGS) $(CFLAGS) -c -o libc/sys/amigaos/libc_a-fstat.o `test -f 'libc/sys/amigaos/fstat.c' || echo '$(srcdir)/'`libc/sys/amigaos/fstat.c
+
+libc/sys/amigaos/libc_a-fstat.obj: libc/sys/amigaos/fstat.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libc_a_CPPFLAGS) $(CPPFLAGS) $(libc_a_CFLAGS) $(CFLAGS) -MT libc/sys/amigaos/libc_a-fstat.obj -MD -MP -MF libc/sys/amigaos/$(DEPDIR)/libc_a-fstat.Tpo -c -o libc/sys/amigaos/libc_a-fstat.obj `if test -f 'libc/sys/amigaos/fstat.c'; then $(CYGPATH_W) 'libc/sys/amigaos/fstat.c'; else $(CYGPATH_W) '$(srcdir)/libc/sys/amigaos/fstat.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) libc/sys/amigaos/$(DEPDIR)/libc_a-fstat.Tpo libc/sys/amigaos/$(DEPDIR)/libc_a-fstat.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='libc/sys/amigaos/fstat.c' object='libc/sys/amigaos/libc_a-fstat.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libc_a_CPPFLAGS) $(CPPFLAGS) $(libc_a_CFLAGS) $(CFLAGS) -c -o libc/sys/amigaos/libc_a-fstat.obj `if test -f 'libc/sys/amigaos/fstat.c'; then $(CYGPATH_W) 'libc/sys/amigaos/fstat.c'; else $(CYGPATH_W) '$(srcdir)/libc/sys/amigaos/fstat.c'; fi`
+
+libc/sys/amigaos/libc_a-mkdir.o: libc/sys/amigaos/mkdir.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libc_a_CPPFLAGS) $(CPPFLAGS) $(libc_a_CFLAGS) $(CFLAGS) -MT libc/sys/amigaos/libc_a-mkdir.o -MD -MP -MF libc/sys/amigaos/$(DEPDIR)/libc_a-mkdir.Tpo -c -o libc/sys/amigaos/libc_a-mkdir.o `test -f 'libc/sys/amigaos/mkdir.c' || echo '$(srcdir)/'`libc/sys/amigaos/mkdir.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) libc/sys/amigaos/$(DEPDIR)/libc_a-mkdir.Tpo libc/sys/amigaos/$(DEPDIR)/libc_a-mkdir.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='libc/sys/amigaos/mkdir.c' object='libc/sys/amigaos/libc_a-mkdir.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libc_a_CPPFLAGS) $(CPPFLAGS) $(libc_a_CFLAGS) $(CFLAGS) -c -o libc/sys/amigaos/libc_a-mkdir.o `test -f 'libc/sys/amigaos/mkdir.c' || echo '$(srcdir)/'`libc/sys/amigaos/mkdir.c
+
+libc/sys/amigaos/libc_a-mkdir.obj: libc/sys/amigaos/mkdir.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libc_a_CPPFLAGS) $(CPPFLAGS) $(libc_a_CFLAGS) $(CFLAGS) -MT libc/sys/amigaos/libc_a-mkdir.obj -MD -MP -MF libc/sys/amigaos/$(DEPDIR)/libc_a-mkdir.Tpo -c -o libc/sys/amigaos/libc_a-mkdir.obj `if test -f 'libc/sys/amigaos/mkdir.c'; then $(CYGPATH_W) 'libc/sys/amigaos/mkdir.c'; else $(CYGPATH_W) '$(srcdir)/libc/sys/amigaos/mkdir.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) libc/sys/amigaos/$(DEPDIR)/libc_a-mkdir.Tpo libc/sys/amigaos/$(DEPDIR)/libc_a-mkdir.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='libc/sys/amigaos/mkdir.c' object='libc/sys/amigaos/libc_a-mkdir.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libc_a_CPPFLAGS) $(CPPFLAGS) $(libc_a_CFLAGS) $(CFLAGS) -c -o libc/sys/amigaos/libc_a-mkdir.obj `if test -f 'libc/sys/amigaos/mkdir.c'; then $(CYGPATH_W) 'libc/sys/amigaos/mkdir.c'; else $(CYGPATH_W) '$(srcdir)/libc/sys/amigaos/mkdir.c'; fi`
+
+libc/sys/amigaos/libc_a-chmod.o: libc/sys/amigaos/chmod.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libc_a_CPPFLAGS) $(CPPFLAGS) $(libc_a_CFLAGS) $(CFLAGS) -MT libc/sys/amigaos/libc_a-chmod.o -MD -MP -MF libc/sys/amigaos/$(DEPDIR)/libc_a-chmod.Tpo -c -o libc/sys/amigaos/libc_a-chmod.o `test -f 'libc/sys/amigaos/chmod.c' || echo '$(srcdir)/'`libc/sys/amigaos/chmod.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) libc/sys/amigaos/$(DEPDIR)/libc_a-chmod.Tpo libc/sys/amigaos/$(DEPDIR)/libc_a-chmod.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='libc/sys/amigaos/chmod.c' object='libc/sys/amigaos/libc_a-chmod.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libc_a_CPPFLAGS) $(CPPFLAGS) $(libc_a_CFLAGS) $(CFLAGS) -c -o libc/sys/amigaos/libc_a-chmod.o `test -f 'libc/sys/amigaos/chmod.c' || echo '$(srcdir)/'`libc/sys/amigaos/chmod.c
+
+libc/sys/amigaos/libc_a-chmod.obj: libc/sys/amigaos/chmod.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libc_a_CPPFLAGS) $(CPPFLAGS) $(libc_a_CFLAGS) $(CFLAGS) -MT libc/sys/amigaos/libc_a-chmod.obj -MD -MP -MF libc/sys/amigaos/$(DEPDIR)/libc_a-chmod.Tpo -c -o libc/sys/amigaos/libc_a-chmod.obj `if test -f 'libc/sys/amigaos/chmod.c'; then $(CYGPATH_W) 'libc/sys/amigaos/chmod.c'; else $(CYGPATH_W) '$(srcdir)/libc/sys/amigaos/chmod.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) libc/sys/amigaos/$(DEPDIR)/libc_a-chmod.Tpo libc/sys/amigaos/$(DEPDIR)/libc_a-chmod.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='libc/sys/amigaos/chmod.c' object='libc/sys/amigaos/libc_a-chmod.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libc_a_CPPFLAGS) $(CPPFLAGS) $(libc_a_CFLAGS) $(CFLAGS) -c -o libc/sys/amigaos/libc_a-chmod.obj `if test -f 'libc/sys/amigaos/chmod.c'; then $(CYGPATH_W) 'libc/sys/amigaos/chmod.c'; else $(CYGPATH_W) '$(srcdir)/libc/sys/amigaos/chmod.c'; fi`
+
+libc/sys/amigaos/libc_a-chdir.o: libc/sys/amigaos/chdir.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libc_a_CPPFLAGS) $(CPPFLAGS) $(libc_a_CFLAGS) $(CFLAGS) -MT libc/sys/amigaos/libc_a-chdir.o -MD -MP -MF libc/sys/amigaos/$(DEPDIR)/libc_a-chdir.Tpo -c -o libc/sys/amigaos/libc_a-chdir.o `test -f 'libc/sys/amigaos/chdir.c' || echo '$(srcdir)/'`libc/sys/amigaos/chdir.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) libc/sys/amigaos/$(DEPDIR)/libc_a-chdir.Tpo libc/sys/amigaos/$(DEPDIR)/libc_a-chdir.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='libc/sys/amigaos/chdir.c' object='libc/sys/amigaos/libc_a-chdir.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libc_a_CPPFLAGS) $(CPPFLAGS) $(libc_a_CFLAGS) $(CFLAGS) -c -o libc/sys/amigaos/libc_a-chdir.o `test -f 'libc/sys/amigaos/chdir.c' || echo '$(srcdir)/'`libc/sys/amigaos/chdir.c
+
+libc/sys/amigaos/libc_a-chdir.obj: libc/sys/amigaos/chdir.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libc_a_CPPFLAGS) $(CPPFLAGS) $(libc_a_CFLAGS) $(CFLAGS) -MT libc/sys/amigaos/libc_a-chdir.obj -MD -MP -MF libc/sys/amigaos/$(DEPDIR)/libc_a-chdir.Tpo -c -o libc/sys/amigaos/libc_a-chdir.obj `if test -f 'libc/sys/amigaos/chdir.c'; then $(CYGPATH_W) 'libc/sys/amigaos/chdir.c'; else $(CYGPATH_W) '$(srcdir)/libc/sys/amigaos/chdir.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) libc/sys/amigaos/$(DEPDIR)/libc_a-chdir.Tpo libc/sys/amigaos/$(DEPDIR)/libc_a-chdir.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='libc/sys/amigaos/chdir.c' object='libc/sys/amigaos/libc_a-chdir.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libc_a_CPPFLAGS) $(CPPFLAGS) $(libc_a_CFLAGS) $(CFLAGS) -c -o libc/sys/amigaos/libc_a-chdir.obj `if test -f 'libc/sys/amigaos/chdir.c'; then $(CYGPATH_W) 'libc/sys/amigaos/chdir.c'; else $(CYGPATH_W) '$(srcdir)/libc/sys/amigaos/chdir.c'; fi`
+
+libc/sys/amigaos/libc_a-gettimeofday.o: libc/sys/amigaos/gettimeofday.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libc_a_CPPFLAGS) $(CPPFLAGS) $(libc_a_CFLAGS) $(CFLAGS) -MT libc/sys/amigaos/libc_a-gettimeofday.o -MD -MP -MF libc/sys/amigaos/$(DEPDIR)/libc_a-gettimeofday.Tpo -c -o libc/sys/amigaos/libc_a-gettimeofday.o `test -f 'libc/sys/amigaos/gettimeofday.c' || echo '$(srcdir)/'`libc/sys/amigaos/gettimeofday.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) libc/sys/amigaos/$(DEPDIR)/libc_a-gettimeofday.Tpo libc/sys/amigaos/$(DEPDIR)/libc_a-gettimeofday.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='libc/sys/amigaos/gettimeofday.c' object='libc/sys/amigaos/libc_a-gettimeofday.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libc_a_CPPFLAGS) $(CPPFLAGS) $(libc_a_CFLAGS) $(CFLAGS) -c -o libc/sys/amigaos/libc_a-gettimeofday.o `test -f 'libc/sys/amigaos/gettimeofday.c' || echo '$(srcdir)/'`libc/sys/amigaos/gettimeofday.c
+
+libc/sys/amigaos/libc_a-gettimeofday.obj: libc/sys/amigaos/gettimeofday.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libc_a_CPPFLAGS) $(CPPFLAGS) $(libc_a_CFLAGS) $(CFLAGS) -MT libc/sys/amigaos/libc_a-gettimeofday.obj -MD -MP -MF libc/sys/amigaos/$(DEPDIR)/libc_a-gettimeofday.Tpo -c -o libc/sys/amigaos/libc_a-gettimeofday.obj `if test -f 'libc/sys/amigaos/gettimeofday.c'; then $(CYGPATH_W) 'libc/sys/amigaos/gettimeofday.c'; else $(CYGPATH_W) '$(srcdir)/libc/sys/amigaos/gettimeofday.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) libc/sys/amigaos/$(DEPDIR)/libc_a-gettimeofday.Tpo libc/sys/amigaos/$(DEPDIR)/libc_a-gettimeofday.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='libc/sys/amigaos/gettimeofday.c' object='libc/sys/amigaos/libc_a-gettimeofday.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libc_a_CPPFLAGS) $(CPPFLAGS) $(libc_a_CFLAGS) $(CFLAGS) -c -o libc/sys/amigaos/libc_a-gettimeofday.obj `if test -f 'libc/sys/amigaos/gettimeofday.c'; then $(CYGPATH_W) 'libc/sys/amigaos/gettimeofday.c'; else $(CYGPATH_W) '$(srcdir)/libc/sys/amigaos/gettimeofday.c'; fi`
+
+libc/sys/amigaos/libc_a-sleep.o: libc/sys/amigaos/sleep.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libc_a_CPPFLAGS) $(CPPFLAGS) $(libc_a_CFLAGS) $(CFLAGS) -MT libc/sys/amigaos/libc_a-sleep.o -MD -MP -MF libc/sys/amigaos/$(DEPDIR)/libc_a-sleep.Tpo -c -o libc/sys/amigaos/libc_a-sleep.o `test -f 'libc/sys/amigaos/sleep.c' || echo '$(srcdir)/'`libc/sys/amigaos/sleep.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) libc/sys/amigaos/$(DEPDIR)/libc_a-sleep.Tpo libc/sys/amigaos/$(DEPDIR)/libc_a-sleep.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='libc/sys/amigaos/sleep.c' object='libc/sys/amigaos/libc_a-sleep.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libc_a_CPPFLAGS) $(CPPFLAGS) $(libc_a_CFLAGS) $(CFLAGS) -c -o libc/sys/amigaos/libc_a-sleep.o `test -f 'libc/sys/amigaos/sleep.c' || echo '$(srcdir)/'`libc/sys/amigaos/sleep.c
+
+libc/sys/amigaos/libc_a-sleep.obj: libc/sys/amigaos/sleep.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libc_a_CPPFLAGS) $(CPPFLAGS) $(libc_a_CFLAGS) $(CFLAGS) -MT libc/sys/amigaos/libc_a-sleep.obj -MD -MP -MF libc/sys/amigaos/$(DEPDIR)/libc_a-sleep.Tpo -c -o libc/sys/amigaos/libc_a-sleep.obj `if test -f 'libc/sys/amigaos/sleep.c'; then $(CYGPATH_W) 'libc/sys/amigaos/sleep.c'; else $(CYGPATH_W) '$(srcdir)/libc/sys/amigaos/sleep.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) libc/sys/amigaos/$(DEPDIR)/libc_a-sleep.Tpo libc/sys/amigaos/$(DEPDIR)/libc_a-sleep.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='libc/sys/amigaos/sleep.c' object='libc/sys/amigaos/libc_a-sleep.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libc_a_CPPFLAGS) $(CPPFLAGS) $(libc_a_CFLAGS) $(CFLAGS) -c -o libc/sys/amigaos/libc_a-sleep.obj `if test -f 'libc/sys/amigaos/sleep.c'; then $(CYGPATH_W) 'libc/sys/amigaos/sleep.c'; else $(CYGPATH_W) '$(srcdir)/libc/sys/amigaos/sleep.c'; fi`
+
+libc/sys/amigaos/libc_a-utime.o: libc/sys/amigaos/utime.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libc_a_CPPFLAGS) $(CPPFLAGS) $(libc_a_CFLAGS) $(CFLAGS) -MT libc/sys/amigaos/libc_a-utime.o -MD -MP -MF libc/sys/amigaos/$(DEPDIR)/libc_a-utime.Tpo -c -o libc/sys/amigaos/libc_a-utime.o `test -f 'libc/sys/amigaos/utime.c' || echo '$(srcdir)/'`libc/sys/amigaos/utime.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) libc/sys/amigaos/$(DEPDIR)/libc_a-utime.Tpo libc/sys/amigaos/$(DEPDIR)/libc_a-utime.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='libc/sys/amigaos/utime.c' object='libc/sys/amigaos/libc_a-utime.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libc_a_CPPFLAGS) $(CPPFLAGS) $(libc_a_CFLAGS) $(CFLAGS) -c -o libc/sys/amigaos/libc_a-utime.o `test -f 'libc/sys/amigaos/utime.c' || echo '$(srcdir)/'`libc/sys/amigaos/utime.c
+
+libc/sys/amigaos/libc_a-utime.obj: libc/sys/amigaos/utime.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libc_a_CPPFLAGS) $(CPPFLAGS) $(libc_a_CFLAGS) $(CFLAGS) -MT libc/sys/amigaos/libc_a-utime.obj -MD -MP -MF libc/sys/amigaos/$(DEPDIR)/libc_a-utime.Tpo -c -o libc/sys/amigaos/libc_a-utime.obj `if test -f 'libc/sys/amigaos/utime.c'; then $(CYGPATH_W) 'libc/sys/amigaos/utime.c'; else $(CYGPATH_W) '$(srcdir)/libc/sys/amigaos/utime.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) libc/sys/amigaos/$(DEPDIR)/libc_a-utime.Tpo libc/sys/amigaos/$(DEPDIR)/libc_a-utime.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='libc/sys/amigaos/utime.c' object='libc/sys/amigaos/libc_a-utime.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libc_a_CPPFLAGS) $(CPPFLAGS) $(libc_a_CFLAGS) $(CFLAGS) -c -o libc/sys/amigaos/libc_a-utime.obj `if test -f 'libc/sys/amigaos/utime.c'; then $(CYGPATH_W) 'libc/sys/amigaos/utime.c'; else $(CYGPATH_W) '$(srcdir)/libc/sys/amigaos/utime.c'; fi`
+
+libc/sys/amigaos/libc_a-dirent.o: libc/sys/amigaos/dirent.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libc_a_CPPFLAGS) $(CPPFLAGS) $(libc_a_CFLAGS) $(CFLAGS) -MT libc/sys/amigaos/libc_a-dirent.o -MD -MP -MF libc/sys/amigaos/$(DEPDIR)/libc_a-dirent.Tpo -c -o libc/sys/amigaos/libc_a-dirent.o `test -f 'libc/sys/amigaos/dirent.c' || echo '$(srcdir)/'`libc/sys/amigaos/dirent.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) libc/sys/amigaos/$(DEPDIR)/libc_a-dirent.Tpo libc/sys/amigaos/$(DEPDIR)/libc_a-dirent.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='libc/sys/amigaos/dirent.c' object='libc/sys/amigaos/libc_a-dirent.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libc_a_CPPFLAGS) $(CPPFLAGS) $(libc_a_CFLAGS) $(CFLAGS) -c -o libc/sys/amigaos/libc_a-dirent.o `test -f 'libc/sys/amigaos/dirent.c' || echo '$(srcdir)/'`libc/sys/amigaos/dirent.c
+
+libc/sys/amigaos/libc_a-dirent.obj: libc/sys/amigaos/dirent.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libc_a_CPPFLAGS) $(CPPFLAGS) $(libc_a_CFLAGS) $(CFLAGS) -MT libc/sys/amigaos/libc_a-dirent.obj -MD -MP -MF libc/sys/amigaos/$(DEPDIR)/libc_a-dirent.Tpo -c -o libc/sys/amigaos/libc_a-dirent.obj `if test -f 'libc/sys/amigaos/dirent.c'; then $(CYGPATH_W) 'libc/sys/amigaos/dirent.c'; else $(CYGPATH_W) '$(srcdir)/libc/sys/amigaos/dirent.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) libc/sys/amigaos/$(DEPDIR)/libc_a-dirent.Tpo libc/sys/amigaos/$(DEPDIR)/libc_a-dirent.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='libc/sys/amigaos/dirent.c' object='libc/sys/amigaos/libc_a-dirent.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libc_a_CPPFLAGS) $(CPPFLAGS) $(libc_a_CFLAGS) $(CFLAGS) -c -o libc/sys/amigaos/libc_a-dirent.obj `if test -f 'libc/sys/amigaos/dirent.c'; then $(CYGPATH_W) 'libc/sys/amigaos/dirent.c'; else $(CYGPATH_W) '$(srcdir)/libc/sys/amigaos/dirent.c'; fi`
+
+libc/sys/amigaos/libc_a-kill.o: libc/sys/amigaos/kill.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libc_a_CPPFLAGS) $(CPPFLAGS) $(libc_a_CFLAGS) $(CFLAGS) -MT libc/sys/amigaos/libc_a-kill.o -MD -MP -MF libc/sys/amigaos/$(DEPDIR)/libc_a-kill.Tpo -c -o libc/sys/amigaos/libc_a-kill.o `test -f 'libc/sys/amigaos/kill.c' || echo '$(srcdir)/'`libc/sys/amigaos/kill.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) libc/sys/amigaos/$(DEPDIR)/libc_a-kill.Tpo libc/sys/amigaos/$(DEPDIR)/libc_a-kill.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='libc/sys/amigaos/kill.c' object='libc/sys/amigaos/libc_a-kill.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libc_a_CPPFLAGS) $(CPPFLAGS) $(libc_a_CFLAGS) $(CFLAGS) -c -o libc/sys/amigaos/libc_a-kill.o `test -f 'libc/sys/amigaos/kill.c' || echo '$(srcdir)/'`libc/sys/amigaos/kill.c
+
+libc/sys/amigaos/libc_a-kill.obj: libc/sys/amigaos/kill.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libc_a_CPPFLAGS) $(CPPFLAGS) $(libc_a_CFLAGS) $(CFLAGS) -MT libc/sys/amigaos/libc_a-kill.obj -MD -MP -MF libc/sys/amigaos/$(DEPDIR)/libc_a-kill.Tpo -c -o libc/sys/amigaos/libc_a-kill.obj `if test -f 'libc/sys/amigaos/kill.c'; then $(CYGPATH_W) 'libc/sys/amigaos/kill.c'; else $(CYGPATH_W) '$(srcdir)/libc/sys/amigaos/kill.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) libc/sys/amigaos/$(DEPDIR)/libc_a-kill.Tpo libc/sys/amigaos/$(DEPDIR)/libc_a-kill.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='libc/sys/amigaos/kill.c' object='libc/sys/amigaos/libc_a-kill.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libc_a_CPPFLAGS) $(CPPFLAGS) $(libc_a_CFLAGS) $(CFLAGS) -c -o libc/sys/amigaos/libc_a-kill.obj `if test -f 'libc/sys/amigaos/kill.c'; then $(CYGPATH_W) 'libc/sys/amigaos/kill.c'; else $(CYGPATH_W) '$(srcdir)/libc/sys/amigaos/kill.c'; fi`
+
+libc/sys/amigaos/libc_a-link.o: libc/sys/amigaos/link.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libc_a_CPPFLAGS) $(CPPFLAGS) $(libc_a_CFLAGS) $(CFLAGS) -MT libc/sys/amigaos/libc_a-link.o -MD -MP -MF libc/sys/amigaos/$(DEPDIR)/libc_a-link.Tpo -c -o libc/sys/amigaos/libc_a-link.o `test -f 'libc/sys/amigaos/link.c' || echo '$(srcdir)/'`libc/sys/amigaos/link.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) libc/sys/amigaos/$(DEPDIR)/libc_a-link.Tpo libc/sys/amigaos/$(DEPDIR)/libc_a-link.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='libc/sys/amigaos/link.c' object='libc/sys/amigaos/libc_a-link.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libc_a_CPPFLAGS) $(CPPFLAGS) $(libc_a_CFLAGS) $(CFLAGS) -c -o libc/sys/amigaos/libc_a-link.o `test -f 'libc/sys/amigaos/link.c' || echo '$(srcdir)/'`libc/sys/amigaos/link.c
+
+libc/sys/amigaos/libc_a-link.obj: libc/sys/amigaos/link.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libc_a_CPPFLAGS) $(CPPFLAGS) $(libc_a_CFLAGS) $(CFLAGS) -MT libc/sys/amigaos/libc_a-link.obj -MD -MP -MF libc/sys/amigaos/$(DEPDIR)/libc_a-link.Tpo -c -o libc/sys/amigaos/libc_a-link.obj `if test -f 'libc/sys/amigaos/link.c'; then $(CYGPATH_W) 'libc/sys/amigaos/link.c'; else $(CYGPATH_W) '$(srcdir)/libc/sys/amigaos/link.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) libc/sys/amigaos/$(DEPDIR)/libc_a-link.Tpo libc/sys/amigaos/$(DEPDIR)/libc_a-link.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='libc/sys/amigaos/link.c' object='libc/sys/amigaos/libc_a-link.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libc_a_CPPFLAGS) $(CPPFLAGS) $(libc_a_CFLAGS) $(CFLAGS) -c -o libc/sys/amigaos/libc_a-link.obj `if test -f 'libc/sys/amigaos/link.c'; then $(CYGPATH_W) 'libc/sys/amigaos/link.c'; else $(CYGPATH_W) '$(srcdir)/libc/sys/amigaos/link.c'; fi`
 
 libc/sys/amigaos/libc_a-callocr.o: libc/sys/amigaos/callocr.c
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libc_a_CPPFLAGS) $(CPPFLAGS) $(libc_a_CFLAGS) $(CFLAGS) -MT libc/sys/amigaos/libc_a-callocr.o -MD -MP -MF libc/sys/amigaos/$(DEPDIR)/libc_a-callocr.Tpo -c -o libc/sys/amigaos/libc_a-callocr.o `test -f 'libc/sys/amigaos/callocr.c' || echo '$(srcdir)/'`libc/sys/amigaos/callocr.c
