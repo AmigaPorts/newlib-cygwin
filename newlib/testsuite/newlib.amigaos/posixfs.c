@@ -136,6 +136,13 @@ int main(void)
 
   check(isatty(0) == 0 || isatty(0) == 1, "isatty");
 
+  /* libstdc++'s std::filesystem calls pathconf(_PC_PATH_MAX).  */
+  check(pathconf("T:", _PC_PATH_MAX) >= 256, "pathconf: _PC_PATH_MAX");
+  check(fpathconf(0, _PC_NAME_MAX) >= 30, "fpathconf: _PC_NAME_MAX");
+  errno = 0;
+  check(pathconf("T:", _PC_PIPE_BUF) == -1 && errno == 0, "pathconf: no limit");
+  check(pathconf("T:", -1) == -1 && errno == EINVAL, "pathconf: EINVAL");
+
   printf("%d failures\n", failures);
   return failures;
 }
