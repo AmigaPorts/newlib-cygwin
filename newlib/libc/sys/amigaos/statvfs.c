@@ -1,5 +1,8 @@
 #include <errno.h>
+#include <limits.h>
 #include <string.h>
+#include <unistd.h>
+#include <dirent.h>
 #include <dos/dos.h>
 #include <proto/dos.h>
 #include <sys/statvfs.h>
@@ -91,4 +94,56 @@ statvfs(const char *path, struct statvfs *buf)
 
 	UnLock(lock);
 	return ret;
+}
+
+/* The same limits hold for every file: -1 with errno untouched means no
+   limit, as POSIX has it.  libstdc++'s std::filesystem asks for
+   _PC_PATH_MAX.  */
+static long
+path_limit(int name)
+{
+	switch (name)
+	{
+	case _PC_NAME_MAX:
+		return MAXNAMLEN;
+	case _PC_PATH_MAX:
+		return PATH_MAX;
+	case _PC_LINK_MAX:
+	case _PC_MAX_CANON:
+	case _PC_MAX_INPUT:
+	case _PC_PIPE_BUF:
+	case _PC_CHOWN_RESTRICTED:
+	case _PC_NO_TRUNC:
+	case _PC_VDISABLE:
+	case _PC_ASYNC_IO:
+	case _PC_PRIO_IO:
+	case _PC_SYNC_IO:
+	case _PC_FILESIZEBITS:
+	case _PC_2_SYMLINKS:
+	case _PC_SYMLINK_MAX:
+	case _PC_ALLOC_SIZE_MIN:
+	case _PC_REC_INCR_XFER_SIZE:
+	case _PC_REC_MAX_XFER_SIZE:
+	case _PC_REC_MIN_XFER_SIZE:
+	case _PC_REC_XFER_ALIGN:
+	case _PC_TIMESTAMP_RESOLUTION:
+		return -1;
+	default:
+		errno = EINVAL;
+		return -1;
+	}
+}
+
+long
+pathconf(const char *path, int name)
+{
+	(void)path;
+	return path_limit(name);
+}
+
+long
+fpathconf(int fd, int name)
+{
+	(void)fd;
+	return path_limit(name);
 }
