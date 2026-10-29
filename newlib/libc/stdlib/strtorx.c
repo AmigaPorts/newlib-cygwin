@@ -41,11 +41,22 @@ THIS SOFTWARE.
 /* one or the other of IEEE_MC68k or IEEE_8087 should be #defined */
 
 #ifdef IEEE_MC68k
+#if __SIZEOF_LONG_DOUBLE__ == 12
+/* m68k's 96-bit format: 16 bits of exponent, 16 zero bits of padding,
+   then the 64-bit mantissa.  */
+#define _0 0
+#define _PAD 1
+#define _1 2
+#define _2 3
+#define _3 4
+#define _4 5
+#else
 #define _0 0
 #define _1 1
 #define _2 2
 #define _3 3
 #define _4 4
+#endif
 #endif
 #ifdef IEEE_8087
 #define _0 4
@@ -62,10 +73,13 @@ ULtox(L, bits, exp, k) __UShort *L; __ULong *bits; Long exp; int k;
 ULtox(__UShort *L, __ULong *bits, Long exp, int k)
 #endif
 {
+#ifdef _PAD
+	L[_PAD] = 0;
+#endif
 	switch(k & STRTOG_Retmask) {
 	  case STRTOG_NoNumber:
 	  case STRTOG_Zero:
-		L[0] = L[1] = L[2] = L[3] = L[4] = 0;
+		L[_0] = L[_1] = L[_2] = L[_3] = L[_4] = 0;
 		break;
 
 	  case STRTOG_Denormal:
@@ -84,7 +98,12 @@ ULtox(__UShort *L, __ULong *bits, Long exp, int k)
 
 	  case STRTOG_Infinite:
 		L[_0] = 0x7fff;
+#ifdef _PAD
+		/* no integer bit in m68k's infinity, as the FPU and gcc make it */
+		L[_1] = 0;
+#else
 		L[_1] = 0x8000;
+#endif
 		L[_2] = L[_3] = L[_4] = 0;
 		break;
 
@@ -103,7 +122,13 @@ _strtorx_l(struct _reent *p, const char *s, char **sp, int rounding, void *L,
 	   locale_t loc)
 #endif
 {
+#ifdef _PAD
+	/* An exponent field of 0 is a real exponent on m68k, not an alias of 1
+	   as on x87, so its subnormals reach one binade lower.  */
+	static FPI fpi0 = { 64, 1-16383-64, 32766 - 16383 - 64 + 1, 1, SI };
+#else
 	static FPI fpi0 = { 64, 1-16383-64+1, 32766 - 16383 - 64 + 1, 1, SI };
+#endif
 	FPI *fpi, fpi1;
 	__ULong bits[2];
 	Long exp;
