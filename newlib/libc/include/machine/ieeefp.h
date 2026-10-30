@@ -171,6 +171,9 @@
    math doesn't raise them. */
 #if defined(__amigaos__) && defined(__HAVE_68881__) && !defined(__libnix__)
 # define _SUPPORTS_ERREXCEPT
+/* There they report errors by the exceptions alone: errno is not set, and the
+   math functions skip the wrappers that check for errors to set it. */
+# define _IEEE_LIBM
 #endif
 #endif
 
