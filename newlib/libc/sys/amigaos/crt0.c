@@ -187,12 +187,17 @@ __attribute__((common)) long __oslibversion;
 #pragma GCC push_options
 #pragma GCC optimize ("-O2")
 
+/* Opens dos.library itself: the failed library may be dos.library, at
+   __oslibversion, or the list may not have reached it yet.  */
 static __attribute__((noreturn)) void __openliberror(char const * name) {
-	char buf[80];
+	static char const msg[] = " failed to load\n";
+	struct DosLibrary * DOSBase = (struct DosLibrary *)OldOpenLibrary("dos.library");
 
-	strcpy(buf, name);
-	strcat(buf, " failed to load\n");
-	Write(Output(), buf, strlen(buf));
+	if (DOSBase) {
+		Write(Output(), (APTR)name, strlen(name));
+		Write(Output(), (APTR)msg, sizeof msg - 1);
+		CloseLibrary((struct Library *)DOSBase);
+	}
 	exit(20);
 }
 
@@ -202,8 +207,8 @@ static __attribute__((noreturn)) void __openliberror(char const * name) {
 void __initlibraries(void) {
 	long * l = &__LIB_LIST__ + 1;
 	char const * failed = NULL;
-	/* Open them all before reporting a failure: the report needs
-	   dos.library, which may come later in the list. */
+	/* Open them all before reporting a failure: __exitlibraries() closes
+	   every non-zero base, and the bases not reached yet still hold -1. */
 	while (*l) {
 		long * base = l++;
 		char const * const name = *(char **) (l++);
