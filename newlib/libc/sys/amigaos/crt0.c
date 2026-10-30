@@ -236,7 +236,8 @@ void __exitlibraries(void) {
 	while (*l) {
 		long * base = l++;
 		char const * const name = *(char **) (l++);
-		/* 0: it failed to open */
+		/* 0: it failed to open.  Resources are never closed: exec has no
+		   CloseResource(), and they have no Close vector. */
 		if (*base && !strstr(name, ".resource"))
 			CloseLibrary((struct Library *)*base);
 	}
