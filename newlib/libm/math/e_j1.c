@@ -104,7 +104,7 @@ static double zero    = 0.0;
 
 	GET_HIGH_WORD(hx,x);
 	ix = hx&0x7fffffff;
-	if(ix>=0x7ff00000) return one/x;
+	if(ix>=0x7ff00000) return one/(x*x);
 	y = fabs(x);
 	if(ix >= 0x40000000) {	/* |x| >= 2.0 */
 		s = sin(y);

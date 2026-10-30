@@ -59,7 +59,7 @@ static float zero    = 0.0;
 
 	GET_FLOAT_WORD(hx,x);
 	ix = hx&0x7fffffff;
-	if(!FLT_UWORD_IS_FINITE(ix)) return one/x;
+	if(!FLT_UWORD_IS_FINITE(ix)) return one/(x*x);
 	y = fabsf(x);
 	if(ix >= 0x40000000) {	/* |x| >= 2.0 */
 		s = sinf(y);
