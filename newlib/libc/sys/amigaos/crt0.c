@@ -197,15 +197,18 @@ static __attribute__((noreturn)) void __openliberror(char const * name) {
  */
 void __initlibraries(void) {
 	long * l = &__LIB_LIST__ + 1;
+	char const * failed = NULL;
+	/* Open them all before reporting a failure: the report needs
+	   dos.library, which may come later in the list. */
 	while (*l) {
 		long * base = l++;
 		char const * const name = *(char **) (l++);
 		*base = (long)(strstr(name, ".resource") ? OpenResource(name) : OldOpenLibrary(name));
-		if (!*base) {
- 		  __openliberror(name);
- 		  break;
-		}
+		if (!*base && !failed)
+			failed = name;
 	}
+	if (failed)
+		__openliberror(failed);
 
 	/* On an FPU, the IEEE maths libraries set the FPCR of the task that
 	 * opens them: mathieeesingbas to $40 (round to single precision),
@@ -233,7 +236,8 @@ void __exitlibraries(void) {
 	while (*l) {
 		long * base = l++;
 		char const * const name = *(char **) (l++);
-		if (!strstr(name, ".resource"))
+		/* 0: it failed to open */
+		if (*base && !strstr(name, ".resource"))
 			CloseLibrary((struct Library *)*base);
 	}
 }
