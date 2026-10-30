@@ -158,7 +158,17 @@ void __exit_fh() {
 }
 
 int _isatty(int file) {
-	return (unsigned)file <= 2;
+	BPTR handle = __check_fno(file);
+
+	if (!handle) {
+		errno = EBADF;
+		return 0;
+	}
+	if (IsInteractive(handle))
+		return 1;
+	/* A valid descriptor can name a file or a redirected stream.  */
+	errno = ENOTTY;
+	return 0;
 }
 
 int isatty(int file) {
