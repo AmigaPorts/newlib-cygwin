@@ -15,6 +15,24 @@
 
 #include "fdlibm.h"
 
+#if defined(__amigaos__) && defined(__HAVE_68881__)
+
+/* The FPU's fsqrt, with the rounding precision set to single.  */
+float __ieee754_sqrtf(float x)
+{
+	unsigned long fpcr, sgl;
+	float z;
+
+	__asm__ __volatile__ ("fmove%.l %/fpcr,%0" : "=dm" (fpcr));
+	sgl = (fpcr & ~0xc0) | 0x40;
+	__asm__ __volatile__ ("fmove%.l %0,%/fpcr" : : "dm" (sgl));
+	__asm__ __volatile__ ("fsqrt%.x %1,%0" : "=f" (z) : "f" (x));
+	__asm__ __volatile__ ("fmove%.l %0,%/fpcr" : : "dm" (fpcr));
+	return z;
+}
+
+#else
+
 #ifdef __STDC__
 static	const volatile float	one	= 1.0, tiny=1.0e-30;
 #else
@@ -87,3 +105,5 @@ static	float	volatile one	= 1.0, tiny=1.0e-30;
 	SET_FLOAT_WORD(z,ix);
 	return z;
 }
+
+#endif /* __amigaos__ && __HAVE_68881__ */
