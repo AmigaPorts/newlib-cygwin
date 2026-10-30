@@ -13,14 +13,14 @@
 
 /* add symbol a to list b */
 #define ADD2LIST22(a,b) \
-	asm(".section\t.list_" #b ",\"aw\""); \
-	asm("\t.long " #a); \
-	asm(".text");
+	__asm__(".section\t.list_" #b ",\"aw\""); \
+	__asm__("\t.long " #a); \
+	__asm__(".text");
 
 #define ADD2LIST24(a,b) \
-	asm(".section\t.dlist_" #b ",\"aw\""); \
-	asm("\t.long " #a); \
-	asm(".text");
+	__asm__(".section\t.dlist_" #b ",\"aw\""); \
+	__asm__("\t.long " #a); \
+	__asm__(".text");
 
 /* Install private constructors and destructors pri MUST be -127<=pri<=127 */
 #define ADD2INIT(a,pri) ADD2LIST(a,__INIT_LIST__,22); \
@@ -32,15 +32,15 @@
 
 #else
 /* add symbol a to list b (type c (22=text 24=data 26=bss)) */
-#define ADD2LIST(a,b,c) asm(".stabs \"_" #b "\"," #c ",0,0,_" #a )
+#define ADD2LIST(a,b,c) __asm__(".stabs \"_" #b "\"," #c ",0,0,_" #a )
 
 /* Install private constructors and destructors pri MUST be -127<=pri<=127 */
 #define ADD2INIT(a,pri) ADD2LIST(a,__INIT_LIST__,22); \
-                        asm(".stabs \"___INIT_LIST__\",20,0,0," #pri "+128")
+                        __asm__(".stabs \"___INIT_LIST__\",20,0,0," #pri "+128")
 #define ADD2EXIT(a,pri) ADD2LIST(a,__EXIT_LIST__,22); \
-                        asm(".stabs \"___EXIT_LIST__\",20,0,0," #pri "+128")
+                        __asm__(".stabs \"___EXIT_LIST__\",20,0,0," #pri "+128")
 
-#define ADDTABL_END() asm(".stabs \"___FuncTable__\",20,0,0,-1")
+#define ADDTABL_END() __asm__(".stabs \"___FuncTable__\",20,0,0,-1")
 
 #endif
 
@@ -48,7 +48,7 @@
  */
 
 /* linker can use symbol b for symbol a if a is not defined */
-#define ALIAS(a,b) asm(".stabs \"_" #a "\",11,0,0,0;.stabs \"_" #b "\",1,0,0,0")
+#define ALIAS(a,b) __asm__(".stabs \"_" #a "\",11,0,0,0;.stabs \"_" #b "\",1,0,0,0")
 
 
 /* Add to library list */
@@ -59,7 +59,7 @@
  *
  * define a as a label for an absolute address b
  */
-#define ABSDEF(a,b) asm("_" #a "=" #b ";.globl _" #a )
+#define ABSDEF(a,b) __asm__("_" #a "=" #b ";.globl _" #a )
 
 /* Generate assembler stub for a shared library entry
  * and add it to the jump table
@@ -70,31 +70,31 @@
  */
  
 #define _ADDTABL_START(name)		\
-asm(".globl ___" #name);		\
-asm("___" #name ":\tmovel a4,sp@-")
+__asm__(".globl ___" #name);		\
+__asm__("___" #name ":\tmovel a4,sp@-")
 
 #define _ADDTABL_ARG(arg)		\
-asm("\tmovel " #arg ",sp@-")
+__asm__("\tmovel " #arg ",sp@-")
 
 #define _ADDTABL_CALL(name)		\
-asm("\tmovel a6@(40:W),a4");		\
-asm("\tbsr _" #name)
+__asm__("\tmovel a6@(40:W),a4");		\
+__asm__("\tbsr _" #name)
 
 #define _ADDTABL_END0(name,numargs)	\
-asm("\tmovel sp@+,a4");			\
-asm("\trts");				\
+__asm__("\tmovel sp@+,a4");			\
+__asm__("\trts");				\
 ADD2LIST(__##name,__FuncTable__,22)
 
 #define _ADDTABL_END2(name,numargs)	\
-asm("\taddqw #4*" #numargs ",sp");	\
-asm("\tmovel sp@+,a4");			\
-asm("\trts");				\
+__asm__("\taddqw #4*" #numargs ",sp");	\
+__asm__("\tmovel sp@+,a4");			\
+__asm__("\trts");				\
 ADD2LIST(__##name,__FuncTable__,22)
 
 #define _ADDTABL_ENDN(name,numargs)	\
-asm("\taddaw #4*" #numargs ",sp");	\
-asm("\tmovel sp@+,a4");			\
-asm("\trts");				\
+__asm__("\taddaw #4*" #numargs ",sp");	\
+__asm__("\tmovel sp@+,a4");			\
+__asm__("\trts");				\
 ADD2LIST(__##name,__FuncTable__,22)
 
 #define ADDTABL_0(name)			\
