@@ -166,6 +166,12 @@
 
 #if defined(__m68k__) || defined(__mc68000__)
 #define __IEEE_BIG_ENDIAN
+/* On AmigaOS with an FPU, newlib's math raises the IEEE exceptions and
+   <fenv.h> reads them from the FPSR.  libnix uses these headers too, but its
+   math doesn't raise them. */
+#if defined(__amigaos__) && defined(__HAVE_68881__) && !defined(__libnix__)
+# define _SUPPORTS_ERREXCEPT
+#endif
 #endif
 
 #if defined(__mc68hc11__) || defined(__mc68hc12__) || defined(__mc68hc1x__)
