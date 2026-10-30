@@ -1040,6 +1040,9 @@ _strtodg_l (struct _reent *p, const char *s00, char **se, FPI *fpi, Long *exp,
 					rve++;
 					rve1++;
 					L = 0;
+					/* Rounded up past the largest finite value */
+					if (rve > fpi->emax)
+						finished = 1;
 					}
 				}
 			}
