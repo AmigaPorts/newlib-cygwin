@@ -58,7 +58,7 @@ static __inline__ unsigned int
 __amiga_fenv_get_fpcr(void)
 {
   unsigned int value;
-  __asm__ ("fmove%.l %/fpcr,%0" : "=dm" (value));
+  __asm__ __volatile__ ("fmove%.l %/fpcr,%0" : "=dm" (value));
   return value;
 }
 
@@ -72,7 +72,7 @@ static __inline__ unsigned int
 __amiga_fenv_get_fpsr(void)
 {
   unsigned int value;
-  __asm__ ("fmove%.l %/fpsr,%0" : "=dm" (value));
+  __asm__ __volatile__ ("fmove%.l %/fpsr,%0" : "=dm" (value));
   return value;
 }
 
