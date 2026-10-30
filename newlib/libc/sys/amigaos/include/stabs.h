@@ -1,7 +1,8 @@
 #ifndef _HEADERS_STABS_H
 #define _HEADERS_STABS_H
 
-#if defined(__m68k_elf__) || defined(__ELF__) || (defined(__near) && defined(__chip) && defined(__fast))
+/* The lists are sections, which the linker script collects and sorts by
+   name: .list_* in the code, .dlist_* in the data. */
 
 #define __PASTE(a,b) a##b
 
@@ -29,20 +30,6 @@
                         ADD2LIST2(pri+128,__EXIT_LIST__,22)
 
 #define ADDTABL_END() ADD2LIST2(-1,__FuncTable__,22)
-
-#else
-/* add symbol a to list b (type c (22=text 24=data 26=bss)) */
-#define ADD2LIST(a,b,c) __asm__(".stabs \"_" #b "\"," #c ",0,0,_" #a )
-
-/* Install private constructors and destructors pri MUST be -127<=pri<=127 */
-#define ADD2INIT(a,pri) ADD2LIST(a,__INIT_LIST__,22); \
-                        __asm__(".stabs \"___INIT_LIST__\",20,0,0," #pri "+128")
-#define ADD2EXIT(a,pri) ADD2LIST(a,__EXIT_LIST__,22); \
-                        __asm__(".stabs \"___EXIT_LIST__\",20,0,0," #pri "+128")
-
-#define ADDTABL_END() __asm__(".stabs \"___FuncTable__\",20,0,0,-1")
-
-#endif
 
 /* These are some macros for handling of symboltable information
  */
