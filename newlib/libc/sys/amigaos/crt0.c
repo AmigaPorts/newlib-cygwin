@@ -180,6 +180,10 @@ __entrypoint void callfuncs(int * q asm("a2"), unsigned short order asm("d2")) {
 __attribute__((section(".dlist___LIB_LIST__")))
 long __LIB_LIST__ = 0;
 
+/* The minimum version of the libraries opened for the program: it sets it by
+   defining, say, long __oslibversion = 39;  Common, so that definition wins. */
+__attribute__((common)) long __oslibversion;
+
 #pragma GCC push_options
 #pragma GCC optimize ("-O2")
 
@@ -203,7 +207,7 @@ void __initlibraries(void) {
 	while (*l) {
 		long * base = l++;
 		char const * const name = *(char **) (l++);
-		*base = (long)(strstr(name, ".resource") ? OpenResource(name) : OldOpenLibrary(name));
+		*base = (long)(strstr(name, ".resource") ? OpenResource(name) : OpenLibrary(name, __oslibversion));
 		if (!*base && !failed)
 			failed = name;
 	}
