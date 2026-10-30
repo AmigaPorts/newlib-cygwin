@@ -1,6 +1,6 @@
+/* div() and ldiv() are provided by libc/stdlib.  Keep only the
+   compiler helpers here to avoid duplicate public library symbols.  */
 asm(
-"		.globl	_div;"
-"		.globl	_ldiv;"
 "		.globl	___modsi3;"
 "		.globl	___divsi3;"
 
@@ -14,8 +14,6 @@ asm(
 
 /* D0.L = D0.L / D1.L signed */
 
-"_div:;"
-"_ldiv:;"
 "___divsi3:	"
 "	moveml	sp@(4:W),d0/d1;"
 "___divsi4:"
