@@ -16,17 +16,11 @@
 #ifndef HZ
 # define HZ (60)
 #endif
-#ifndef NOFILE
-# define NOFILE	(60)
-#endif
 #ifndef PATHSIZE
 # define PATHSIZE (1024)
 #endif
 
 #define MAXPATHLEN PATH_MAX
-
-#define MAX(a,b) ((a) > (b) ? (a) : (b))
-#define MIN(a,b) ((a) < (b) ? (a) : (b))
 
 #ifndef howmany
 #define    howmany(x, y)   (((x)+((y)-1))/(y))
