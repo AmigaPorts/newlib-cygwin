@@ -282,20 +282,20 @@ __regargs void Tree::fixRemove(Leaf *i) {
 }
 
 // system memory allocator
-__regargs void __sys_free(register char *_p) {
+__regargs void __sys_free(char *_p) {
 #ifdef __AMIGA__
 	DPRINTF(("sys_free %08lx\n", (unsigned long) _p));
 	unsigned *p = (unsigned*) _p;
-	register unsigned sz = *--p;
+	unsigned sz = *--p;
 	FreeMem(p, sz);
 #else
 	DPRINTF(("sys_free %p\n", _p));
 #endif
 }
 
-__regargs char* __sys_alloc(register unsigned sz) {
+__regargs char* __sys_alloc(unsigned sz) {
 #ifdef __AMIGA__
-	register unsigned *p = (unsigned*) AllocMem(sz += 4, MEMF_ANY);
+	unsigned *p = (unsigned*) AllocMem(sz += 4, MEMF_ANY);
 #else
  static char m[0x80000];
  static char * pp;
@@ -470,7 +470,7 @@ public:
 __regargs MemMap::Leaf* MemMap::find(int size) {
 	Leaf *last = null;
 	for (Leaf *p = (Leaf*) root; p != null;) {
-		register int diff = size - p->size;
+		int diff = size - p->size;
 		if (diff == 0)
 			return p;
 		if (diff > 0)
@@ -533,7 +533,7 @@ __regargs void MemMap::unlink(Leaf *i) {
  */
 __regargs void MemMap::put(Leaf *leaf) {
 	leaf->reset();
-	register unsigned size = leaf->size;
+	unsigned size = leaf->size;
 // handle empty tree: initialize root and count
 	if (root == null) {
 		root = leaf;
@@ -579,7 +579,7 @@ __regargs char* MemMap::alloc(unsigned sz) {
 		return 0;
 	sz = (sz + sizeof(MemMap::Node) + MINSIZE - 1) & ~(MINSIZE - 1);
 	if (sz >= MAXSIZE) {
-		register MemMap::Node *node = (MemMap::Node*) __sysalloc(sz);
+		MemMap::Node *node = (MemMap::Node*) __sysalloc(sz);
 	DPRINTF(("MemMap::alloc1 %ld -> %08lx\n", sz, (unsigned long )node));
 		if (!node)
 			return 0;
@@ -595,7 +595,7 @@ __regargs char* MemMap::alloc(unsigned sz) {
 	}
 
 	MemMap::Leaf *l = find(sz);
-	register MemMap::Node *used;
+	MemMap::Node *used;
 	unsigned msz;
 	if (l == null) {
 		msz = MAXSIZE;
@@ -622,7 +622,7 @@ __regargs char* MemMap::alloc(unsigned sz) {
 
 	// enough room to split, and a leaf for the rest?  If not, hand it all out.
 	if (msz > MINSIZE + sz && (l = MemMap::Leaf::alloc()) != null) {
-		register MemMap::Node *n =
+		MemMap::Node *n =
 				(MemMap::Node*) (l->value = (char*) used + sz);
 		n->size = l->size = msz - sz;
 		n->leaf = l;
@@ -666,7 +666,7 @@ __regargs void MemMap::free(char *p) {
 	MemMap::Node *prev = node->prev;
 	// merge previous?
 	if (prev != null) {
-		register MemMap::Leaf *l = prev->leaf;
+		MemMap::Leaf *l = prev->leaf;
 		if (l != null) {
 			// cputc('[');
 			prev->next = node->next;
@@ -683,7 +683,7 @@ __regargs void MemMap::free(char *p) {
 	// merge next?
 	MemMap::Node *next = node->next;
 	if (next != null) {
-		register MemMap::Leaf *l = next->leaf;
+		MemMap::Leaf *l = next->leaf;
 		if (l != null) {
 			// cputc(']');
 			node->next = next->next;
