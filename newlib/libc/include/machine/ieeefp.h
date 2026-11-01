@@ -166,13 +166,17 @@
 
 #if defined(__m68k__) || defined(__mc68000__)
 #define __IEEE_BIG_ENDIAN
-/* On AmigaOS with an FPU, newlib's math raises the IEEE exceptions and
-   <fenv.h> reads them from the FPSR.  libnix uses these headers too, but its
-   math doesn't raise them. */
-#if defined(__amigaos__) && defined(__HAVE_68881__) && !defined(__libnix__)
-# define _SUPPORTS_ERREXCEPT
-/* There they report errors by the exceptions alone: errno is not set, and the
+/* On AmigaOS with an FPU, the math of newlib and libnix runs on the FPU,
+   which raises the IEEE exceptions, and <fenv.h> reads them from the FPSR.
+   They report errors by the exceptions alone: errno is not set, and newlib's
    math functions skip the wrappers that check for errors to set it. */
+#if defined(__amigaos__) && defined(__HAVE_68881__)
+# define _SUPPORTS_ERREXCEPT
+# define _IEEE_LIBM
+#endif
+/* libnix sets errno in neither build, so without an FPU math_errhandling is
+   0: it reports no errors at all. */
+#if defined(__amigaos__) && defined(__libnix__)
 # define _IEEE_LIBM
 #endif
 #endif
