@@ -28,7 +28,6 @@
 	%D%/s_llroundl.c \
 	%D%/s_logbl.c \
 	%D%/s_lrintl.c \
-	%D%/s_lround.c \
 	%D%/s_lroundl.c \
 	%D%/s_modfl.c \
 	%D%/s_nearbyintl.c \
