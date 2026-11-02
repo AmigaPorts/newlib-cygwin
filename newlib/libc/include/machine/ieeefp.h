@@ -168,9 +168,9 @@
 #define __IEEE_BIG_ENDIAN
 /* On AmigaOS with an FPU, the math of newlib and libnix runs on the FPU,
    which raises the IEEE exceptions, and <fenv.h> reads them from the FPSR.
-   They report errors by the exceptions alone: errno is not set, and newlib's
-   math functions skip the wrappers that check for errors to set it.
-   Without an FPU, both set errno. */
+   They report errors by the exceptions, and newlib's math functions skip
+   the wrappers that check for errors to set errno.  Without an FPU, both
+   set errno. */
 #if defined(__amigaos__) && defined(__HAVE_68881__)
 # define _SUPPORTS_ERREXCEPT
 # define _IEEE_LIBM
