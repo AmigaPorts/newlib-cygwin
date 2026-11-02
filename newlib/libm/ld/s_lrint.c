@@ -50,9 +50,12 @@ fn(type x)
 {
 	fenv_t env;
 	dtype d;
+	type r;
 
 	feholdexcept(&env);
-	d = (dtype)roundit(x);
+	/* Not (dtype)roundit(x), which gcc can turn into a call to fn. */
+	r = roundit(x);
+	d = (dtype)r;
 #if defined(FE_INVALID) && defined(FE_INEXACT)
 	if (fetestexcept(FE_INVALID))
 		feclearexcept(FE_INEXACT);

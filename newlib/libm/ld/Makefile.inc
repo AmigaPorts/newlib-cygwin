@@ -27,7 +27,6 @@
 	%D%/s_llrintl.c \
 	%D%/s_llroundl.c \
 	%D%/s_logbl.c \
-	%D%/s_lrint.c \
 	%D%/s_lrintl.c \
 	%D%/s_lround.c \
 	%D%/s_lroundl.c \
