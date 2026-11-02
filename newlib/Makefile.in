@@ -3314,7 +3314,6 @@ am__objects_154 = libm/common/libm_a-atanl.$(OBJEXT) \
 @HAVE_FPMATH_H_TRUE@	libm/ld/libm_a-s_llrintl.$(OBJEXT) \
 @HAVE_FPMATH_H_TRUE@	libm/ld/libm_a-s_llroundl.$(OBJEXT) \
 @HAVE_FPMATH_H_TRUE@	libm/ld/libm_a-s_logbl.$(OBJEXT) \
-@HAVE_FPMATH_H_TRUE@	libm/ld/libm_a-s_lrint.$(OBJEXT) \
 @HAVE_FPMATH_H_TRUE@	libm/ld/libm_a-s_lrintl.$(OBJEXT) \
 @HAVE_FPMATH_H_TRUE@	libm/ld/libm_a-s_lround.$(OBJEXT) \
 @HAVE_FPMATH_H_TRUE@	libm/ld/libm_a-s_lroundl.$(OBJEXT) \
@@ -5208,7 +5207,6 @@ libm_a_CFLAGS_libm_common = -fbuiltin -fno-math-errno
 @HAVE_FPMATH_H_TRUE@	libm/ld/s_llrintl.c \
 @HAVE_FPMATH_H_TRUE@	libm/ld/s_llroundl.c \
 @HAVE_FPMATH_H_TRUE@	libm/ld/s_logbl.c \
-@HAVE_FPMATH_H_TRUE@	libm/ld/s_lrint.c \
 @HAVE_FPMATH_H_TRUE@	libm/ld/s_lrintl.c \
 @HAVE_FPMATH_H_TRUE@	libm/ld/s_lround.c \
 @HAVE_FPMATH_H_TRUE@	libm/ld/s_lroundl.c \
@@ -11348,8 +11346,6 @@ libm/ld/libm_a-s_llroundl.$(OBJEXT): libm/ld/$(am__dirstamp) \
 	libm/ld/$(DEPDIR)/$(am__dirstamp)
 libm/ld/libm_a-s_logbl.$(OBJEXT): libm/ld/$(am__dirstamp) \
 	libm/ld/$(DEPDIR)/$(am__dirstamp)
-libm/ld/libm_a-s_lrint.$(OBJEXT): libm/ld/$(am__dirstamp) \
-	libm/ld/$(DEPDIR)/$(am__dirstamp)
 libm/ld/libm_a-s_lrintl.$(OBJEXT): libm/ld/$(am__dirstamp) \
 	libm/ld/$(DEPDIR)/$(am__dirstamp)
 libm/ld/libm_a-s_lround.$(OBJEXT): libm/ld/$(am__dirstamp) \
@@ -15190,7 +15186,6 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@libm/ld/$(DEPDIR)/libm_a-s_llrintl.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@libm/ld/$(DEPDIR)/libm_a-s_llroundl.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@libm/ld/$(DEPDIR)/libm_a-s_logbl.Po@am__quote@
-@AMDEP_TRUE@@am__include@ @am__quote@libm/ld/$(DEPDIR)/libm_a-s_lrint.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@libm/ld/$(DEPDIR)/libm_a-s_lrintl.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@libm/ld/$(DEPDIR)/libm_a-s_lround.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@libm/ld/$(DEPDIR)/libm_a-s_lroundl.Po@am__quote@
@@ -44470,20 +44465,6 @@ libm/ld/libm_a-s_logbl.obj: libm/ld/s_logbl.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='libm/ld/s_logbl.c' object='libm/ld/libm_a-s_logbl.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libm_a_CPPFLAGS) $(CPPFLAGS) $(libm_a_CFLAGS) $(CFLAGS) -c -o libm/ld/libm_a-s_logbl.obj `if test -f 'libm/ld/s_logbl.c'; then $(CYGPATH_W) 'libm/ld/s_logbl.c'; else $(CYGPATH_W) '$(srcdir)/libm/ld/s_logbl.c'; fi`
-
-libm/ld/libm_a-s_lrint.o: libm/ld/s_lrint.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libm_a_CPPFLAGS) $(CPPFLAGS) $(libm_a_CFLAGS) $(CFLAGS) -MT libm/ld/libm_a-s_lrint.o -MD -MP -MF libm/ld/$(DEPDIR)/libm_a-s_lrint.Tpo -c -o libm/ld/libm_a-s_lrint.o `test -f 'libm/ld/s_lrint.c' || echo '$(srcdir)/'`libm/ld/s_lrint.c
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) libm/ld/$(DEPDIR)/libm_a-s_lrint.Tpo libm/ld/$(DEPDIR)/libm_a-s_lrint.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='libm/ld/s_lrint.c' object='libm/ld/libm_a-s_lrint.o' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libm_a_CPPFLAGS) $(CPPFLAGS) $(libm_a_CFLAGS) $(CFLAGS) -c -o libm/ld/libm_a-s_lrint.o `test -f 'libm/ld/s_lrint.c' || echo '$(srcdir)/'`libm/ld/s_lrint.c
-
-libm/ld/libm_a-s_lrint.obj: libm/ld/s_lrint.c
-@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libm_a_CPPFLAGS) $(CPPFLAGS) $(libm_a_CFLAGS) $(CFLAGS) -MT libm/ld/libm_a-s_lrint.obj -MD -MP -MF libm/ld/$(DEPDIR)/libm_a-s_lrint.Tpo -c -o libm/ld/libm_a-s_lrint.obj `if test -f 'libm/ld/s_lrint.c'; then $(CYGPATH_W) 'libm/ld/s_lrint.c'; else $(CYGPATH_W) '$(srcdir)/libm/ld/s_lrint.c'; fi`
-@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) libm/ld/$(DEPDIR)/libm_a-s_lrint.Tpo libm/ld/$(DEPDIR)/libm_a-s_lrint.Po
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='libm/ld/s_lrint.c' object='libm/ld/libm_a-s_lrint.obj' libtool=no @AMDEPBACKSLASH@
-@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
-@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libm_a_CPPFLAGS) $(CPPFLAGS) $(libm_a_CFLAGS) $(CFLAGS) -c -o libm/ld/libm_a-s_lrint.obj `if test -f 'libm/ld/s_lrint.c'; then $(CYGPATH_W) 'libm/ld/s_lrint.c'; else $(CYGPATH_W) '$(srcdir)/libm/ld/s_lrint.c'; fi`
 
 libm/ld/libm_a-s_lrintl.o: libm/ld/s_lrintl.c
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libm_a_CPPFLAGS) $(CPPFLAGS) $(libm_a_CFLAGS) $(CFLAGS) -MT libm/ld/libm_a-s_lrintl.o -MD -MP -MF libm/ld/$(DEPDIR)/libm_a-s_lrintl.Tpo -c -o libm/ld/libm_a-s_lrintl.o `test -f 'libm/ld/s_lrintl.c' || echo '$(srcdir)/'`libm/ld/s_lrintl.c
