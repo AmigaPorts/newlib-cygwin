@@ -80,7 +80,7 @@ mbtowc (wchar_t *__restrict pwc,
   if (n == 0)
     return -1;
   if (pwc)
-    *pwc = (wchar_t) *s;
+    *pwc = (wchar_t) (unsigned char) *s;
   return (*s != '\0');
 #endif /* not _MB_CAPABLE */
 }

@@ -44,6 +44,7 @@ effects vary with the locale.
 
 #include <newlib.h>
 #include <stdlib.h>
+#include <string.h>
 #include <wchar.h>
 
 size_t
@@ -59,15 +60,19 @@ mbstowcs (wchar_t *__restrict pwcs,
 #else /* not _MB_CAPABLE */
   
   int count = 0;
-  
+
+  /* POSIX: a null pwcs only counts.  */
+  if (pwcs == NULL)
+    return strlen (s);
+
   if (n != 0) {
     do {
-      if ((*pwcs++ = (wchar_t) *s++) == 0)
+      if ((*pwcs++ = (wchar_t) (unsigned char) *s++) == 0)
 	break;
       count++;
     } while (--n != 0);
   }
-  
+
   return count;
 #endif /* not _MB_CAPABLE */
 }
