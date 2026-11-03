@@ -44,6 +44,7 @@ effects vary with the locale.
 #ifndef _REENT_ONLY
 
 #include <newlib.h>
+#include <errno.h>
 #include <stdlib.h>
 #include <wchar.h>
 
@@ -58,16 +59,24 @@ wcstombs (char          *__restrict s,
   
   return _wcstombs_r (_REENT, s, pwcs, n, &state);
 #else /* not _MB_CAPABLE */
-  int count = 0;
-  
-  if (n != 0) {
-    do {
-      if ((*s++ = (char) *pwcs++) == 0)
-	break;
-      count++;
-    } while (--n != 0);
+  size_t count = 0;
+
+  /* POSIX: a null s only counts.  */
+  if (s == NULL)
+    n = (size_t) -1;
+
+  for (; count < n; count++) {
+    /* Only a single-byte character has a multibyte form.  */
+    if ((size_t) pwcs[count] >= 0x100) {
+      errno = EILSEQ;
+      return (size_t) -1;
+    }
+    if (s != NULL)
+      s[count] = (char) pwcs[count];
+    if (pwcs[count] == 0)
+      break;
   }
-  
+
   return count;
 #endif /* not _MB_CAPABLE */
 }
