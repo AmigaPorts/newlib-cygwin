@@ -86,7 +86,7 @@ static __inline__ unsigned int
 __amiga_fenv_get_fpiar(void)
 {
   unsigned int value;
-  __asm__ ("fmove%.l %/fpiar,%0" : "=dm" (value));
+  __asm__ __volatile__ ("fmove%.l %/fpiar,%0" : "=dm" (value));
   return value;
 }
 
