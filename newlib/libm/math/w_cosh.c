@@ -72,7 +72,7 @@ QUICKREF
 	double z;
 	z = __ieee754_cosh(x);
 	if(_LIB_VERSION == _IEEE_ || isnan(x)) return z;
-	if(fabs(x)>7.10475860073943863426e+02) {	
+	if(fabs(x)>7.10475860073943863426e+02 && finite(x)) {
 	    /* cosh(finite) overflow */
 	    errno = ERANGE;
 	    return HUGE_VAL;
