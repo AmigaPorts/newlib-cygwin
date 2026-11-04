@@ -33,7 +33,7 @@
 	float z;
 	z = __ieee754_coshf(x);
 	if(_LIB_VERSION == _IEEE_ || isnan(x)) return z;
-	if(fabsf(x)>8.9415985107e+01f) {
+	if(fabsf(x)>8.9415985107e+01f && finitef(x)) {
 	    /* coshf(finite) overflow */
 	    errno = ERANGE;
 	    return HUGE_VALF;
