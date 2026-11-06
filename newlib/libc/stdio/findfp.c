@@ -252,10 +252,12 @@ __sinit (struct _reent *s)
       return;
     }
 
-  /* make sure we clean up on exit */
-  _REENT_CLEANUP(s) = cleanup_stdio;	/* conservative */
-
   global_stdio_init ();
+
+  /* make sure we clean up on exit.  Only now: CHECK_INIT() skips
+     __sinit() once it is set, and so would let another task use the
+     standard streams before their locks exist.  */
+  _REENT_CLEANUP(s) = cleanup_stdio;
   __sfp_lock_release ();
 }
 
