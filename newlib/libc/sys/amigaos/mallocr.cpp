@@ -315,54 +315,28 @@ __regargs char* __sys_alloc(unsigned sz) {
 }
 
 //==============================================================================
-// mutex functions - dummies atm
+// The heap's own lock, so several tasks can share it.  _malloc_r(),
+// _free_r() and through them realloc() and calloc() take it around every
+// change to the tree, the block lists and rawMem.  Nothing under it
+// allocates from this heap again, so it needn't nest as newlib's
+// recursive __malloc_lock() does: a plain lock, a bset and a test inline.
 
-#define MUTEX_TYPE int
+#include <sys/lock.h>
 
-static inline
-void __newMutex(MUTEX_TYPE *l) {
-}
-static inline
-void __deleteMutex(MUTEX_TYPE *l) {
-}
-static inline
-void __obtainMutex(MUTEX_TYPE *l) {
-}
-static inline
-void __releaseMutex(MUTEX_TYPE *l) {
-}
+__LOCK_INIT(static, mutex);
 
-//==============================================================================
-// helper class for the mutex
-struct Mtx {
-	MUTEX_TYPE mtx;
-	inline Mtx() {
-		__newMutex(&mtx);
+// Holds the lock for the scope it is declared in.
+struct HeapLock {
+	inline HeapLock() {
+		__lock_acquire(mutex);
 	}
-	inline ~Mtx() {
-		__deleteMutex(&mtx);
+	inline ~HeapLock() {
+		__lock_release(mutex);
 	}
 private:
-	Mtx(Mtx const&);
-	Mtx& operator =(Mtx const&);
+	HeapLock(HeapLock const&);
+	HeapLock& operator =(HeapLock const&);
 };
-//==============================================================================
-// helper class for safe mutex release
-struct __Lock {
-	Mtx &m;
-	inline __Lock(Mtx &m_) :
-			m(m_) {
-		__obtainMutex(&m.mtx);
-	}
-	inline ~__Lock() {
-		__releaseMutex(&m.mtx);
-	}
-private:
-	__Lock(__Lock    const&);
-	__Lock& operator =(__Lock    const&);
-};
-
-static Mtx mutex;
 
 extern "C" void
 __free_all(void);
@@ -572,7 +546,7 @@ __regargs void MemMap::put(Leaf *leaf) {
 static MemMap heapMem;
 
 __regargs char* MemMap::alloc(unsigned sz) {
-	__Lock lock(mutex);
+	HeapLock lock;
 	/* The rounding below, and the 4 bytes __sys_alloc() adds, must not wrap
 	   a huge request into a small one.  */
 	if (sz > ~0u - sizeof(MemMap::Node) - MINSIZE - 4)
@@ -647,7 +621,7 @@ __regargs void MemMap::free(char *p) {
 	if (!p)
 		return;
 
-	__Lock lock(mutex);
+	HeapLock lock;
 	MemMap::Node *node = (MemMap::Node*) p - 1;
 	unsigned sz = node->size;
 	if (sz >= MAXSIZE) {
