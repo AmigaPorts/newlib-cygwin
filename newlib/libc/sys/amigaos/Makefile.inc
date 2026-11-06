@@ -11,7 +11,10 @@ libc_a_SOURCES += \
 	%D%/abort.c %D%/basename.c %D%/dirname.c %D%/__nocommandline.c %D%/uname.c \
 	%D%/clock.c %D%/statvfs.c %D%/__stdiowin.c \
 	%D%/__seterrno.c %D%/stat.c %D%/fstat.c %D%/mkdir.c %D%/chmod.c %D%/chdir.c \
-	%D%/gettimeofday.c %D%/sleep.c %D%/utime.c %D%/dirent.c %D%/kill.c %D%/sysconf.c %D%/link.c
+	%D%/gettimeofday.c %D%/sleep.c %D%/utime.c %D%/dirent.c %D%/kill.c %D%/sysconf.c %D%/link.c \
+	%D%/lock.c
+
+## lock.c replaces misc/lock.c's empty locks by name, as below.
 
 ## The amiga allocator replaces dlmalloc.  libc.a keeps only the last
 ## object of each name, so these replace stdlib's objects of the same
