@@ -163,9 +163,15 @@ typedef _ssize_t ssize_t;
 
 #define	TMP_MAX		26
 
-#define	stdin	_REENT_STDIN(_REENT)
-#define	stdout	_REENT_STDOUT(_REENT)
-#define	stderr	_REENT_STDERR(_REENT)
+/* Every reent's stream pointers point at the same __sf[] FILEs, so read
+   them through _impure_ptr: libstdc++ is built with these headers once
+   and linked with libnix and clib2 too, which provide _impure_ptr's
+   leading stream pointers but not newlib's per-thread _REENT.  The
+   _stdin_r/_stdout_r/_stderr_r forms below still take the given
+   reent.  */
+#define	stdin	_REENT_STDIN(_impure_ptr)
+#define	stdout	_REENT_STDOUT(_impure_ptr)
+#define	stderr	_REENT_STDERR(_impure_ptr)
 
 #define _stdin_r(x)	_REENT_STDIN(x)
 #define _stdout_r(x)	_REENT_STDOUT(x)
