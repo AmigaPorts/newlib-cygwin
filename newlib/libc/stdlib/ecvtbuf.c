@@ -57,6 +57,12 @@ Supporting OS subroutines required: <<close>>, <<fstat>>, <<isatty>>,
 #include "mprec.h"
 #include "local.h"
 
+/* Memory that the reent keeps: a target may give it another owner than
+   the heap, see sys/reent.h.  */
+#ifndef _REENT_PART_REALLOC
+#define _REENT_PART_REALLOC(ptr, old, size) _realloc_r (ptr, old, size)
+#endif
+
 #ifdef _REENT_THREAD_LOCAL
 _Thread_local char *_tls_cvtbuf;
 _Thread_local int _tls_cvtlen;
@@ -237,7 +243,7 @@ fcvtbuf (double invalue,
     {
       if (_REENT_CVTLEN(reent) <= ndigit + 35)
 	{
-	  if ((fcvt_buf = (char *) _realloc_r (reent, _REENT_CVTBUF(reent),
+	  if ((fcvt_buf = (char *) _REENT_PART_REALLOC (reent, _REENT_CVTBUF(reent),
 					       ndigit + 36)) == NULL)
 	    return NULL;
 	  _REENT_CVTLEN(reent) = ndigit + 36;
@@ -286,7 +292,7 @@ ecvtbuf (double invalue,
     {
       if (_REENT_CVTLEN(reent) <= ndigit)
 	{
-	  if ((fcvt_buf = (char *) _realloc_r (reent, _REENT_CVTBUF(reent),
+	  if ((fcvt_buf = (char *) _REENT_PART_REALLOC (reent, _REENT_CVTBUF(reent),
 					       ndigit + 1)) == NULL)
 	    return NULL;
 	  _REENT_CVTLEN(reent) = ndigit + 1;

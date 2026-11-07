@@ -249,6 +249,14 @@
 #define __DYNAMIC_REENT__
 #endif
 
+/* newlib on m68k-amigaos keeps errno and the rest of struct _reent per
+   task: see libc/sys/amigaos/__getreent.c.  The other runtimes, which may
+   find this header after their own, have their own errno.  */
+#if defined(__amigaos__) && defined(__m68k__) && !defined(__libnix__) \
+    && !defined(__CLIB2__) && !defined(__ixemul__)
+#define __DYNAMIC_REENT__
+#endif
+
 #ifndef __EXPORT
 #define __EXPORT
 #endif

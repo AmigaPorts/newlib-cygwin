@@ -17,15 +17,10 @@ extern "C" {
 
 #ifndef _REENT_ONLY
 #define errno (*__errno())
-#ifdef __NO_INLINE__
-extern __stdargs int *__errno (void);
-#else
-static inline int *
-__errno ()
-{
-  return &_REENT->_errno;
-}
-#endif
+/* Out of line, and const: a task's errno does not move, so the compiler
+   may call it once for all the uses in a function, and out of a loop.
+   libc/errno/errno.c, with the main task's fast path of _REENT.  */
+extern __stdargs int *__errno (void) __attribute__ ((__const__));
 #endif
 
 #ifndef __IMPORT

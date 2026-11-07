@@ -30,6 +30,11 @@ int errno;
 void
 _reclaim_reent (struct _reent *ptr)
 {
+#ifdef _REENT_RECLAIM_OWN
+  /* A reent whose memory the target keeps track of itself.  */
+  if (_REENT_RECLAIM_OWN (ptr))
+    return;
+#endif
 #ifndef _REENT_THREAD_LOCAL
   if (ptr != _impure_ptr)
 #endif

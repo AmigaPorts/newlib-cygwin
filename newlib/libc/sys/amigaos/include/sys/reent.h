@@ -823,9 +823,42 @@ extern struct _reent _impure_data __ATTRIBUTE_IMPURE_DATA__;
 
 #if defined(__DYNAMIC_REENT__) && !defined(__SINGLE_THREAD__)
 #ifndef __getreent
- __stdargs struct _reent * __getreent (void);
+ __stdargs struct _reent * __getreent (void) __attribute__ ((__const__));
 #endif
-# define _REENT (__getreent())
+/* _impure_ptr while the program's main task runs, else null: see
+   libc/sys/amigaos/__getreent.c.  The main task gets its reent with one
+   load and a test, every other task from __getreent().  Neither changes
+   while a task runs, so the load is an asm that the compiler may share
+   between uses and move out of loops, as it does with __getreent(),
+   which is const for the same reason.  */
+extern struct _reent *__reent_fast;
+static __inline__ struct _reent *
+__amiga_reent (void)
+{
+  struct _reent *__r;
+  __asm__ ("move.l (%1),%0" : "=r" (__r) : "a" (&__reent_fast));
+  return __r ? __r : __getreent ();
+}
+# define _REENT (__amiga_reent ())
+
+/* The memory that newlib allocates for a reent and keeps with it: the
+   dtoa Bigints and their freelist (stdlib/mprec.c), the ecvt() and fcvt()
+   buffer (stdlib/ecvtbuf.c) and the signal() table (signal/signal.c).
+   For another task's reent it is memory that the task owns, which exec
+   frees with the task; for every other reent it is the heap's.  See
+   libc/sys/amigaos/__getreent.c.  The new memory is zeroed.  */
+extern __stdargs void *__amiga_reent_realloc (struct _reent *, void *,
+					      __SIZE_TYPE__);
+# define _REENT_PART_CALLOC(ptr, n, size) \
+  __amiga_reent_realloc (ptr, 0, (n) * (size))
+# define _REENT_PART_MALLOC(ptr, size) __amiga_reent_realloc (ptr, 0, size)
+# define _REENT_PART_REALLOC(ptr, old, size) \
+  __amiga_reent_realloc (ptr, old, size)
+/* _reclaim_reent() of another task's reent: frees what newlib allocated
+   for it, but not the parts in the reent's own block, which go with the
+   task.  Nonzero if ptr was such a reent.  */
+extern __stdargs int __amiga_reclaim_reent (struct _reent *);
+# define _REENT_RECLAIM_OWN(ptr) __amiga_reclaim_reent (ptr)
 #else /* __SINGLE_THREAD__ || !__DYNAMIC_REENT__ */
 # define _REENT _impure_ptr
 #endif /* __SINGLE_THREAD__ || !__DYNAMIC_REENT__ */

@@ -88,6 +88,12 @@ int _dummy_simulated_signal;
 #include <reent.h>
 #include <_syslist.h>
 
+/* Memory that the reent keeps: a target may give it another owner than
+   the heap, see sys/reent.h.  */
+#ifndef _REENT_PART_MALLOC
+#define _REENT_PART_MALLOC(ptr, size) _malloc_r (ptr, size)
+#endif
+
 #ifdef _REENT_THREAD_LOCAL
 _Thread_local void (**_tls_sig_func)(int);
 #endif
@@ -99,7 +105,7 @@ _init_signal_r (struct _reent *ptr)
 
   if (_REENT_SIG_FUNC(ptr) == NULL)
     {
-      _REENT_SIG_FUNC(ptr) = (_sig_func_ptr *)_malloc_r (ptr, sizeof (_sig_func_ptr) * NSIG);
+      _REENT_SIG_FUNC(ptr) = (_sig_func_ptr *)_REENT_PART_MALLOC (ptr, sizeof (_sig_func_ptr) * NSIG);
       if (_REENT_SIG_FUNC(ptr) == NULL)
 	return -1;
 

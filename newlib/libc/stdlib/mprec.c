@@ -98,6 +98,12 @@ _Thread_local struct _Bigint **_tls_mp_freelist;
 #define _Kmax 15
 */
 
+/* Memory that the reent keeps: a target may give it another owner than
+   the heap, see sys/reent.h.  */
+#ifndef _REENT_PART_CALLOC
+#define _REENT_PART_CALLOC(ptr, n, size) _calloc_r (ptr, n, size)
+#endif
+
 _Bigint *
 Balloc (struct _reent *ptr, int k)
 {
@@ -108,7 +114,7 @@ Balloc (struct _reent *ptr, int k)
   if (_REENT_MP_FREELIST(ptr) == NULL)
     {
       /* Allocate a list of pointers to the mprec objects */
-      _REENT_MP_FREELIST(ptr) = (struct _Bigint **) _calloc_r (ptr, 
+      _REENT_MP_FREELIST(ptr) = (struct _Bigint **) _REENT_PART_CALLOC (ptr,
 						      sizeof (struct _Bigint *),
 						      _Kmax + 1);
       if (_REENT_MP_FREELIST(ptr) == NULL)
@@ -125,10 +131,10 @@ Balloc (struct _reent *ptr, int k)
     {
       x = 1 << k;
       /* Allocate an mprec Bigint and stick in in the freelist */
-      rv = (_Bigint *) _calloc_r (ptr,
-				  1,
-				  sizeof (_Bigint) +
-				  (x-1) * sizeof(rv->_x));
+      rv = (_Bigint *) _REENT_PART_CALLOC (ptr,
+					   1,
+					   sizeof (_Bigint) +
+					   (x-1) * sizeof(rv->_x));
       if (rv == NULL) return NULL;
       rv->_k = k;
       rv->_maxwds = x;
