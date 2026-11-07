@@ -774,6 +774,12 @@ newlib_cflags="${newlib_cflags} -DCLOCK_PROVIDED -DMALLOC_PROVIDED -DEXIT_PROVID
 	newlib_cflags="${newlib_cflags} -DNO_EXEC -DABORT_PROVIDED -DSMALL_MEMORY -DMISSING_SYSCALL_NAMES"
 	;;
   m68k-*-amiga*)
+	# Real locks, libc/sys/amigaos/lock.c, unless configure was told
+	# otherwise.  Set after the misc/lock.c conditional, which stays
+	# off: lock.c replaces that file anyway.
+	if test "${enable_newlib_retargetable_locking+set}" != set; then
+	  newlib_retargetable_locking=yes
+	fi
 	;;
   m68k-unknown-elf)
 	newlib_cflags="${newlib_cflags} -DHAVE_RENAME -DHAVE_SYSTEM -DMISSING_SYSCALL_NAMES"
