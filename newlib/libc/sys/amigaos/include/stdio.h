@@ -163,9 +163,15 @@ typedef _ssize_t ssize_t;
 
 #define	TMP_MAX		26
 
-#define	stdin	_REENT_STDIN(_REENT)
-#define	stdout	_REENT_STDOUT(_REENT)
-#define	stderr	_REENT_STDERR(_REENT)
+/* Standard streams are shared by all tasks.  Keep their access through
+   _impure_ptr: libstdc++ is built with these headers for every runtime,
+   and libnix supplies the same leading stream pointers.  Using _REENT
+   here would make that common library depend on newlib's task lookup.
+   The explicit _stdin_r/_stdout_r/_stderr_r forms below still use the
+   caller's reent.  */
+#define	stdin	_REENT_STDIN(_impure_ptr)
+#define	stdout	_REENT_STDOUT(_impure_ptr)
+#define	stderr	_REENT_STDERR(_impure_ptr)
 
 #define _stdin_r(x)	_REENT_STDIN(x)
 #define _stdout_r(x)	_REENT_STDOUT(x)

@@ -34,6 +34,9 @@ extern void __call_exitprocs(int, void *);
 __entrypoint void callfuncs(int * p asm("a2"), unsigned short prioo asm("d2"));
 
 struct ExecBase * SysBase;
+extern struct Task * __reent_main_task;
+void __reent_start(void);
+void __reent_stop(void);
 static int __savedSp;
 static unsigned short cleanupflag;
 /* Set by exit(), not by _exit(): only a normal exit flushes stdio.  */
@@ -73,6 +76,9 @@ __entrypoint __regargs void ____start(unsigned long cmdlen, char *cmdline, int s
 
 	// check for wb message if not cli
 	struct Process * task = (struct Process *) FindTask(0);
+	/* The task that keeps the static _impure_ptr, see __getreent.c.  */
+	__reent_main_task = &task->pr_Task;
+	__reent_start();
 	if (!task->pr_CLI) {
 		WaitPort(&task->pr_MsgPort);
 		_WBenchMsg = (struct WBStartup *) GetMsg(&task->pr_MsgPort);
@@ -135,6 +141,9 @@ __entrypoint __stdargs int __crt0_exit(int rc) {
 		cleanupflag ^= -1;
 	}
 	callfuncs(&__EXIT_LIST__[0] + 1, -1);
+	/* After the whole exit list: the main task's tc_Switch and tc_Launch
+	 * are in this code, which goes once the program returns.  */
+	__reent_stop();
 
 	if (_WBenchMsg) {
 		Forbid();
