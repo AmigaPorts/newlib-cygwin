@@ -203,11 +203,14 @@ _freopen_r (struct _reent *ptr,
 
   if (f < 0)
     {				/* did not get it after all */
+      /* Release the FILE lock before taking the sfp lock, the order
+	 _fclose_r() takes them in.  fp stays reserved until its flags
+	 are cleared under the sfp lock.  */
+      if (!(oflags2 & __SNLK))
+	_funlockfile (fp);
       __sfp_lock_acquire ();
       fp->_flags = 0;		/* set it free */
       _REENT_ERRNO(ptr) = e;	/* restore in case _close clobbered */
-      if (!(oflags2 & __SNLK))
-	_funlockfile (fp);
 #ifndef __SINGLE_THREAD__
       __lock_close_recursive (fp->_lock);
 #endif
