@@ -385,14 +385,17 @@ tvtosbt(struct timeval _tv)
 			(vvp)->tv_usec -= 1000000;			\
 		}							\
 	} while (0)
+/* Borrows by comparing, not by testing for a negative difference, so that
+   it works on a struct timeval with unsigned fields too. */
 #define	timersub(tvp, uvp, vvp)						\
 	do {								\
 		(vvp)->tv_sec = (tvp)->tv_sec - (uvp)->tv_sec;		\
-		(vvp)->tv_usec = (tvp)->tv_usec - (uvp)->tv_usec;	\
-		if ((vvp)->tv_usec < 0) {				\
+		if ((tvp)->tv_usec < (uvp)->tv_usec) {			\
 			(vvp)->tv_sec--;				\
-			(vvp)->tv_usec += 1000000;			\
-		}							\
+			(vvp)->tv_usec = (tvp)->tv_usec + 1000000	\
+			    - (uvp)->tv_usec;				\
+		} else							\
+			(vvp)->tv_usec = (tvp)->tv_usec - (uvp)->tv_usec; \
 	} while (0)
 #endif
 #endif /* __BSD_VISIBLE */
