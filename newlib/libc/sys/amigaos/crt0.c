@@ -201,6 +201,22 @@ static __attribute__((noreturn)) void __openliberror(char const * name) {
 	exit(20);
 }
 
+/* Whether NAME ends in .resource.  Not strstr(), which would link newlib's
+   2 KB two-way search into every program.  */
+static int is_resource(char const * name) {
+	static char const suffix[] = ".resource";
+	size_t i = sizeof suffix - 1;
+	size_t n = strlen(name);
+
+	if (n < i)
+		return 0;
+	name += n - i;
+	while (i--)
+		if (name[i] != suffix[i])
+			return 0;
+	return 1;
+}
+
 /**
  * Open all libraries.
  */
@@ -212,7 +228,7 @@ void __initlibraries(void) {
 	while (*l) {
 		long * base = l++;
 		char const * const name = *(char **) (l++);
-		*base = (long)(strstr(name, ".resource") ? OpenResource(name) : OpenLibrary(name, __oslibversion));
+		*base = (long)(is_resource(name) ? OpenResource(name) : OpenLibrary(name, __oslibversion));
 		if (!*base && !failed)
 			failed = name;
 	}
@@ -247,7 +263,7 @@ void __exitlibraries(void) {
 		char const * const name = *(char **) (l++);
 		/* *base == 0: it failed to open */
 		/* .resource: never closed, exec has no CloseResource() and resources have no Close vector */
-		if (*base && !strstr(name, ".resource"))
+		if (*base && !is_resource(name))
 			CloseLibrary((struct Library *)*base);
 	}
 }
