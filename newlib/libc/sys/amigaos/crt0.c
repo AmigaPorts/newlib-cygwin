@@ -10,8 +10,10 @@
 #include <stabs.h>
 #include "startup.h"
 
+/* -Os, whatever newlib's CFLAGS say: this runs once per program, and is
+   linked into every one.  The CFLAGS come after any per-file flags.  */
 #pragma GCC push_options
-#pragma GCC optimize ("no-toplevel-reorder")
+#pragma GCC optimize ("Os", "no-toplevel-reorder")
 
 extern __stdargs int main(int, char **);
 extern __stdargs void perror(const char *string);
@@ -183,9 +185,6 @@ long __LIB_LIST__ = 0;
 /* The minimum version of the libraries opened for the program: it sets it by
    defining, say, long __oslibversion = 39;  Common, so that definition wins. */
 __attribute__((common)) long __oslibversion;
-
-#pragma GCC push_options
-#pragma GCC optimize ("-O2")
 
 /* Opens dos.library itself: the failed library may be dos.library, at
    __oslibversion, or the list may not have reached it yet.  */
