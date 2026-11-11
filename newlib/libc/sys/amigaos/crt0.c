@@ -51,6 +51,11 @@ static unsigned short cleanupflag;
 /* Set by exit(), not by _exit(): only a normal exit flushes stdio.  */
 static int normalexit;
 
+/* stdio's findfp.c defines this and sets it in __sinit().  Weak here, so
+   that __exitstdio() reading it doesn't link stdio into every program:
+   one that uses stdio links findfp.o anyway, and its definition wins.  */
+__attribute__((weak)) __stdargs void (*__stdio_exit_handler) (void);
+
 /* The command-line initializer owns __argc and __argv.  Their zero-filled
  * defaults are also the documented no-argument state when an application
  * overrides __nocommandline. */
