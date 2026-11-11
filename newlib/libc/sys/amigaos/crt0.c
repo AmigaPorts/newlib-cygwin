@@ -4,8 +4,9 @@
 
 /* -Os, whatever newlib's CFLAGS say: this runs once per program, and is
    linked into every one.  A pragma, because the CFLAGS come after any
-   per-file flags.  Before the includes, so that they see __OPTIMIZE_SIZE__
-   too, which the pragma defines.  */
+   per-file flags.  Before the includes, so that their inline functions are
+   built like their callers, and a header that tests __OPTIMIZE_SIZE__ (none
+   does yet) sees it.  */
 #pragma GCC optimize ("Os")
 
 #include <exec/exec.h>
@@ -209,7 +210,8 @@ static __attribute__((noreturn)) void __openliberror(char const * name) {
 	exit(20);
 }
 
-/* Whether NAME ends in .resource.  Not strstr(), which would link newlib's
+/* Whether NAME ends in .resource, as in libnix: strstr() also matched it in
+   the middle of a name.  Not strstr() anyway, which would link newlib's
    2 KB two-way search into every program.  */
 static int is_resource(char const * name) {
 	static char const suffix[] = ".resource";
