@@ -1,6 +1,13 @@
 /**
  * Based on nrct0.s from libnix
  */
+
+/* -Os, whatever newlib's CFLAGS say: this runs once per program, and is
+   linked into every one.  A pragma, because the CFLAGS come after any
+   per-file flags.  Before the includes, so that they see __OPTIMIZE_SIZE__
+   too, which the pragma defines.  */
+#pragma GCC optimize ("Os")
+
 #include <exec/exec.h>
 #include <proto/dos.h>
 #include <dos/dosextens.h>
@@ -10,15 +17,12 @@
 #include <stabs.h>
 #include "startup.h"
 
-/* -Os, whatever newlib's CFLAGS say: this runs once per program, and is
-   linked into every one.  The CFLAGS come after any per-file flags.
-
-   no-toplevel-reorder keeps the source order: ____start must be the first
+/* no-toplevel-reorder keeps the source order: ____start must be the first
    code of the program, and the ___exit label must stay right before
    _exit().  After the includes, or it would also keep their unused static
    inline functions, ahead of ____start.  */
 #pragma GCC push_options
-#pragma GCC optimize ("Os", "no-toplevel-reorder")
+#pragma GCC optimize ("no-toplevel-reorder")
 
 extern __stdargs int main(int, char **);
 extern __stdargs void perror(const char *string);
