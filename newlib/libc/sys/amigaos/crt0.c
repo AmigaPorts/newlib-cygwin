@@ -204,7 +204,7 @@ __attribute__((common)) long __oslibversion;
 /* Reports every library that failed to open, with a dos.library of its own:
    dos.library may be one of them, at __oslibversion.  Started from Workbench,
    the program has no output to report to, and exits all the same.  */
-static __attribute__((noreturn)) __attribute__((noinline)) void __openliberror() {
+static __attribute__((noreturn)) __attribute__((noinline)) void __openliberror(void) {
 	static char const msg[] = " failed to open\n";
 	struct DosLibrary * DOSBase = (struct DosLibrary *)OldOpenLibrary("dos.library");
 
@@ -244,7 +244,7 @@ static int is_resource(char const * name) {
 /**
  * Open all libraries.
  */
-void __initlibraries() {
+void __initlibraries(void) {
 	long * l = &__LIB_LIST__ + 1;
 	long failed = 0;
 	/* A base that fails to open keeps its -1: the list ends at the first 0. */
@@ -281,7 +281,7 @@ void __initlibraries() {
 /**
  * close all opened libraries.
  */
-void __exitlibraries() {
+void __exitlibraries(void) {
 	long * l = &__LIB_LIST__ + 1;
 	while (*l) {
 		long * base = l++;
@@ -293,14 +293,14 @@ void __exitlibraries() {
 	}
 }
 
-typedef void (*func_ptr) ();
+typedef void (*func_ptr) (void);
 
 __attribute__((section(".list___CTOR_LIST__")))
 func_ptr __CTOR_LIST__[] = {0};
 __attribute__((section(".list___DTOR_LIST__")))
 func_ptr __DTOR_LIST__[] = {0};
 
-void __initcpp() {
+void __initcpp(void) {
   func_ptr *p0 = __CTOR_LIST__ + 1;
   func_ptr *p;
   for (p = p0; *p; p++);
@@ -310,7 +310,7 @@ void __initcpp() {
 
 /* Static, and advanced before each call: a destructor that calls exit()
  * runs the exit list again, which must go on with the next destructor.  */
-void __exitcpp() {
+void __exitcpp(void) {
   static func_ptr *p = __DTOR_LIST__ + 1;
   while (*p)
     (*p++)();
