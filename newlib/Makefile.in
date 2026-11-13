@@ -624,6 +624,7 @@ check_PROGRAMS =
 @HAVE_LIBC_SYS_AMIGAOS_DIR_TRUE@	libc/sys/amigaos/link.c \
 @HAVE_LIBC_SYS_AMIGAOS_DIR_TRUE@	libc/sys/amigaos/lock.c \
 @HAVE_LIBC_SYS_AMIGAOS_DIR_TRUE@	libc/sys/amigaos/__gmtoffset.c \
+@HAVE_LIBC_SYS_AMIGAOS_DIR_TRUE@	libc/sys/amigaos/clock_gettime.c \
 @HAVE_LIBC_SYS_AMIGAOS_DIR_TRUE@	libc/sys/amigaos/mallocr.cpp \
 @HAVE_LIBC_SYS_AMIGAOS_DIR_TRUE@	libc/sys/amigaos/callocr.c \
 @HAVE_LIBC_SYS_AMIGAOS_DIR_TRUE@	libc/sys/amigaos/reallocr.c \
@@ -1841,6 +1842,7 @@ am__objects_51 = libc/ssp/libc_a-chk_fail.$(OBJEXT) \
 @HAVE_LIBC_SYS_AMIGAOS_DIR_TRUE@	libc/sys/amigaos/libc_a-link.$(OBJEXT) \
 @HAVE_LIBC_SYS_AMIGAOS_DIR_TRUE@	libc/sys/amigaos/libc_a-lock.$(OBJEXT) \
 @HAVE_LIBC_SYS_AMIGAOS_DIR_TRUE@	libc/sys/amigaos/libc_a-__gmtoffset.$(OBJEXT) \
+@HAVE_LIBC_SYS_AMIGAOS_DIR_TRUE@	libc/sys/amigaos/libc_a-clock_gettime.$(OBJEXT) \
 @HAVE_LIBC_SYS_AMIGAOS_DIR_TRUE@	libc/sys/amigaos/libc_a-mallocr.$(OBJEXT) \
 @HAVE_LIBC_SYS_AMIGAOS_DIR_TRUE@	libc/sys/amigaos/libc_a-callocr.$(OBJEXT) \
 @HAVE_LIBC_SYS_AMIGAOS_DIR_TRUE@	libc/sys/amigaos/libc_a-reallocr.$(OBJEXT) \
@@ -7840,6 +7842,9 @@ libc/sys/amigaos/libc_a-lock.$(OBJEXT):  \
 	libc/sys/amigaos/$(am__dirstamp) \
 	libc/sys/amigaos/$(DEPDIR)/$(am__dirstamp)
 libc/sys/amigaos/libc_a-__gmtoffset.$(OBJEXT):  \
+	libc/sys/amigaos/$(am__dirstamp) \
+	libc/sys/amigaos/$(DEPDIR)/$(am__dirstamp)
+libc/sys/amigaos/libc_a-clock_gettime.$(OBJEXT):  \
 	libc/sys/amigaos/$(am__dirstamp) \
 	libc/sys/amigaos/$(DEPDIR)/$(am__dirstamp)
 libc/sys/amigaos/libc_a-mallocr.$(OBJEXT):  \
@@ -14604,6 +14609,7 @@ distclean-compile:
 @AMDEP_TRUE@@am__include@ @am__quote@libc/sys/amigaos/$(DEPDIR)/libc_a-chdir.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@libc/sys/amigaos/$(DEPDIR)/libc_a-chmod.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@libc/sys/amigaos/$(DEPDIR)/libc_a-clock.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@libc/sys/amigaos/$(DEPDIR)/libc_a-clock_gettime.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@libc/sys/amigaos/$(DEPDIR)/libc_a-cxxglue.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@libc/sys/amigaos/$(DEPDIR)/libc_a-dirent.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@libc/sys/amigaos/$(DEPDIR)/libc_a-dirname.Po@am__quote@
@@ -32978,6 +32984,20 @@ libc/sys/amigaos/libc_a-__gmtoffset.obj: libc/sys/amigaos/__gmtoffset.c
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='libc/sys/amigaos/__gmtoffset.c' object='libc/sys/amigaos/libc_a-__gmtoffset.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libc_a_CPPFLAGS) $(CPPFLAGS) $(libc_a_CFLAGS) $(CFLAGS) -c -o libc/sys/amigaos/libc_a-__gmtoffset.obj `if test -f 'libc/sys/amigaos/__gmtoffset.c'; then $(CYGPATH_W) 'libc/sys/amigaos/__gmtoffset.c'; else $(CYGPATH_W) '$(srcdir)/libc/sys/amigaos/__gmtoffset.c'; fi`
+
+libc/sys/amigaos/libc_a-clock_gettime.o: libc/sys/amigaos/clock_gettime.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libc_a_CPPFLAGS) $(CPPFLAGS) $(libc_a_CFLAGS) $(CFLAGS) -MT libc/sys/amigaos/libc_a-clock_gettime.o -MD -MP -MF libc/sys/amigaos/$(DEPDIR)/libc_a-clock_gettime.Tpo -c -o libc/sys/amigaos/libc_a-clock_gettime.o `test -f 'libc/sys/amigaos/clock_gettime.c' || echo '$(srcdir)/'`libc/sys/amigaos/clock_gettime.c
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) libc/sys/amigaos/$(DEPDIR)/libc_a-clock_gettime.Tpo libc/sys/amigaos/$(DEPDIR)/libc_a-clock_gettime.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='libc/sys/amigaos/clock_gettime.c' object='libc/sys/amigaos/libc_a-clock_gettime.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libc_a_CPPFLAGS) $(CPPFLAGS) $(libc_a_CFLAGS) $(CFLAGS) -c -o libc/sys/amigaos/libc_a-clock_gettime.o `test -f 'libc/sys/amigaos/clock_gettime.c' || echo '$(srcdir)/'`libc/sys/amigaos/clock_gettime.c
+
+libc/sys/amigaos/libc_a-clock_gettime.obj: libc/sys/amigaos/clock_gettime.c
+@am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libc_a_CPPFLAGS) $(CPPFLAGS) $(libc_a_CFLAGS) $(CFLAGS) -MT libc/sys/amigaos/libc_a-clock_gettime.obj -MD -MP -MF libc/sys/amigaos/$(DEPDIR)/libc_a-clock_gettime.Tpo -c -o libc/sys/amigaos/libc_a-clock_gettime.obj `if test -f 'libc/sys/amigaos/clock_gettime.c'; then $(CYGPATH_W) 'libc/sys/amigaos/clock_gettime.c'; else $(CYGPATH_W) '$(srcdir)/libc/sys/amigaos/clock_gettime.c'; fi`
+@am__fastdepCC_TRUE@	$(AM_V_at)$(am__mv) libc/sys/amigaos/$(DEPDIR)/libc_a-clock_gettime.Tpo libc/sys/amigaos/$(DEPDIR)/libc_a-clock_gettime.Po
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	$(AM_V_CC)source='libc/sys/amigaos/clock_gettime.c' object='libc/sys/amigaos/libc_a-clock_gettime.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCC_FALSE@	DEPDIR=$(DEPDIR) $(CCDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCC_FALSE@	$(AM_V_CC@am__nodep@)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libc_a_CPPFLAGS) $(CPPFLAGS) $(libc_a_CFLAGS) $(CFLAGS) -c -o libc/sys/amigaos/libc_a-clock_gettime.obj `if test -f 'libc/sys/amigaos/clock_gettime.c'; then $(CYGPATH_W) 'libc/sys/amigaos/clock_gettime.c'; else $(CYGPATH_W) '$(srcdir)/libc/sys/amigaos/clock_gettime.c'; fi`
 
 libc/sys/amigaos/libc_a-callocr.o: libc/sys/amigaos/callocr.c
 @am__fastdepCC_TRUE@	$(AM_V_CC)$(CC) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(libc_a_CPPFLAGS) $(CPPFLAGS) $(libc_a_CFLAGS) $(CFLAGS) -MT libc/sys/amigaos/libc_a-callocr.o -MD -MP -MF libc/sys/amigaos/$(DEPDIR)/libc_a-callocr.Tpo -c -o libc/sys/amigaos/libc_a-callocr.o `test -f 'libc/sys/amigaos/callocr.c' || echo '$(srcdir)/'`libc/sys/amigaos/callocr.c
