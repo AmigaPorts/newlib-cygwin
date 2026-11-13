@@ -29,7 +29,15 @@ _tzset_unlocked_r (struct _reent *reent_ptr)
 
   if ((tzenv = _getenv_r (reent_ptr, "TZ")) == NULL)
       {
+#ifdef __amigaos__
+	/* without TZ, local time is the system clock's, not UTC */
+	extern long __gmtoffset;
+
+	_timezone = __gmtoffset;
+	default_tzrule.offset = __gmtoffset;
+#else
 	_timezone = 0;
+#endif
 	_daylight = 0;
 	_tzname[0] = "GMT";
 	_tzname[1] = "GMT";

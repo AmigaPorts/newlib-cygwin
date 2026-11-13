@@ -2,10 +2,9 @@
    connectors of newlib are not built for this target, so both the _name
    and the public name are defined here; time() goes through _gettimeofday.
 
-   A DateStamp is local time since 1978-01-01; _timezone (seconds west of
-   UTC, set by tzset() from TZ, 0 without one) turns it into UTC.  */
+   A DateStamp is local time since 1978-01-01; __gmtoffset (seconds west of
+   UTC) turns it into UTC.  */
 
-#include <time.h>
 #include <sys/time.h>
 #include <dos/dos.h>
 #include <proto/dos.h>
@@ -14,18 +13,27 @@
 /* 1978-01-01 in seconds since 1970-01-01 */
 #define AMIGA_EPOCH 252460800L
 
-int _gettimeofday(struct timeval *tv, void *tz) {
-	struct DateStamp ds;
+extern long __gmtoffset;
 
+/* not inlined into gettimeofday(): one copy is enough */
+__attribute__((noinline))
+int _gettimeofday(struct timeval *tv, void *tz) {
 	if (tv) {
+		struct DateStamp ds;
+		unsigned short ticks, secs;
+
 		DateStamp(&ds);
+		/* under 3000: a 16-bit division, which the 68000 has */
+		ticks = ds.ds_Tick;
+		secs = ticks / TICKS_PER_SECOND;
 		tv->tv_sec = (ds.ds_Days * 1440L + ds.ds_Minute) * 60L
-			+ ds.ds_Tick / TICKS_PER_SECOND + AMIGA_EPOCH + _timezone;
-		tv->tv_usec = (ds.ds_Tick % TICKS_PER_SECOND) * (1000000L / TICKS_PER_SECOND);
+			+ secs + AMIGA_EPOCH + __gmtoffset;
+		tv->tv_usec = (unsigned short) (ticks - secs * TICKS_PER_SECOND)
+			* (1000000L / TICKS_PER_SECOND);
 	}
 	if (tz) {
 		struct timezone *z = tz;
-		z->tz_minuteswest = _timezone / 60;
+		z->tz_minuteswest = __gmtoffset / 60;
 		z->tz_dsttime = 0;
 	}
 	return 0;
