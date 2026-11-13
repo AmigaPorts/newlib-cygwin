@@ -13,11 +13,12 @@
 #include <inline/exec.h>
 
 extern void __seterrno(void);
+extern long __gmtoffset;
 
 /* Fill st from a FileInfoBlock.  The owner's protection bits mean "not
    allowed" when set, the group's and others' mean "allowed".  A DateStamp
-   counts from 1978-01-01 in local time; it is converted as if it were UTC,
-   and utimes() stores it the same way, so the two agree.  */
+   counts from 1978-01-01 in local time; __gmtoffset turns it into UTC, as
+   for gettimeofday(), and utimes() stores it the same way.  */
 void __fibstat(struct stat *st, const struct FileInfoBlock *fib) {
 	LONG prot = fib->fib_Protection;
 
@@ -40,7 +41,7 @@ void __fibstat(struct stat *st, const struct FileInfoBlock *fib) {
 	st->st_size = fib->fib_Size;
 	st->st_atime = st->st_mtime = st->st_ctime =
 		((fib->fib_Date.ds_Days + 2922) * 1440 + fib->fib_Date.ds_Minute) * 60
-		+ fib->fib_Date.ds_Tick / TICKS_PER_SECOND;
+		+ fib->fib_Date.ds_Tick / TICKS_PER_SECOND + __gmtoffset;
 	st->st_blksize = 512;
 	st->st_blocks = fib->fib_NumBlocks;
 }

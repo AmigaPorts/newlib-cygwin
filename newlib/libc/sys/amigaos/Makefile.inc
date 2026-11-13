@@ -12,7 +12,7 @@ libc_a_SOURCES += \
 	%D%/clock.c %D%/statvfs.c %D%/__stdiowin.c \
 	%D%/__seterrno.c %D%/stat.c %D%/fstat.c %D%/mkdir.c %D%/chmod.c %D%/chdir.c \
 	%D%/gettimeofday.c %D%/sleep.c %D%/utime.c %D%/dirent.c %D%/kill.c %D%/sysconf.c %D%/link.c \
-	%D%/lock.c
+	%D%/lock.c %D%/__gmtoffset.c
 
 ## lock.c replaces misc/lock.c's empty locks by name, as below.
 

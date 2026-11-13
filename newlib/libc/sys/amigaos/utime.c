@@ -1,7 +1,7 @@
 /* utime and utimes for m68k-amigaos: SetFileDate().  A file has one date
    on AmigaDOS, so the modification time is stored and the access time
-   ignored.  The conversion is stat()'s in reverse: seconds since 1970 as
-   if UTC into a DateStamp since 1978, no time zone applied.  */
+   ignored.  The conversion is stat()'s in reverse: seconds since 1970 UTC
+   into a DateStamp, which is local time since 1978.  */
 
 #include <errno.h>
 #include <time.h>
@@ -12,12 +12,13 @@
 #include <inline/dos.h>
 
 extern void __seterrno(void);
+extern long __gmtoffset;
 
 #define DAYS_1970_TO_1978 2922L
 #define SECS_PER_DAY (24L * 60L * 60L)
 
 static void stamp_from_time(struct DateStamp *ds, time_t sec, long usec) {
-	sec -= DAYS_1970_TO_1978 * SECS_PER_DAY;
+	sec -= DAYS_1970_TO_1978 * SECS_PER_DAY + __gmtoffset;
 	ds->ds_Days = sec / SECS_PER_DAY;
 	sec %= SECS_PER_DAY;
 	ds->ds_Minute = sec / 60;
