@@ -11,9 +11,9 @@
 #include <proto/exec.h>
 #include <inline/dos.h>
 #include <inline/exec.h>
+#include "amigatime.h"
 
 extern void __seterrno(void);
-extern long __gmtoffset;
 
 /* Fill st from a FileInfoBlock.  The owner's protection bits mean "not
    allowed" when set, the group's and others' mean "allowed".  A DateStamp
@@ -40,8 +40,8 @@ void __fibstat(struct stat *st, const struct FileInfoBlock *fib) {
 	st->st_gid = fib->fib_OwnerGID;
 	st->st_size = fib->fib_Size;
 	st->st_atime = st->st_mtime = st->st_ctime =
-		((fib->fib_Date.ds_Days + 2922) * 1440 + fib->fib_Date.ds_Minute) * 60
-		+ fib->fib_Date.ds_Tick / TICKS_PER_SECOND + __gmtoffset;
+		(fib->fib_Date.ds_Days * 1440 + fib->fib_Date.ds_Minute) * 60
+		+ fib->fib_Date.ds_Tick / TICKS_PER_SECOND + AMIGA_EPOCH + __gmtoffset;
 	st->st_blksize = 512;
 	st->st_blocks = fib->fib_NumBlocks;
 }

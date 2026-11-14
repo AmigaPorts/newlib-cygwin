@@ -5,6 +5,7 @@
 #include <proto/exec.h>
 #include <proto/locale.h>
 #include "stabs.h"
+#include "amigatime.h"
 
 /* Seconds west of UTC of the system clock, which runs on local time: the
    offset of the default locale, 0 when locale.library is not in use.  Unix
