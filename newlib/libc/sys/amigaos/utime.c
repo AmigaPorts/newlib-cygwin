@@ -10,15 +10,14 @@
 #include <dos/dos.h>
 #include <proto/dos.h>
 #include <inline/dos.h>
+#include "amigatime.h"
 
 extern void __seterrno(void);
-extern long __gmtoffset;
 
-#define DAYS_1970_TO_1978 2922L
 #define SECS_PER_DAY (24L * 60L * 60L)
 
 static void stamp_from_time(struct DateStamp *ds, time_t sec, long usec) {
-	sec -= DAYS_1970_TO_1978 * SECS_PER_DAY + __gmtoffset;
+	sec -= AMIGA_EPOCH + __gmtoffset;
 	ds->ds_Days = sec / SECS_PER_DAY;
 	sec %= SECS_PER_DAY;
 	ds->ds_Minute = sec / 60;

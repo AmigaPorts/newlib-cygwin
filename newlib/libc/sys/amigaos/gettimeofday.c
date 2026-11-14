@@ -9,11 +9,7 @@
 #include <dos/dos.h>
 #include <proto/dos.h>
 #include <inline/dos.h>
-
-/* 1978-01-01 in seconds since 1970-01-01 */
-#define AMIGA_EPOCH 252460800L
-
-extern long __gmtoffset;
+#include "amigatime.h"
 
 /* not inlined into gettimeofday(): one copy is enough */
 __attribute__((noinline))
