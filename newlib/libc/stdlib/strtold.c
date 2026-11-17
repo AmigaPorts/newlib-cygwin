@@ -55,7 +55,9 @@ __flt_rounds(void)
 }
 #define FLT_ROUNDS __flt_rounds()
 #else
-#define FLT_ROUNDS 0
+/* No way to read the mode here: round to nearest, the default.  0 would be
+   toward zero.  */
+#define FLT_ROUNDS 1
 #endif
 
 /*
