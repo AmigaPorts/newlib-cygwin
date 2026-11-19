@@ -249,6 +249,18 @@
 #define __DYNAMIC_REENT__
 #endif
 
+/* newlib on m68k-amigaos for gcc's amigaos thread model keeps errno and
+   the rest of struct _reent per thread: see libc/sys/amigaos/__getreent.c.
+   Without that model, a program pays nothing for it.  libnix and clib2,
+   which may find this header after their own, have their own errno.  */
+#if defined(__amigaos__) && defined(__m68k__) && !defined(__libnix__) \
+    && !defined(__CLIB2__) && !defined(__ixemul__)
+#include <newlib.h>
+#ifdef _AMIGAOS_THREADS
+#define __DYNAMIC_REENT__
+#endif
+#endif
+
 #ifndef __EXPORT
 #define __EXPORT
 #endif

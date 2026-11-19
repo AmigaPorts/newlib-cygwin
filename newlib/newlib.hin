@@ -29,6 +29,10 @@
 /* Define to the version of this package. */
 #undef PACKAGE_VERSION
 
+/* Define if errno and the reent are per thread of gcc's amigaos thread model.
+   */
+#undef _AMIGAOS_THREADS
+
 /* If atexit() may dynamically allocate space for cleanup functions. */
 #undef _ATEXIT_DYNAMIC_ALLOC
 
