@@ -822,10 +822,27 @@ extern struct _reent _impure_data __ATTRIBUTE_IMPURE_DATA__;
 /* #define _REENT_ONLY define this to get only reentrant routines */
 
 #if defined(__DYNAMIC_REENT__) && !defined(__SINGLE_THREAD__)
+/* With gcc's amigaos thread model, a thread's reent is its value of the
+   libgcc key __reent_key: the main task's is _impure_ptr, another thread
+   gets its own from __getreent() when it first needs it, and libgcc frees
+   it when the thread ends.  libgcc keeps the running thread's key values
+   at __gthread_amigaos_values (gthr-amigaos.h), so this is two loads.
+   A thread's reent doesn't change while it runs, so __getreent() is
+   const.  See libc/sys/amigaos/__getreent.c.  */
 #ifndef __getreent
- __stdargs struct _reent * __getreent (void);
+ __stdargs struct _reent * __getreent (void) __attribute__ ((__const__));
 #endif
-# define _REENT (__getreent())
+extern unsigned int __reent_key;
+extern const void *const *__gthread_amigaos_values;
+static __inline__ __attribute__ ((__always_inline__)) struct _reent *
+__amiga_reent (void)
+{
+  struct _reent *__r = (struct _reent *) (__UINTPTR_TYPE__)
+    __gthread_amigaos_values[__reent_key];
+
+  return __r ? __r : __getreent ();
+}
+# define _REENT (__amiga_reent ())
 #else /* __SINGLE_THREAD__ || !__DYNAMIC_REENT__ */
 # define _REENT _impure_ptr
 #endif /* __SINGLE_THREAD__ || !__DYNAMIC_REENT__ */
