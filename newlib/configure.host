@@ -781,6 +781,19 @@ newlib_cflags="${newlib_cflags} -DCLOCK_PROVIDED -DMALLOC_PROVIDED -DEXIT_PROVID
 	# file, whose struct __lock and lock types do not match sys/lock.h.
 	NEWLIB_RETARGETABLE_LOCKING_TRUE='#'
 	NEWLIB_RETARGETABLE_LOCKING_FALSE=
+	# With gcc's amigaos thread model and the locks, errno and the
+	# rest of struct _reent are per thread, in a key of libgcc's: see
+	# libc/sys/amigaos/__getreent.c.  The keys are in libgcc only with
+	# that model, so ask the compiler for it.
+	if test "${newlib_retargetable_locking}" = yes; then
+	  case `${CC} -v 2>&1 | sed -n 's/^Thread model: //p'` in
+	    amigaos)
+	      newlib_amigaos_threads=yes
+	      # __getreent.c then has the __getreent() for _REENT.
+	      newlib_cflags="${newlib_cflags} -DGETREENT_PROVIDED"
+	      ;;
+	  esac
+	fi
 	;;
   m68k-unknown-elf)
 	newlib_cflags="${newlib_cflags} -DHAVE_RENAME -DHAVE_SYSTEM -DMISSING_SYSCALL_NAMES"

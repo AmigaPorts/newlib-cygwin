@@ -16,6 +16,17 @@ extern "C" {
 #else /* _REENT_THREAD_LOCAL */
 
 #ifndef _REENT_ONLY
+#if defined(__DYNAMIC_REENT__) && !defined(__SINGLE_THREAD__)
+/* The thread's errno, out of line and under a name of its own:
+   libstdc++ is built with these headers once and linked with libnix and
+   clib2 as well, whose errno is their own, and libnix's __errno is data,
+   not a function.  Each of them defines __amigaos_errno().  A thread's
+   errno doesn't move, so it is const: one call serves a whole function.
+   See libc/sys/amigaos/__getreent.c.  */
+#define errno (*__amigaos_errno())
+extern __stdargs int *__amigaos_errno (void) __attribute__ ((__const__));
+extern __stdargs int *__errno (void);
+#else
 #define errno (*__errno())
 #ifdef __NO_INLINE__
 extern __stdargs int *__errno (void);
@@ -25,6 +36,7 @@ __errno ()
 {
   return &_REENT->_errno;
 }
+#endif
 #endif
 #endif
 

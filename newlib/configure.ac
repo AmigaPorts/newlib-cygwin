@@ -545,6 +545,10 @@ if test "${newlib_retargetable_locking}" = "yes"; then
   AC_DEFINE(_RETARGETABLE_LOCKING, 1, [Define if using retargetable functions for default lock routines.])
 fi
 
+if test "${newlib_amigaos_threads}" = "yes"; then
+  AC_DEFINE(_AMIGAOS_THREADS, 1, [Define if errno and the reent are per thread of gcc's amigaos thread model.])
+fi
+
 if test "${newlib_long_time_t}" = "yes"; then
   AC_DEFINE(_WANT_USE_LONG_TIME_T, 1, [Define to use type long for time_t.])
 fi
