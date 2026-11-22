@@ -314,30 +314,6 @@ __regargs char* __sys_alloc(unsigned sz) {
 	return (char*) p;
 }
 
-//==============================================================================
-// The heap's own lock, so several tasks can share it.  _malloc_r(),
-// _free_r() and through them realloc() and calloc() take it around every
-// change to the tree, the block lists and rawMem.  Nothing under it
-// allocates from this heap again, so it needn't nest as newlib's
-// recursive __malloc_lock() does: a plain lock.
-
-#include <sys/lock.h>
-
-__LOCK_INIT(static, __malloc_mutex);
-
-// Holds the lock for the scope it is declared in.
-struct HeapLock {
-	inline HeapLock() {
-		__lock_acquire(__malloc_mutex);
-	}
-	inline ~HeapLock() {
-		__lock_release(__malloc_mutex);
-	}
-private:
-	HeapLock(HeapLock const&);
-	HeapLock& operator =(HeapLock const&);
-};
-
 extern "C" void
 __free_all(void);
 
@@ -546,7 +522,6 @@ __regargs void MemMap::put(Leaf *leaf) {
 static MemMap heapMem;
 
 __regargs char* MemMap::alloc(unsigned sz) {
-	HeapLock lock;
 	/* The rounding below, and the 4 bytes __sys_alloc() adds, must not wrap
 	   a huge request into a small one.  */
 	if (sz > ~0u - sizeof(MemMap::Node) - MINSIZE - 4)
@@ -621,7 +596,6 @@ __regargs void MemMap::free(char *p) {
 	if (!p)
 		return;
 
-	HeapLock lock;
 	MemMap::Node *node = (MemMap::Node*) p - 1;
 	unsigned sz = node->size;
 	if (sz >= MAXSIZE) {
@@ -708,7 +682,9 @@ extern "C" void free(void *p) {
 }
 #endif
 
-extern "C" void* _malloc_r(struct _reent *r, unsigned sz) {
+// The allocator's two entry points: realloc() and calloc() are built on
+// them.  They take no lock.
+extern "C" void* __malloc_unlocked_r(struct _reent *r, unsigned sz) {
 	void *p = heapMem.alloc(sz);
 	DPRINTF(("malloc(%ld) = %08lx\n", sz, (unsigned )p));
 	if (!p)
@@ -716,11 +692,31 @@ extern "C" void* _malloc_r(struct _reent *r, unsigned sz) {
 	return p;
 }
 
-extern "C" void _free_r(struct _reent *r, void *p) {
+extern "C" void __free_unlocked_r(struct _reent *r, void *p) {
 	DPRINTF(("free(%08lx)\n", (unsigned )p));
 	if (p)
 		heapMem.free((char*) p);
 }
+
+// In a program without threads, _malloc_r() and _free_r() are other names
+// of the two above.  They are weak: with -pthread, gcc links
+// newlib-threads.o (threads.c) before libc, whose _malloc_r() and
+// _free_r() take a lock around them.
+#if __GNUC__ >= 16
+	extern "C" void* _malloc_r(struct _reent *r, unsigned sz)
+		__attribute__((weak, alias("__malloc_unlocked_r")));
+	extern "C" void _free_r(struct _reent *r, void *p)
+		__attribute__((weak, alias("__free_unlocked_r")));
+#else
+	// gcc for m68k-amigaos has symbol aliases from version 16.
+	extern "C" __attribute__((weak)) void* _malloc_r(struct _reent *r, unsigned sz) {
+		return __malloc_unlocked_r(r, sz);
+	}
+
+	extern "C" __attribute__((weak)) void _free_r(struct _reent *r, void *p) {
+		__free_unlocked_r(r, p);
+	}
+#endif
 
 static __regargs void __free_list(MemMap::Node *p) {
 	while (p) {

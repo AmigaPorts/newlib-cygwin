@@ -3,9 +3,11 @@
    This file is not in libc.a: it is installed as newlib-threads.o, which
    gcc's -pthread links before libc with the amigaos thread model.  Its
    functions are then in the program before the linker looks for them in
-   libc.a, where lock.c has the ones that do nothing, and libc's stdio and
-   malloc() are locked.  A program without -pthread links nothing of
-   this.
+   libc.a, where lock.c has the ones that do nothing, and libc's stdio is
+   locked.  So is the heap: the _malloc_r() and _free_r() here take a lock
+   around the allocator's, where those two names otherwise are the
+   allocator itself (mallocr.cpp).  A program without -pthread links
+   nothing of this.
 
    The locks are gcc's benaphores (<benaphore.h>): a bset to take a lock
    nobody holds, and a sleep in FIFO order when another task has it.  What
@@ -34,6 +36,33 @@ _Static_assert (sizeof (benaphore_recursive_t) <= sizeof (struct __lock),
 
 #define PLAIN(lock) ((benaphore_t *) (lock))
 #define RECURSIVE(lock) ((benaphore_recursive_t *) (lock))
+
+/* The heap's lock.  Nothing under it allocates from the heap again, so a
+   plain lock.  malloc(), free(), realloc() and calloc() all get to the
+   heap through these two.  */
+extern void *__malloc_unlocked_r (struct _reent *r, size_t size);
+extern void __free_unlocked_r (struct _reent *r, void *p);
+
+static benaphore_t heap_lock;
+
+void *
+_malloc_r (struct _reent *r, size_t size)
+{
+  void *p;
+
+  benaphore_lock (&heap_lock);
+  p = __malloc_unlocked_r (r, size);
+  benaphore_unlock (&heap_lock);
+  return p;
+}
+
+void
+_free_r (struct _reent *r, void *p)
+{
+  benaphore_lock (&heap_lock);
+  __free_unlocked_r (r, p);
+  benaphore_unlock (&heap_lock);
+}
 
 /* What every FILE gets whose lock malloc() had no memory for.  It nests,
    so a task may hold two of them at once, as it could two locks of their
