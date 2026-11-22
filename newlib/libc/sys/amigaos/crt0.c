@@ -123,6 +123,9 @@ __stdargs void exit(int rc) {
  * when called from an atexit() handler or a destructor during exit().
  */
 asm("___exit: .globl ___exit");
+/* Tells libgcc, which refers to it weakly, that the program is newlib's:
+   it then starts a thread only once threads.c is linked and has run.  */
+asm("___newlib_crt0: .globl ___newlib_crt0");
 #if defined(__pic__) || defined (__PIC__)
 __saveds
 #endif
