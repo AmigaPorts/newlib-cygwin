@@ -1,61 +1,88 @@
-/* newlib's retargetable locks for m68k-amigaos, on gcc's benaphore
-   (<benaphore.h>): a bset to take a lock nobody holds, and a sleep in
-   FIFO order when another task has it.
+/* libc's locks for a program without threads: functions that do nothing.
 
-   This replaces libc/misc/lock.c, whose locks do nothing: libc.a keeps
-   only the last object of each name.  --enable-newlib-retargetable-locking
-   turns _RETARGETABLE_LOCKING on; without it this file is empty.
+   --enable-newlib-retargetable-locking turns _RETARGETABLE_LOCKING on, and
+   libc then takes its locks through the __retarget_lock_*() functions of
+   sys/lock.h.  With the ones here, a program pays an empty call at each
+   lock.  With -pthread, gcc links newlib-threads.o before libc: its
+   functions of the same names are the real locks, and the linker has no
+   reason to take this file.
 
-   sys/lock.h takes, tries and releases the locks inline; only making and
-   freeing a recursive one are calls here.  These are libc's own locks:
-   none of this is for programs.  The plain locks are bare benaphores
-   where libc declares them.  The static recursive ones are here.  All
-   are zeros, which is unlocked, so nothing needs setting up before the
-   first one.  The dynamic ones, a FILE's lock above all, come from
-   malloc() and go with the heap when the program exits.
-
-   What a lock and an unlock cost a 68000 when nobody else wants the lock,
-   in cycles from the instruction timings (see <benaphore.h>):
-
-	plain lock, malloc()'s too	 70
-	recursive lock, a FILE's	235, or 150 nested
-
-   So each stdio call on a FILE pays about three times what malloc() pays
-   for its lock.
-
-   Interrupt code can't take these locks, as it can't take any lock that
-   sleeps: stdio on a FILE and malloc() are not for interrupt code.  */
+   This replaces libc/misc/lock.c: libc.a keeps only the last object of
+   each name.  Without _RETARGETABLE_LOCKING this file is empty, and libc
+   has no trace of its locks.  */
 
 #include <newlib.h>
 
 #ifdef _RETARGETABLE_LOCKING
 
-#include <stdlib.h>
-#include <string.h>
+#include <stdio.h>
 #include <sys/lock.h>
 
-struct __lock __lock___sfp_recursive_mutex;
-struct __lock __lock___atexit_recursive_mutex;
-struct __lock __lock___malloc_recursive_mutex;
-struct __lock __lock___env_recursive_mutex;
+#define UNUSED __attribute__ ((__unused__))
 
-/* What every lock gets whose malloc() failed.  It nests, so a task may
-   hold two of them at once, as it could two locks of their own.  */
-static struct __lock nomem;
-
-void __retarget_lock_init_recursive(_LOCK_RECURSIVE_T *lock) {
-	struct __lock *l = (struct __lock *)malloc(sizeof *l);
-
-	if (l)
-		memset(l, 0, sizeof *l);
-	else
-		l = &nomem;
-	*lock = l;
+/* A FILE's lock, <sys/stdio.h>.  */
+void
+__retarget_flockfile (FILE *fp __asm ("a0") UNUSED)
+{
 }
 
-void __retarget_lock_close_recursive(_LOCK_RECURSIVE_T l) {
-	if (l != &nomem)
-		free(l);
+void
+__retarget_funlockfile (FILE *fp __asm ("a0") UNUSED)
+{
+}
+
+void
+__retarget_stdio_lock (FILE *fp __asm ("a0") UNUSED)
+{
+}
+
+void
+__retarget_stdio_unlock (FILE *fp __asm ("a0") UNUSED)
+{
+}
+
+/* A FILE's lock: none.  */
+void
+__retarget_lock_init_recursive (_LOCK_T *lock)
+{
+  *lock = 0;
+}
+
+void
+__retarget_lock_close_recursive (_LOCK_T lock UNUSED)
+{
+}
+
+void
+__retarget_lock_acquire (_LOCK_T lock __asm ("a0") UNUSED)
+{
+}
+
+int
+__retarget_lock_try_acquire (_LOCK_T lock __asm ("a0") UNUSED)
+{
+  return 1;
+}
+
+void
+__retarget_lock_release (_LOCK_T lock __asm ("a0") UNUSED)
+{
+}
+
+void
+__retarget_lock_acquire_recursive (_LOCK_T lock __asm ("a0") UNUSED)
+{
+}
+
+int
+__retarget_lock_try_acquire_recursive (_LOCK_T lock __asm ("a0") UNUSED)
+{
+  return 1;
+}
+
+void
+__retarget_lock_release_recursive (_LOCK_T lock __asm ("a0") UNUSED)
+{
 }
 
 #endif /* _RETARGETABLE_LOCKING */
