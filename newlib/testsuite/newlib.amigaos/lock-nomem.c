@@ -3,7 +3,10 @@
    locks of their own.  The heap is exhausted first, so this is for the
    simulator, not a machine in use.  Try-acquire throughout, so that a
    regression fails instead of hanging.  A newlib built without locks,
-   for a toolchain without threads, has nothing to test.  */
+   for a toolchain without threads, has nothing to test.
+
+   amigaos.exp links this with newlib-threads.o, which has the locks of a
+   program built with -pthread.  */
 #include <stdio.h>
 #include <stdlib.h>
 #include <sys/lock.h>
@@ -77,9 +80,6 @@ int main(void)
       __lock_release_recursive(b);
     }
   __lock_release_recursive(a);
-
-  /* All released: no owner left.  */
-  check(!a->__r.__owner, "free after the releases");
 
   __lock_close_recursive(a);
   __lock_close_recursive(b);

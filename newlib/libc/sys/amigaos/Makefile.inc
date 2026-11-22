@@ -41,6 +41,21 @@ $(BUILD_MULTISUBDIR)/newlib-crt0.o: %D%/crt0.o $(BUILD_MULTISUBDIR)
 	$(AM_V_GEN)ln $< $@ >/dev/null 2>/dev/null || cp $< $@
 endif
 
+## threads.c is not in libc.a: gcc's -pthread links it as an object file,
+## before libc, so that its locks are in the program instead of lock.c's.
+toollib_DATA += newlib-threads.o
+newlib-threads.o: %D%/threads.o
+	$(AM_V_at)rm -f $@
+	$(AM_V_GEN)ln $< $@ >/dev/null 2>/dev/null || cp $< $@
+%D%/threads.o: stmp-targ-include
+CLEANFILES += newlib-threads.o
+if HAVE_MULTISUBDIR
+noinst_DATA += $(BUILD_MULTISUBDIR)/newlib-threads.o
+$(BUILD_MULTISUBDIR)/newlib-threads.o: %D%/threads.o $(BUILD_MULTISUBDIR)
+	$(AM_V_at)rm -f $@
+	$(AM_V_GEN)ln $< $@ >/dev/null 2>/dev/null || cp $< $@
+endif
+
 ## Earlier installs put the startup file in toollibdir as crt0.o, where it
 ## would keep shadowing ixemul's; remove it.
 INSTALL_DATA_LOCAL += install-amigaos-remove-crt0

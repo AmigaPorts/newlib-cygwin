@@ -637,9 +637,10 @@ check_PROGRAMS =
 @HAVE_LIBC_SYS_AMIGAOS_DIR_TRUE@	libc/sys/amigaos/msizer.c \
 @HAVE_LIBC_SYS_AMIGAOS_DIR_TRUE@	libc/sys/amigaos/pvallocr.c \
 @HAVE_LIBC_SYS_AMIGAOS_DIR_TRUE@	libc/sys/amigaos/vallocr.c
-@HAVE_LIBC_SYS_AMIGAOS_DIR_TRUE@am__append_45 = newlib-crt0.o
-@HAVE_LIBC_SYS_AMIGAOS_DIR_TRUE@am__append_46 = newlib-crt0.o
-@HAVE_LIBC_SYS_AMIGAOS_DIR_TRUE@@HAVE_MULTISUBDIR_TRUE@am__append_47 = $(BUILD_MULTISUBDIR)/newlib-crt0.o
+@HAVE_LIBC_SYS_AMIGAOS_DIR_TRUE@am__append_45 = newlib-crt0.o newlib-threads.o
+@HAVE_LIBC_SYS_AMIGAOS_DIR_TRUE@am__append_46 = newlib-crt0.o newlib-threads.o
+@HAVE_LIBC_SYS_AMIGAOS_DIR_TRUE@@HAVE_MULTISUBDIR_TRUE@am__append_47 = $(BUILD_MULTISUBDIR)/newlib-crt0.o \
+@HAVE_LIBC_SYS_AMIGAOS_DIR_TRUE@@HAVE_MULTISUBDIR_TRUE@	$(BUILD_MULTISUBDIR)/newlib-threads.o
 @HAVE_LIBC_SYS_AMIGAOS_DIR_TRUE@am__append_48 = install-amigaos-remove-crt0
 @HAVE_LIBC_SYS_ARM_DIR_TRUE@am__append_49 = libc/sys/arm/access.c libc/sys/arm/aeabi_atexit.c libc/sys/arm/sysconf.c
 @HAVE_LIBC_SYS_ARM_DIR_TRUE@@MAY_SUPPLY_SYSCALLS_TRUE@am__append_50 = libc/sys/arm/libcfunc.c libc/sys/arm/trap.S libc/sys/arm/syscalls.c
@@ -53332,6 +53333,13 @@ $(libc_iconv_mkdeps_outputs): @MAINTAINER_MODE_TRUE@ $(srcdir)/libc/iconv/ces/mk
 @HAVE_LIBC_SYS_AMIGAOS_DIR_TRUE@	$(AM_V_GEN)ln $< $@ >/dev/null 2>/dev/null || cp $< $@
 @HAVE_LIBC_SYS_AMIGAOS_DIR_TRUE@libc/sys/amigaos/crt0.o: stmp-targ-include
 @HAVE_LIBC_SYS_AMIGAOS_DIR_TRUE@@HAVE_MULTISUBDIR_TRUE@$(BUILD_MULTISUBDIR)/newlib-crt0.o: libc/sys/amigaos/crt0.o $(BUILD_MULTISUBDIR)
+@HAVE_LIBC_SYS_AMIGAOS_DIR_TRUE@@HAVE_MULTISUBDIR_TRUE@	$(AM_V_at)rm -f $@
+@HAVE_LIBC_SYS_AMIGAOS_DIR_TRUE@@HAVE_MULTISUBDIR_TRUE@	$(AM_V_GEN)ln $< $@ >/dev/null 2>/dev/null || cp $< $@
+@HAVE_LIBC_SYS_AMIGAOS_DIR_TRUE@newlib-threads.o: libc/sys/amigaos/threads.o
+@HAVE_LIBC_SYS_AMIGAOS_DIR_TRUE@	$(AM_V_at)rm -f $@
+@HAVE_LIBC_SYS_AMIGAOS_DIR_TRUE@	$(AM_V_GEN)ln $< $@ >/dev/null 2>/dev/null || cp $< $@
+@HAVE_LIBC_SYS_AMIGAOS_DIR_TRUE@libc/sys/amigaos/threads.o: stmp-targ-include
+@HAVE_LIBC_SYS_AMIGAOS_DIR_TRUE@@HAVE_MULTISUBDIR_TRUE@$(BUILD_MULTISUBDIR)/newlib-threads.o: libc/sys/amigaos/threads.o $(BUILD_MULTISUBDIR)
 @HAVE_LIBC_SYS_AMIGAOS_DIR_TRUE@@HAVE_MULTISUBDIR_TRUE@	$(AM_V_at)rm -f $@
 @HAVE_LIBC_SYS_AMIGAOS_DIR_TRUE@@HAVE_MULTISUBDIR_TRUE@	$(AM_V_GEN)ln $< $@ >/dev/null 2>/dev/null || cp $< $@
 @HAVE_LIBC_SYS_AMIGAOS_DIR_TRUE@install-amigaos-remove-crt0:

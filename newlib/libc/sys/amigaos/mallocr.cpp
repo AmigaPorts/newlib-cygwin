@@ -319,19 +319,19 @@ __regargs char* __sys_alloc(unsigned sz) {
 // _free_r() and through them realloc() and calloc() take it around every
 // change to the tree, the block lists and rawMem.  Nothing under it
 // allocates from this heap again, so it needn't nest as newlib's
-// recursive __malloc_lock() does: a plain lock, a bset and a test inline.
+// recursive __malloc_lock() does: a plain lock.
 
 #include <sys/lock.h>
 
-__LOCK_INIT(static, mutex);
+__LOCK_INIT(static, __malloc_mutex);
 
 // Holds the lock for the scope it is declared in.
 struct HeapLock {
 	inline HeapLock() {
-		__lock_acquire(mutex);
+		__lock_acquire(__malloc_mutex);
 	}
 	inline ~HeapLock() {
-		__lock_release(mutex);
+		__lock_release(__malloc_mutex);
 	}
 private:
 	HeapLock(HeapLock const&);

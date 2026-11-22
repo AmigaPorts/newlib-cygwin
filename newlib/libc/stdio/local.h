@@ -113,18 +113,25 @@
 
 #else /* !__SINGLE_THREAD__ && !__IMPL_UNLOCKED__ && !_STDIO_WITH_THREAD_CANCELLATION_SUPPORT */
 
-# define _newlib_flockfile_start(_fp) \
-	{ \
+/* <sys/stdio.h> may have its own, with the test of __SNLK in them.  */
+# ifndef _flockfile_unless_nolock
+#  define _flockfile_unless_nolock(_fp) \
 		if (!(_fp->_flags2 & __SNLK)) \
 		  _flockfile (_fp)
+#  define _funlockfile_unless_nolock(_fp) \
+		if (!(_fp->_flags2 & __SNLK)) \
+		  _funlockfile(_fp)
+# endif
+
+# define _newlib_flockfile_start(_fp) \
+	{ \
+		_flockfile_unless_nolock (_fp)
 
 # define _newlib_flockfile_exit(_fp) \
-		if (!(_fp->_flags2 & __SNLK)) \
-		  _funlockfile(_fp); \
+		_funlockfile_unless_nolock (_fp); \
 
 # define _newlib_flockfile_end(_fp) \
-		if (!(_fp->_flags2 & __SNLK)) \
-		  _funlockfile(_fp); \
+		_funlockfile_unless_nolock (_fp); \
 	}
 
 # define _newlib_sfp_lock_start() \

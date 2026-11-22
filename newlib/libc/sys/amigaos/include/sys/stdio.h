@@ -4,11 +4,38 @@
 #include <sys/lock.h>
 #include <sys/reent.h>
 
-/* Internal locking, used to protect stdio functions.  As
-   libc/include/sys/stdio.h, but the lock is a few instructions inline
-   for m68k-amigaos (sys/lock.h), so the usual case, a FILE that is not
-   private to sprintf/sscanf, is the straight path.  */
-#ifndef __SINGLE_THREAD__
+/* Internal locking, used to protect stdio functions.  */
+#if defined(_RETARGETABLE_LOCKING)
+
+	#ifdef __cplusplus
+	extern "C" {
+	#endif
+
+	/* A FILE's lock is a call with the FILE in a0, to lock.c's functions
+	   that do nothing or, with -pthread, to threads.c's.  Those test
+	   whether the FILE has a lock to take, so that libc's stdio functions
+	   have only the call: __retarget_flockfile() leaves out the FILE of
+	   sprintf() and friends, as flockfile() does, and
+	   __retarget_stdio_lock() also a FILE whose locking the program took
+	   over with __fsetlocking().  */
+	extern void __retarget_flockfile(__FILE *__fp __asm("a0"));
+	extern void __retarget_funlockfile(__FILE *__fp __asm("a0"));
+	extern void __retarget_stdio_lock(__FILE *__fp __asm("a0"));
+	extern void __retarget_stdio_unlock(__FILE *__fp __asm("a0"));
+
+	#ifdef __cplusplus
+	}
+	#endif
+
+	#define _flockfile(fp)		__retarget_flockfile(fp)
+	#define _funlockfile(fp)	__retarget_funlockfile(fp)
+
+	/* For libc/stdio/local.h, in place of its test of __SNLK around
+	   _flockfile().  */
+	#define _flockfile_unless_nolock(fp)	__retarget_stdio_lock(fp)
+	#define _funlockfile_unless_nolock(fp)	__retarget_stdio_unlock(fp)
+
+#elif !defined(__SINGLE_THREAD__)
 
 	/* As <stdio.h> defines it, after it includes this header.  */
 	#define	__SSTR	0x0200
