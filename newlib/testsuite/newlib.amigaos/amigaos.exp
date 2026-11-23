@@ -6,19 +6,22 @@ if { ![istarget m68k-*-amigaos*] } {
 
 load_lib passfail.exp
 
-newlib_pass_fail_all -x [list lock-nomem.c]
+set thread_tests [list lock-nomem.c reent-thread.c]
+newlib_pass_fail_all -x $thread_tests
 
-# lock-nomem.c tests the locks of a program with threads, which are in
-# newlib-threads.o.  -pthread would link it, and libpthread too, which the
-# test has no use for.
-set driver "$tmpdir/lock-nomem.x"
-set comp_output [newlib_target_compile "$srcdir/$subdir/lock-nomem.c" "$driver" \
-		     "executable" "ldflags=-l:newlib-threads.o"]
-if { $comp_output != "" } {
-    fail "$subdir/lock-nomem.c compilation"
-    unresolved "$subdir/lock-nomem.c execution"
-} else {
-    pass "$subdir/lock-nomem.c compilation"
-    set status [lindex [newlib_load $driver ""] 0]
-    $status "$subdir/lock-nomem.c execution"
+# These test the locks and the reents of a program with threads, which are
+# in newlib-threads.o.  -pthread would link it, and libpthread too, which
+# the tests have no use for.
+foreach test $thread_tests {
+    set driver "$tmpdir/[file rootname $test].x"
+    set comp_output [newlib_target_compile "$srcdir/$subdir/$test" "$driver" \
+			 "executable" "ldflags=-l:newlib-threads.o"]
+    if { $comp_output != "" } {
+	fail "$subdir/$test compilation"
+	unresolved "$subdir/$test execution"
+    } else {
+	pass "$subdir/$test compilation"
+	set status [lindex [newlib_load $driver ""] 0]
+	$status "$subdir/$test execution"
+    }
 }
