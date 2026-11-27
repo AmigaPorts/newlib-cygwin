@@ -9,6 +9,7 @@ extern int __divsi3(int, int);
 extern int __modsi3(int, int);
 extern unsigned __udivsi3(unsigned, unsigned);
 extern unsigned __umodsi3(unsigned, unsigned);
+extern unsigned __mulsi3(unsigned, unsigned);
 
 int main(void)
 {
@@ -44,6 +45,34 @@ int main(void)
     ++checks;
     if (__udivsi3(0x80000000U, 0x7fffffffU) != 1 || __umodsi3(0x80000000U, 0x7fffffffU) != 1)
         ++failures;
+
+    /* Divisors wider than 16 bits, and the last three, where a quotient
+       estimated from the top 16 bits of the divisor is one too large. */
+    static const struct { unsigned numerator, denominator, quotient, remainder; } wide[] = {
+        { 0xfedcba98U, 123457U, 34634U, 0x10cceU },
+        { 0xfedcba98U, 0x01234567U, 224U, 0x78U },
+        { 0xfedcba98U, 0x40000001U, 3U, 0x3edcba95U },
+        { 0x8000fffeU, 0x8000ffffU, 0U, 0x8000fffeU },
+        { 0x8000fffdU, 0x40007fffU, 1U, 0x40007ffeU },
+        { 0xfffffffeU, 0xffffffffU, 0U, 0xfffffffeU },
+    };
+    for (unsigned i = 0; i < sizeof wide / sizeof wide[0]; ++i) {
+        ++checks;
+        if (__udivsi3(wide[i].numerator, wide[i].denominator) != wide[i].quotient
+            || __umodsi3(wide[i].numerator, wide[i].denominator) != wide[i].remainder)
+            ++failures;
+    }
+
+    static const struct { unsigned a, b, product; } products[] = {
+        { 0, 0xffffffffU, 0 }, { 1, 0x80000000U, 0x80000000U },
+        { 0xffffU, 0xffffU, 0xfffe0001U }, { 0x12345678U, 0x9abcdefU, 0xe242d208U },
+        { 0xffffffffU, 0xffffffffU, 1 }, { 123457U, 34640U, 0xfee6fb50U },
+    };
+    for (unsigned i = 0; i < sizeof products / sizeof products[0]; ++i) {
+        ++checks;
+        if (__mulsi3(products[i].a, products[i].b) != products[i].product)
+            ++failures;
+    }
 
     /* mktime() also references the C library div() implementation. */
     setenv("TZ", "UTC0", 1);
