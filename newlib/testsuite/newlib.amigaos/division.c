@@ -1,15 +1,11 @@
-/* Exercise both the C library division functions and compiler helpers.
+/* Exercise both the C library division functions and the compiler's
+   arithmetic: on the 68000, gcc calls libgcc's __mulsi3, __udivsi3,
+   __umodsi3, __divsi3 and __modsi3 for *, / and % of volatile operands.
    Referencing both must not introduce duplicate div/ldiv symbols.  */
 #include <limits.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-
-extern int __divsi3(int, int);
-extern int __modsi3(int, int);
-extern unsigned __udivsi3(unsigned, unsigned);
-extern unsigned __umodsi3(unsigned, unsigned);
-extern unsigned __mulsi3(unsigned, unsigned);
 
 int main(void)
 {
@@ -22,12 +18,11 @@ int main(void)
         { INT_MIN, -3, 715827882, -2 }, { INT_MAX, 3, 715827882, 1 },
         { INT_MIN, INT_MIN, 1, 0 }, { INT_MAX, INT_MIN, 0, INT_MAX }
     };
-    div_t (*volatile division)(int, int) = div;
-    ldiv_t (*volatile longDivision)(long, long) = ldiv;
     unsigned checks = 0, failures = 0;
     for (unsigned i = 0; i < sizeof cases / sizeof cases[0]; ++i) {
-        div_t a = division(cases[i].numerator, cases[i].denominator);
-        ldiv_t b = longDivision(cases[i].numerator, cases[i].denominator);
+        volatile int n = cases[i].numerator, d = cases[i].denominator;
+        div_t a = div(n, d);
+        ldiv_t b = ldiv(n, d);
         ++checks;
         if (a.quot != cases[i].quotient || a.rem != cases[i].remainder)
             ++failures;
@@ -35,15 +30,18 @@ int main(void)
         if (b.quot != cases[i].quotient || b.rem != cases[i].remainder)
             ++failures;
         ++checks;
-        if (__divsi3(cases[i].numerator, cases[i].denominator) != cases[i].quotient
-            || __modsi3(cases[i].numerator, cases[i].denominator) != cases[i].remainder)
+        if (n / d != cases[i].quotient || n % d != cases[i].remainder)
             ++failures;
     }
+
+    volatile unsigned u = UINT_MAX, v = 3;
     ++checks;
-    if (__udivsi3(UINT_MAX, 3) != 1431655765U || __umodsi3(UINT_MAX, 3))
+    if (u / v != 1431655765U || u % v)
         ++failures;
+    u = 0x80000000U;
+    v = 0x7fffffffU;
     ++checks;
-    if (__udivsi3(0x80000000U, 0x7fffffffU) != 1 || __umodsi3(0x80000000U, 0x7fffffffU) != 1)
+    if (u / v != 1 || u % v != 1)
         ++failures;
 
     /* Divisors wider than 16 bits, and the last three, where a quotient
@@ -57,9 +55,10 @@ int main(void)
         { 0xfffffffeU, 0xffffffffU, 0U, 0xfffffffeU },
     };
     for (unsigned i = 0; i < sizeof wide / sizeof wide[0]; ++i) {
+        u = wide[i].numerator;
+        v = wide[i].denominator;
         ++checks;
-        if (__udivsi3(wide[i].numerator, wide[i].denominator) != wide[i].quotient
-            || __umodsi3(wide[i].numerator, wide[i].denominator) != wide[i].remainder)
+        if (u / v != wide[i].quotient || u % v != wide[i].remainder)
             ++failures;
     }
 
@@ -69,8 +68,10 @@ int main(void)
         { 0xffffffffU, 0xffffffffU, 1 }, { 123457U, 34640U, 0xfee6fb50U },
     };
     for (unsigned i = 0; i < sizeof products / sizeof products[0]; ++i) {
+        u = products[i].a;
+        v = products[i].b;
         ++checks;
-        if (__mulsi3(products[i].a, products[i].b) != products[i].product)
+        if (u * v != products[i].product)
             ++failures;
     }
 
